@@ -1979,7 +1979,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · df80220505</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · c06a2abc54</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -5966,18 +5966,30 @@ function fuLive(txt) {
   if (now - fu.last < 4000 && s.ammoT != null) return;
   if (s.ammoT == null || Math.abs(s.ammoT - v) >= 0.2) { fu.last = now; s.ammoT = v; fillShot(); changed(); }
 }
+async function fuAttach(d) {
+  const srv = await d.gatt.connect(), svc = await srv.getPrimaryService(DEV.svc), live = await svc.getCharacteristic(DEV.live);
+  live.addEventListener("characteristicvaluechanged", e => fuLive(new TextDecoder().decode(e.target.value)));
+  await live.startNotifications();
+  try { fuLive(new TextDecoder().decode(await live.readValue())); } catch (e) {}
+}
+// Nach einem Abbruch (Funkloch, Fühler kurz außer Reichweite) bis zu 5-mal neu verbinden: nach 2, 4, 8, 16, 32 s
+function fuRetry(d, n) {
+  if (n >= 5 || fu.manual || fu.device !== d) { fuState(tr("Fühler getrennt. Der letzte Wert bleibt stehen. Zum Verbinden den Knopf antippen.", "Sensor disconnected. The last value is kept. Tap the button to reconnect.")); return; }
+  setTimeout(async () => {
+    if (fu.manual || d.gatt.connected) return;
+    try { await fuAttach(d); fuState(); } catch (e) { fuRetry(d, n + 1); }
+  }, 2000 * 2 ** n);
+}
 async function fuConnect() {
-  if (fu.device && fu.device.gatt.connected) { fu.device.gatt.disconnect(); return; }
+  if (fu.device && fu.device.gatt.connected) { fu.manual = true; fu.device.gatt.disconnect(); return; }
   if (!navigator.bluetooth) { fuState(tr("Bluetooth braucht Chrome oder Edge (Android, Computer) oder Bluefy (iPhone).", "Bluetooth needs Chrome or Edge (Android, computer) or Bluefy (iPhone).")); return; }
   try {
     const d = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: "Flugbahn F" }], optionalServices: [DEV.svc] });
     fu.device = d;
-    d.addEventListener("gattserverdisconnected", () => { fu.data = null; fuState(tr("Fühler getrennt. Der letzte Wert bleibt stehen.", "Sensor disconnected. The last value is kept.")); });
+    fu.manual = false;
+    d.addEventListener("gattserverdisconnected", () => { fu.data = null; if (fu.manual) { fuState(); return; } fuState(tr("Fühler getrennt, verbinde neu …", "Sensor disconnected, reconnecting …")); fuRetry(d, 0); });
     fuState(tr("Verbinde …", "Connecting …"));
-    const srv = await d.gatt.connect(), svc = await srv.getPrimaryService(DEV.svc), live = await svc.getCharacteristic(DEV.live);
-    live.addEventListener("characteristicvaluechanged", e => fuLive(new TextDecoder().decode(e.target.value)));
-    await live.startNotifications();
-    try { fuLive(new TextDecoder().decode(await live.readValue())); } catch (e) {}
+    await fuAttach(d);
     fuState();
   } catch (er) { fuState(er && er.name === "NotFoundError" ? null : tr("Verbindung nicht möglich: ", "Could not connect: ") + (er.message || er)); }
 }
