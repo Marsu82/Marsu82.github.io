@@ -46,6 +46,7 @@
     <li><a href="#buch">Buch</a></li>
     <li><a href="#extras">Extras</a></li>
     <li><a href="#geraete">Messgeräte und Windradar</a></li>
+    <li><a href="#flinte">Flinte</a></li>
     <li><a href="#ki">KI und Assistenten</a></li>
     <li><a href="#abgleich">Abgleichen</a></li>
     <li><a href="#anzeige">Anzeige und Bedienung</a></li>
@@ -63,6 +64,7 @@
   <div class="tip">Die Ergebnisse sind Rechenwerte. Prüfe sie immer am Schießstand, bevor du dich im Revier darauf verlässt.</div>
 
   <h2 id="profil">Profil</h2>
+  <p class="tip"><b>Neues Profil anlegen:</b> oben unter der Profilauswahl auf <b>„+ Neu“</b> tippen. Die App kopiert das aktuelle Profil, springt zum Reiter Profil und markiert den Namen. Namen überschreiben, dann unter <i>Fabrikmunition</i> deine Ladung suchen und unter <i>Zielfernrohr</i> dein Glas wählen. Gespeichert wird automatisch.</p>
   <h3>Geschoss und Luftwiderstand</h3>
   <ul>
     <li><b>Fabrikmunition</b> setzt Geschoss, BC und Hersteller-V0. Die V0 gilt für den Testlauf des Herstellers. Aus kürzeren Läufen ist sie niedriger.</li>
@@ -125,6 +127,24 @@
     <li><b>Treffermelder:</b> Stahlziele mit Funk-Treffermelder erscheinen unter dem Windradar. Jeder Treffer piept und vibriert.</li>
     <li><b>Laufthermometer:</b> Steckt der Munitionsfühler in einem Clip am Lauf, „Fühler am Lauf“ wählen. Die App warnt ab der eingestellten Temperatur.</li>
     <li>Ohne Geräte arbeitet das Windradar mit den Windzonen, die du von Hand einträgst.</li>
+  </ul>
+
+  <h3 id="uebertragung">So kommen die Daten ins Handy</h3>
+  <ol>
+    <li><b>Bluetooth (bis ca. 10–30 m):</b> Handgerät, Wetterstation, Funkbrücke und Funkfühler verbinden sich direkt mit dem Handy. In der App „Messgerät verbinden“ (bzw. „Fühler verbinden“) antippen, Android zeigt die gefundenen Flugbahn-Geräte, eins auswählen. Koppeln in den Android-Einstellungen ist nicht nötig. Es braucht Chrome oder Edge; auf dem iPhone den Browser Bluefy.</li>
+    <li><b>Was übertragen wird:</b> Jedes Gerät schickt seine Messwerte als kurze Textzeile, das Handgerät jede Sekunde, der Funkfühler alle 5 s. Beispiel: <kbd>{"t":14.2,"p":987.4,"h":61,"wa":3.1,"wd":90,"at":21.4,"bat":80}</kbd> = Luft 14,2 °C, Druck 987,4 hPa, Feuchte 61 %, Wind 3,1 m/s aus 3 Uhr, Munition 21,4 °C, Akku 80 %. Welche Werte die App übernimmt, stellst du mit den Haken unter dem Knopf ein. Neu gerechnet wird höchstens alle 2 s.</li>
+    <li><b>LoRa-Funk über die Strecke (bis 1200 m):</b> Bluetooth reicht nicht so weit. Die Stationen an der Bahn und die Treffermelder am Ziel funken deshalb auf 868 MHz (in der EU anmeldefrei) alle 2 s ein kleines Paket an die Funkbrücke am Schützen. Die Brücke sammelt bis zu 6 Windzonen und 8 Ziele und gibt alles in einer Meldung per Bluetooth ans Handy. Fehlende Pakete zeigt die App als Paketverlust.</li>
+    <li><b>Zurück zum Gerät:</b> Die App schickt die Feuerleitlösung (Höhe, Seite, Klicks, Drehrichtung) ans Handgerät. Sie steht dann auch auf dessen Display.</li>
+    <li><b>Munitionsfühler:</b> am Kabel ins Handgerät gesteckt, dann geht die Temperatur mit dessen Daten mit. Oder der <b>Funkfühler</b> mit eigenem Akku: <i>Schuss → Korrekturen → „Fühler verbinden“</i>. Er sendet alle 5 s Temperatur und Akkustand und schläft ohne Verbindung nach 10 Minuten ein.</li>
+  </ol>
+  <p class="tip">Es gibt keine Cloud und kein Konto. Die Messwerte gehen nur zwischen deinen Geräten hin und her und werden nirgends hochgeladen.</p>
+
+  <h2 id="flinte">Flinte</h2>
+  <p>Unter <b>Extras → Flinte</b> wählst du Schrotmaterial, Schrotgröße, Vorlage, Geschwindigkeit, Würgebohrung und Wildart. Die Tabelle zeigt für jede Entfernung Geschwindigkeit und Energie pro Schrotkorn, den Garbendurchmesser, die zu erwartenden Treffer im Kill-Bereich und den Vorhalt. Daraus ergibt sich, bis zu welcher Entfernung der Schuss sinnvoll ist, und der Gefahrenbereich.</p>
+  <ul>
+    <li><b>Stahlschrot:</b> Hinweise zu Größe, Bleiverbot und Würgebohrung. Bei 3/4 oder Voll mit Stahl warnt die App.</li>
+    <li><b>Garbe per Foto:</b> Unter <i>Trefferbild per Foto</i> „Schrotgarbe zählen“ anhaken. Dann Mitte und Rand des 75-cm-Kreises antippen, die App zählt die Schrote im Kreis.</li>
+    <li><b>Flintenlaufgeschoss:</b> „Als Profil anlegen“ erstellt ein Profil mit typischen Werten der Bauart. Danach funktionieren alle Büchsen-Funktionen. Werte der Packung eintragen und abgleichen.</li>
   </ul>
 
   <h2 id="ki">KI und Assistenten</h2>

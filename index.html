@@ -7,7 +7,7 @@
 <meta name="description" content="Flugbahn: Ballistikrechner für Stand und Revier, offline, ohne Werbung und ohne Abo. Dazu eigene Wetterstation, Handgerät und Funk-Windmesser bis 1200 m zum Selberbauen.">
 <meta name="theme-color" content="#2E3320">
 <meta property="og:title" content="Flugbahn – Ballistikrechner und Windmessung">
-<meta property="og:description" content="Feuerlösung in Sekunden, offline. Windradar mit eigenen Funkstationen bis 1200 m.">
+<meta property="og:description" content="Feuerleitlösung in Sekunden, offline. Windradar mit eigenen Funkstationen bis 1200 m.">
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://marsu82.github.io/">
 <meta property="og:image" content="https://marsu82.github.io/bilder/vorschau.jpg">
@@ -84,6 +84,7 @@
   <nav class="links">
     <a class="opt" href="#app"><span class="de">App</span><span class="en">App</span></a>
     <a class="opt" href="#geraete"><span class="de">Messgeräte</span><span class="en">Devices</span></a>
+    <a class="opt" href="#daten"><span class="de">Datenfluss</span><span class="en">Data flow</span></a>
     <a class="opt" href="#bauen"><span class="de">Selbst bauen</span><span class="en">Build</span></a>
     <a href="app/"><span class="de">App öffnen</span><span class="en">Open app</span></a>
     <button class="lang" type="button" id="lang">EN</button>
@@ -93,7 +94,7 @@
 <div class="hero"><div class="wrap">
   <div>
     <h1 class="cond"><span class="de">Treffen statt raten.</span><span class="en">Hit, don't guess.</span></h1>
-    <p class="de">Flugbahn rechnet deine Feuerlösung in Sekunden, auch ohne Netz am Stand oder im Revier. Mit eigenen Funk-Windmessern siehst du den Wind entlang der ganzen Bahn bis 1200 m.</p>
+    <p class="de">Flugbahn rechnet deine Feuerleitlösung in Sekunden, auch ohne Netz am Stand oder im Revier. Mit eigenen Funk-Windmessern siehst du den Wind entlang der ganzen Bahn bis 1200 m.</p>
     <p class="en">Flugbahn gives you a firing solution in seconds, even without signal at the range or in the field. With your own radio wind meters you see the wind along the whole bullet path up to 1200 m.</p>
     <div class="btns">
       <a class="btn pri" href="#" aria-disabled="true" title="Bald verfügbar"><span class="de">Google Play – bald</span><span class="en">Google Play – soon</span></a>
@@ -101,7 +102,7 @@
     </div>
     <div class="badges"><span class="de">Einmalkauf</span><span class="en">One-time purchase</span><span class="de">Keine Werbung, kein Abo</span><span class="en">No ads, no subscription</span><span class="de">Offline</span><span class="en">Offline</span><span class="de">Deutsch und Englisch</span><span class="en">German and English</span></div>
   </div>
-  <img src="bilder/handy-schuss.webp" width="420" height="910" alt="Flugbahn: Feuerlösung mit Turmrichtung und Absehen">
+  <img src="bilder/handy-schuss.webp" width="420" height="910" alt="Flugbahn: Feuerleitlösung mit Turmrichtung und Absehen">
 </div></div>
 
 <main>
@@ -110,16 +111,17 @@
   <p class="lead de">Für Sportschützen, Jäger und PRS. Alle Daten bleiben auf deinem Handy, es gibt kein Konto.</p>
   <p class="lead en">For target shooters, hunters and PRS. All data stays on your phone, no account needed.</p>
   <div class="shots">
-    <figure><img src="bilder/handy-schuss.webp" width="420" height="910" loading="lazy" alt=""><figcaption class="de">Feuerlösung mit Turmrichtung</figcaption><figcaption class="en">Firing solution with turret direction</figcaption></figure>
+    <figure><img src="bilder/handy-schuss.webp" width="420" height="910" loading="lazy" alt=""><figcaption class="de">Feuerleitlösung mit Turmrichtung</figcaption><figcaption class="en">Firing solution with turret direction</figcaption></figure>
     <figure><img src="bilder/handy-windradar.webp" width="420" height="746" loading="lazy" alt=""><figcaption class="de">Windradar und Treffermelder</figcaption><figcaption class="en">Wind radar and hit detector</figcaption></figure>
     <figure><img src="bilder/handy-ziele.webp" width="420" height="910" loading="lazy" alt=""><figcaption class="de">Mehrere Ziele auf einen Blick</figcaption><figcaption class="en">Multiple targets at a glance</figcaption></figure>
     <figure><img src="bilder/handy-nacht.webp" width="420" height="910" loading="lazy" alt=""><figcaption class="de">Rotlicht-Modus für die Nacht</figcaption><figcaption class="en">Red-light mode for the night</figcaption></figure>
   </div>
   <div class="grid">
-    <div class="card"><h3><span class="de">Feuerlösung</span><span class="en">Firing solution</span></h3><ul class="de"><li>Höhe und Seite in MRAD oder MOA, mit Klicks</li><li>Drehrichtung für über 270 Zielfernrohre</li><li>46 Herstellerabsehen mit echten Teilungen</li><li>Warnung, wenn der Verstellbereich endet</li></ul><ul class="en"><li>Elevation and windage in MRAD or MOA, with clicks</li><li>Turret direction for 270+ riflescopes</li><li>46 manufacturer reticles with real subtensions</li><li>Warning when elevation travel runs out</li></ul></div>
+    <div class="card"><h3><span class="de">Feuerleitlösung</span><span class="en">Firing solution</span></h3><ul class="de"><li>Höhe und Seite in MRAD oder MOA, mit Klicks</li><li>Drehrichtung für über 270 Zielfernrohre</li><li>46 Herstellerabsehen mit echten Teilungen</li><li>Warnung, wenn der Verstellbereich endet</li></ul><ul class="en"><li>Elevation and windage in MRAD or MOA, with clicks</li><li>Turret direction for 270+ riflescopes</li><li>46 manufacturer reticles with real subtensions</li><li>Warning when elevation travel runs out</li></ul></div>
     <div class="card"><h3><span class="de">Physik</span><span class="en">Physics</span></h3><ul class="de"><li>G1/G7, BC-Staffeln oder eigene Widerstandskurve</li><li>Wetter per Standort, Kestrel-Import</li><li>Drall, Coriolis, Pulvertemperatur</li><li>Kurve aus deinen Treffern abgleichen</li></ul><ul class="en"><li>G1/G7, banded BCs or your own drag curve</li><li>Weather by location, Kestrel import</li><li>Spin drift, Coriolis, powder temperature</li><li>True the curve from your hits</li></ul></div>
     <div class="card"><h3><span class="de">Daten</span><span class="en">Data</span></h3><ul class="de"><li>Über 1.700 Geschosse von Herstellerangaben</li><li>Über 2.400 Fabrikladungen in 180 Kalibern</li><li>Profile per QR-Code teilen</li><li>Schussbuch, Streckenbuch, Schusstafel</li></ul><ul class="en"><li>1,700+ bullets from manufacturer data</li><li>2,400+ factory loads in 180 calibers</li><li>Share profiles by QR code</li><li>Shot log, harvest log, range card</li></ul></div>
     <div class="card"><h3><span class="de">KI auf dem Gerät</span><span class="en">On-device AI</span></h3><ul class="de"><li>Trefferbild per Foto auswerten</li><li>Fahnenwinkel live per Kamera</li><li>Sprachsteuerung und Sprachausgabe</li><li>Windprognose und Windlese-Trainer</li></ul><ul class="en"><li>Score your group from a photo</li><li>Live flag angle by camera</li><li>Voice control and spoken corrections</li><li>Wind forecast and wind reading trainer</li></ul></div>
+    <div class="card"><h3><span class="de">Flinte</span><span class="en">Shotgun</span></h3><ul class="de"><li>Energie je Schrotkorn und Garbe nach Würgebohrung</li><li>Sinnvolle Höchstentfernung je Wildart</li><li>Vorhalt und Gefahrenbereich</li><li>Flintenlaufgeschosse, Garbe per Foto zählen</li></ul><ul class="en"><li>Energy per pellet and pattern by choke</li><li>Ethical maximum range per game</li><li>Lead and danger zone</li><li>Slugs, count the pattern from a photo</li></ul></div>
   </div>
 </div></section>
 
@@ -135,6 +137,11 @@
       <ul class="de"><li>Reichweite bis 1200 m mit Paketverlust-Anzeige</li><li>Akku und Solar, Stativ oder Sandsack</li><li>Treffermelder für Stahlziele</li></ul>
       <ul class="en"><li>Range up to 1200 m with packet-loss display</li><li>Battery and solar, tripod or sandbag</li><li>Hit detector for steel targets</li></ul></div></div>
 
+  <div class="dev"><img src="bilder/flinte.webp" width="900" height="633" loading="lazy" alt="Schrotpatronen-Halter, Choke-Etui, Gürtel-Clip und Funkfühler">
+    <div class="txt"><h3><span class="de">Funkfühler und Flinten-Zubehör</span><span class="en">Wireless sensor and shotgun accessories</span></h3>
+      <p class="de">Der <b>Funkfühler</b> hängt an der Patronenbox und meldet die Munitionstemperatur alle 5 s per Bluetooth ans Handy, mit eigenem Akku und USB-C. Dazu zum Drucken: Schrotpatronen-Halter für 25 Patronen, Gürtel-Clip und Choke-Etui mit Beschriftung.</p>
+      <p class="en">The <b>wireless sensor</b> hangs on the ammo box and sends the ammo temperature to the phone by Bluetooth every 5 s, with its own battery and USB-C. Also to print: a 25-round shotshell holder, a belt clip and a labelled choke case.</p></div></div>
+
   <div class="dev rev"><img src="bilder/handgeraet.webp" width="434" height="1284" loading="lazy" alt="Handgerät">
     <div class="txt"><h3><span class="de">Handgerät</span><span class="en">Handheld</span></h3>
       <p class="de">Rundes Touch-Display, Flügelrad, Temperatur, Luftdruck, Feuchte und Kompass. Es schickt die Werte direkt in die App, auch die Munitionstemperatur.</p>
@@ -143,6 +150,56 @@
   <img class="wide" src="bilder/farben.webp" width="1000" height="202" loading="lazy" alt="Handgerät in sechs Farben und Tarnmustern">
   <p class="lead de" style="margin-top:10px">Farben und Muster: Oliv, RAL 8000, Sand, Flecktarn, Concamo, Rhodesian Brushstroke, Wüstentarn, Schwarz-Rot-Gold und mehr.</p>
   <p class="lead en" style="margin-top:10px">Colours and patterns: olive, RAL 8000, sand, Flecktarn, Concamo, Rhodesian brushstroke, desert camo, black-red-gold and more.</p>
+</div></section>
+
+<section id="daten"><div class="wrap">
+  <h2 class="cond"><span class="de">So kommen die Daten ins Handy</span><span class="en">How the data gets to your phone</span></h2>
+  <p class="lead de">Alles läuft direkt zwischen deinen Geräten. Kein Internet, keine Cloud, kein Konto.</p>
+  <p class="lead en">Everything runs directly between your devices. No internet, no cloud, no account.</p>
+  <figure style="margin:0 0 18px;background:var(--surface);border:1px solid var(--line);padding:12px">
+    <svg viewBox="0 0 900 330" width="100%" role="img" aria-label="Datenfluss: Funkstationen per LoRa zur Brücke, Brücke, Handgerät und Funkfühler per Bluetooth zum Handy" style="display:block;font-family:'IBM Plex Sans',sans-serif">
+      <defs><marker id="pf" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="currentColor"/></marker></defs>
+      <g style="color:var(--accent)" fill="none" stroke="currentColor" stroke-width="2.5">
+        <path d="M168 60 C 300 60, 330 120, 440 140" stroke-dasharray="8 6" marker-end="url(#pf)"/>
+        <path d="M168 130 C 290 130, 330 145, 440 150" stroke-dasharray="8 6" marker-end="url(#pf)"/>
+        <path d="M168 200 C 300 200, 330 165, 440 160" stroke-dasharray="8 6" marker-end="url(#pf)"/>
+        <path d="M560 150 L 700 150" marker-end="url(#pf)"/>
+        <path d="M560 245 C 640 245, 660 185, 712 172" marker-end="url(#pf)"/>
+        <path d="M168 285 C 450 300, 640 260, 722 190" marker-end="url(#pf)"/>
+      </g>
+      <g font-size="15" fill="var(--ink)">
+        <rect x="18" y="38" width="150" height="44" fill="var(--bg)" stroke="var(--line)"/><text x="93" y="65" text-anchor="middle">Station 300 m</text>
+        <rect x="18" y="108" width="150" height="44" fill="var(--bg)" stroke="var(--line)"/><text x="93" y="135" text-anchor="middle">Station 600 m</text>
+        <rect x="18" y="178" width="150" height="44" fill="var(--bg)" stroke="var(--line)"/><text x="93" y="198" text-anchor="middle">Fahne / Treffer-</text><text x="93" y="215" text-anchor="middle">melder am Ziel</text>
+        <rect x="440" y="120" width="120" height="60" fill="var(--bg)" stroke="var(--accent)" stroke-width="2"/><text x="500" y="146" text-anchor="middle" font-weight="700">Funkbrücke</text><text x="500" y="166" text-anchor="middle" font-size="13">am Schützen</text>
+        <rect x="440" y="222" width="120" height="46" fill="var(--bg)" stroke="var(--line)"/><text x="500" y="250" text-anchor="middle">Handgerät</text>
+        <rect x="18" y="262" width="150" height="46" fill="var(--bg)" stroke="var(--line)"/><text x="93" y="282" text-anchor="middle">Funkfühler in</text><text x="93" y="299" text-anchor="middle">der Patronenbox</text>
+        <rect x="705" y="100" width="90" height="150" rx="14" fill="var(--head)" stroke="var(--acc)" stroke-width="2"/><text x="750" y="170" text-anchor="middle" fill="#E7E4D2" font-weight="700">Handy</text><text x="750" y="190" text-anchor="middle" fill="#C9B57E" font-size="13">Flugbahn</text>
+      </g>
+      <g font-size="13" fill="var(--muted)">
+        <text x="300" y="92" text-anchor="middle">LoRa-Funk 868 MHz, bis 1200 m</text>
+        <text x="630" y="140" text-anchor="middle">Bluetooth</text>
+        <text x="610" y="220" text-anchor="middle">Bluetooth</text>
+        <text x="430" y="312" text-anchor="middle">Bluetooth, direkt</text>
+      </g>
+    </svg>
+  </figure>
+  <div class="grid">
+    <div class="card"><h3><span class="de">1 · Bluetooth zum Handy</span><span class="en">1 · Bluetooth to the phone</span></h3>
+      <p class="de">Handgerät, Funkbrücke und Funkfühler sprechen <b>Bluetooth Low Energy</b> direkt mit dem Handy, Reichweite etwa 10–30 m. In der App tippst du auf „Messgerät verbinden“, Android zeigt die gefundenen Flugbahn-Geräte, du wählst eins aus. Koppeln in den Android-Einstellungen ist nicht nötig.</p>
+      <p class="en">The handheld, radio bridge and wireless sensor talk <b>Bluetooth Low Energy</b> directly to the phone, range about 10–30 m. In the app tap “Connect device”, Android lists the Flugbahn devices it finds, pick one. No pairing in the Android settings needed.</p></div>
+    <div class="card"><h3><span class="de">2 · Was übertragen wird</span><span class="en">2 · What is sent</span></h3>
+      <p class="de">Jedes Gerät schickt seine Messwerte als kurze Textzeile, das Handgerät jede Sekunde, der Funkfühler alle 5 s, zum Beispiel <code>{"t":14.2,"p":987.4,"wa":3.1,"at":21.4}</code> (Luft, Druck, Wind, Munition). Die App zeigt sie an und übernimmt sie in die Rechnung, je nachdem, welche Haken du gesetzt hast. Neu gerechnet wird höchstens alle 2 s.</p>
+      <p class="en">Each device sends its readings as a short line of text, the handheld every second, the wireless sensor every 5 s, for example <code>{"t":14.2,"p":987.4,"wa":3.1,"at":21.4}</code> (air, pressure, wind, ammo). The app shows them and uses them in the calculation according to your ticks. It recalculates at most every 2 s.</p></div>
+    <div class="card"><h3><span class="de">3 · LoRa-Funk über die Strecke</span><span class="en">3 · LoRa radio down the range</span></h3>
+      <p class="de">Bluetooth reicht keine 1200 m. Die Stationen an der Bahn funken deshalb mit <b>LoRa auf 868 MHz</b> (in der EU anmeldefrei) alle 2 s ein 16-Byte-Paket an die Brücke am Schützen. Die Brücke sammelt bis zu 6 Windzonen und 8 Treffermelder und gibt alles in einer Meldung per Bluetooth ans Handy weiter. Fehlende Pakete zeigt die App als Paketverlust in Prozent.</p>
+      <p class="en">Bluetooth does not reach 1200 m. The stations along the range therefore send a 16-byte packet every 2 s via <b>LoRa on 868 MHz</b> (licence-free in the EU) to the bridge at the shooter. The bridge collects up to 6 wind zones and 8 hit detectors and passes everything to the phone in one Bluetooth message. Missing packets show up as packet loss in percent.</p></div>
+    <div class="card"><h3><span class="de">4 · Und zurück</span><span class="en">4 · And back</span></h3>
+      <p class="de">Die App schickt die fertige Feuerleitlösung (Höhe, Seite, Klicks, Drehrichtung) zurück ans Handgerät. So steht sie auch auf dessen rundem Display, wenn das Handy in der Tasche bleibt.</p>
+      <p class="en">The app sends the finished firing solution (elevation, windage, clicks, turret direction) back to the handheld, so it also shows on its round display while the phone stays in your pocket.</p></div>
+  </div>
+  <p class="note de"><b>Munitionsfühler:</b> entweder <b>am Kabel</b> ins Handgerät gesteckt (die Temperatur geht dann mit den Handgerät-Daten ins Handy) oder als <b>Funkfühler</b> mit eigenem Akku, der sich selbst per Bluetooth mit dem Handy verbindet (Schuss → Korrekturen → „Fühler verbinden“).</p>
+  <p class="note en"><b>Ammo sensor:</b> either <b>wired</b> into the handheld (the temperature then travels with the handheld's data) or as a <b>wireless sensor</b> with its own battery that connects to the phone by Bluetooth itself (Shot → Corrections → “Connect sensor”).</p>
 </div></section>
 
 <section id="bauen"><div class="wrap">
