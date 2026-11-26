@@ -1,0 +1,123 @@
+{
+  "name": "Flugbahn Ballistikrechner",
+  "short_name": "Flugbahn",
+  "description": "Ballistikrechner mit Schusstafel, Absehen-Haltepunkt und Turmrichtung für viele Zielfernrohre. Funktioniert offline.",
+  "lang": "de",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "any",
+  "background_color": "#101209",
+  "theme_color": "#2E3320",
+  "categories": [
+    "sports",
+    "utilities"
+  ],
+  "icons": [
+    {
+      "src": "icons/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/icon-maskable-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "maskable"
+    },
+    {
+      "src": "icons/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ],
+  "id": "./",
+  "screenshots": [
+    {
+      "src": "screenshots/handy-schuss.png",
+      "sizes": "1080x2340",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Feuerlösung mit Turmrichtung und Absehen"
+    },
+    {
+      "src": "screenshots/handy-windradar.png",
+      "sizes": "1082x1922",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Windradar und Treffermelder"
+    },
+    {
+      "src": "screenshots/handy-ziele.png",
+      "sizes": "1080x2340",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Mehrfachziele mit Trefferwahrscheinlichkeit"
+    },
+    {
+      "src": "screenshots/handy-nacht.png",
+      "sizes": "1080x2340",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "Rotlicht-Nachtmodus"
+    },
+    {
+      "src": "screenshots/desktop.png",
+      "sizes": "2560x1600",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "Übersicht am Tablet oder Desktop"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Feldmodus",
+      "short_name": "Feld",
+      "url": "./#feld",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Schussbuch",
+      "short_name": "Buch",
+      "url": "./#buch",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Ziele",
+      "short_name": "Ziele",
+      "url": "./#ziele",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
+      "name": "Extras",
+      "short_name": "Extras",
+      "url": "./#extras",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    }
+  ]
+}

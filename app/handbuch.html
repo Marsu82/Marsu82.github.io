@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flugbahn – Handbuch</title>
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root{--bg:#D6D2BC;--surface:#E7E4D2;--ink:#1C2116;--muted:#545A43;--line:#ADA88C;--head:#2E3320;--acc:#C9B57E;--accent:#4B5320}
+  @media (prefers-color-scheme: dark){:root{--bg:#101209;--surface:#181B11;--ink:#DEDCC4;--muted:#8E9279;--line:#353B27;--head:#0A0C06;--accent:#C9B57E}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  header{background:var(--head);color:#E7E4D2;border-bottom:3px solid var(--acc);padding-block:calc(14px + env(safe-area-inset-top,0px)) 14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  header b{font-family:"Barlow Semi Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;font-size:20px}
+  header a{color:#E7E4D2;font-size:14px}
+  main{max-width:760px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  h1{font-family:"Barlow Semi Condensed","Arial Narrow",sans-serif;font-size:32px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px;text-wrap:balance}
+  h2{font-family:"Barlow Semi Condensed","Arial Narrow",sans-serif;font-size:21px;letter-spacing:.06em;text-transform:uppercase;margin:34px 0 8px;padding-top:10px;border-top:3px solid var(--accent);text-wrap:balance}
+  h3{font-size:16px;margin:18px 0 4px}
+  p,li{max-width:68ch}
+  ul,ol{padding-left:22px}
+  li{margin:3px 0}
+  .lead{color:var(--muted)}
+  nav.toc{background:var(--surface);border:1px solid var(--line);padding:12px 16px;margin:18px 0}
+  nav.toc ol{margin:0;columns:2;column-gap:24px}
+  @media (max-width:520px){nav.toc ol{columns:1}}
+  a{color:var(--accent)}
+  .tip{background:var(--surface);border-left:4px solid var(--accent);padding:10px 14px;margin:12px 0}
+  kbd{font-family:"IBM Plex Mono",ui-monospace,monospace;border:1px solid var(--line);padding:0 5px;font-size:14px}
+  small{color:var(--muted)}
+</style>
+</head>
+<body>
+<header><b>Flugbahn</b><a href="./">Zur App</a></header>
+<main>
+  <h1>Handbuch</h1>
+  <p class="lead">Flugbahn ist ein Ballistikrechner für Stand und Revier. Diese Anleitung erklärt die Reiter der Reihe nach. Die App arbeitet nach dem ersten Laden offline.</p>
+
+  <nav class="toc" aria-label="Inhalt"><ol>
+    <li><a href="#start">In fünf Minuten startklar</a></li>
+    <li><a href="#profil">Profil</a></li>
+    <li><a href="#schuss">Schuss</a></li>
+    <li><a href="#ziele">Ziele</a></li>
+    <li><a href="#tafel">Tafel</a></li>
+    <li><a href="#buch">Buch</a></li>
+    <li><a href="#extras">Extras</a></li>
+    <li><a href="#geraete">Messgeräte und Windradar</a></li>
+    <li><a href="#ki">KI und Assistenten</a></li>
+    <li><a href="#abgleich">Abgleichen</a></li>
+    <li><a href="#anzeige">Anzeige und Bedienung</a></li>
+    <li><a href="#daten">Daten und Sicherung</a></li>
+  </ol></nav>
+
+  <h2 id="start">In fünf Minuten startklar</h2>
+  <ol>
+    <li><b>Profil</b> öffnen und unter <i>Fabrikmunition</i> deine Ladung suchen, zum Beispiel „308 175“. Für Wiederladungen stattdessen das Geschoss aus der Liste wählen und die V0 eintragen.</li>
+    <li>Unter <i>Zielfernrohr</i> dein Modell wählen. Flugbahn übernimmt Klickwert, Drehrichtung und Bildebene. Vergleiche die Drehrichtung einmal mit dem Pfeil auf deinem Turm.</li>
+    <li>Visierhöhe (Mitte Zielfernrohr bis Mitte Lauf) und Einschussentfernung eintragen.</li>
+    <li>Im Reiter <b>Schuss</b> Entfernung, Wind und Wetter eingeben. Die Lösung zeigt Klicks und Drehrichtung.</li>
+    <li>Nach den ersten Schüssen auf 300 bis 600 m die V0 abgleichen (siehe <a href="#abgleich">Abgleichen</a>).</li>
+  </ol>
+  <div class="tip">Die Ergebnisse sind Rechenwerte. Prüfe sie immer am Schießstand, bevor du dich im Revier darauf verlässt.</div>
+
+  <h2 id="profil">Profil</h2>
+  <h3>Geschoss und Luftwiderstand</h3>
+  <ul>
+    <li><b>Fabrikmunition</b> setzt Geschoss, BC und Hersteller-V0. Die V0 gilt für den Testlauf des Herstellers. Aus kürzeren Läufen ist sie niedriger.</li>
+    <li><b>Ein BC (G1/G7):</b> G7 passt zu modernen Boattail-Geschossen, G1 zu Flachboden- und Jagdgeschossen.</li>
+    <li><b>Mehrere BCs je Geschwindigkeit:</b> für Hersteller, die BCs staffeln. Bei Hornady übernimmt Flugbahn die drei Werte automatisch.</li>
+    <li><b>Eigene Widerstandskurve:</b> Wertepaare Mach;Cd, etwa aus Doppler-Messungen, als Text oder CSV-Datei.</li>
+  </ul>
+  <h3>Zielfernrohr</h3>
+  <ul>
+    <li>Drehrichtung „hoch“ wird von oben auf den Höhenturm gesehen angegeben, „R“ auf die Kappe des Seitenturms gesehen.</li>
+    <li>Bei Absehen in der <b>2. Bildebene</b> die Vergrößerung eintragen, bei der die Teilung stimmt. Im Schuss-Reiter dann die eingestellte Vergrößerung wählen.</li>
+    <li><b>Absehen-Teilung</b> getrennt vom Turm: für Zielfernrohre mit MOA-Turm und MRAD-Absehen.</li>
+    <li><b>Verstellbereich</b> und vorgeneigte Montage eintragen, dann warnt Flugbahn, wenn der Turm nicht mehr reicht.</li>
+  </ul>
+  <h3>Waffe, Einschuss, Jagd</h3>
+  <ul>
+    <li><b>Treffpunkt dort:</b> wer 4 cm hoch auf 100 m einschießt, trägt +4 ein.</li>
+    <li><b>GEE und MPBR:</b> Flugbahn rechnet die günstigste Einschussentfernung für deine Trefferzone und übernimmt sie auf Knopfdruck.</li>
+    <li><b>Einschießhilfe:</b> Trefferbild auf der Scheibe antippen, Flugbahn nennt die Klicks.</li>
+    <li><b>Jagd:</b> Mindestenergie und Mindestgeschwindigkeit ergeben die Jagdgrenze. Die E100-Prüfung nach § 19 BJagdG steht im selben Abschnitt.</li>
+    <li><b>Schalldämpfer und Kaltlauf:</b> Versatz einmal eintragen, im Schuss-Reiter unter <i>Korrekturen</i> ein- und ausschalten.</li>
+  </ul>
+
+  <h2 id="schuss">Schuss</h2>
+  <ul>
+    <li><b>Entfernung</b> über Feld, Schieber, Schnellwahl oder ±50.</li>
+    <li><b>Wind:</b> Winduhr antippen oder ziehen (12 Uhr = vom Ziel her). Stärke nach Anzeichen schätzen oder als Himmelsrichtung eingeben. Für wechselnden Wind drei Zonen nutzen.</li>
+    <li><b>Wetter:</b> Messwerte oder Dichtehöhe vom Kestrel. „Kestrel-CSV laden“ übernimmt die letzte Messung aus einem Export. In der installierten App lädt „Wetter laden“ die Werte für deinen Standort.</li>
+    <li><b>Lösung:</b> Höhe und Seite mit Klicks und Drehrichtung. Das Absehen zeigt den Haltepunkt, die Zielgröße und auf Wunsch die Haltepunkte aller Ziele.</li>
+    <li><b>Nachkorrektur:</b> eintragen, wo der Treffer im Absehen lag, Flugbahn nennt die neue Verstellung.</li>
+    <li><b>Feldmodus:</b> große Zahlen und Tasten, geeignet für Handschuhe und Rotlicht. <i>Vorlesen</i> sagt die Lösung an.</li>
+  </ul>
+
+  <h2 id="ziele">Ziele</h2>
+  <p>Für Gong-Parcours und mehrere Hochsitz-Entfernungen. Jedes Ziel bekommt Höhe, Seite und eine Trefferwahrscheinlichkeit. Die Wahrscheinlichkeit berücksichtigt Zielgröße, Streukreis sowie Unsicherheit bei Wind, Entfernung und V0. Mit <i>Zielreihe</i> erzeugst du eine ganze Reihe auf einmal.</p>
+
+  <h2 id="tafel">Tafel</h2>
+  <ul>
+    <li><b>Schusstafel</b> mit Fall, Klicks, Abdrift, Geschwindigkeit und Energie. <i>Kompakt</i> zeigt nur das Nötigste in großer Schrift.</li>
+    <li><b>Windtabelle:</b> Seitenklicks für verschiedene Windstärken je Entfernung.</li>
+    <li><b>Profile vergleichen:</b> bis zu vier Profile nebeneinander. Im Diagramm lässt sich ein Vergleichsprofil als zweite Linie einblenden.</li>
+    <li><i>Als Text kopieren</i> zum Verschicken. In der installierten App lässt sich die Tafel drucken.</li>
+  </ul>
+
+  <h2 id="buch">Buch</h2>
+  <ul>
+    <li><b>Schusszähler</b> je Profil mit Reinigungserinnerung.</li>
+    <li><b>Schussbuch:</b> Trefferlage nach dem Schuss eintragen. Statistik und Trefferdiagramm zeigen, ob die Höhe im Mittel stimmt. „V0-Abgleich“ übernimmt einen Eintrag direkt in den Abgleich.</li>
+    <li><b>Streckenbuch</b> für erlegtes Wild, mit CSV-Export.</li>
+  </ul>
+
+  <h2 id="extras">Extras</h2>
+  <p>Chronograph-Auswertung, Streukreis-Rechner, Pulvertemperatur-Tabelle, Winkeltabelle für den Hochsitz, Licht- und Jagdzeiten mit Mondphase, Klickwert-Test, BC aus zwei Geschwindigkeiten, Drall-Rechner, maximale Flugweite, Stage-Timer, Wind aus Fahnenwinkel (auch per Kamera), Turmband und Schusskarte im Scheckkartenformat zum Ausdrucken, Umrechner, Entfernung per GPS, Leitertest fürs Wiederladen, Spotter koppeln, Magazin-Statistik, PRS-Stage-Planer und Windlese-Trainer.</p>
+  <p><small>Die Werkzeuge in Extras und das Schussbuch rechnen immer metrisch.</small></p>
+
+  <h2 id="geraete">Messgeräte und Windradar</h2>
+  <p>Unter <b>Schuss → Messgerät verbinden</b> koppelst du per Bluetooth das Flugbahn-Handgerät, eine Wetterstation oder die Funkbrücke. Wetter, Wind und Munitionstemperatur werden dann laufend übernommen, die Lösung geht zurück ans Gerät.</p>
+  <ul>
+    <li><b>Windradar:</b> zeigt alle Windstationen entlang der Bahn (bis zu sechs über die Funkbrücke) und rechnet den <i>wirksamen Seitenwind</i> für die ganze Flugbahn. Wind nahe am Schützen zählt stärker. Dazu gibt es den Verlauf der letzten Minuten, eine Prognose für die nächsten 10 Sekunden und den Hinweis „Wind ruhig – jetzt schießen“.</li>
+    <li><b>Treffermelder:</b> Stahlziele mit Funk-Treffermelder erscheinen unter dem Windradar. Jeder Treffer piept und vibriert.</li>
+    <li><b>Laufthermometer:</b> Steckt der Munitionsfühler in einem Clip am Lauf, „Fühler am Lauf“ wählen. Die App warnt ab der eingestellten Temperatur.</li>
+    <li>Ohne Geräte arbeitet das Windradar mit den Windzonen, die du von Hand einträgst.</li>
+  </ul>
+
+  <h2 id="ki">KI und Assistenten</h2>
+  <p>Alles läuft auf dem Gerät und ohne Netz, außer dem optionalen Coach.</p>
+  <ul>
+    <li><b>Sprache:</b> 🎤 an der Lösung, dann z. B. „Entfernung 650, Wind 3 aus 9 Uhr, Temperatur minus 4“. 🔊 sagt die Korrektur an, mit „auto“ bei jeder Änderung.</li>
+    <li><b>Trefferbild per Foto</b> (Extras): Scheibe senkrecht fotografieren, Mitte und den Rand des äußersten Rings antippen. Die Löcher werden gefunden. Falsche antippen, um sie zu entfernen, fehlende antippen, um sie hinzuzufügen. Danach ins Trefferbild übernehmen.</li>
+    <li><b>Automatischer Abgleich</b> (Extras): sucht aus allen Schussbuch-Einträgen V0 und BC, die zu deinen echten Treffern passen, mit Angabe der Genauigkeit. Je mehr Einträge auf verschiedenen Entfernungen, desto besser.</li>
+    <li><b>Munition per Foto:</b> Etikett der Schachtel fotografieren, passende Ladungen auswählen. Die Texterkennung lädt beim ersten Mal (ca. 5 MB).</li>
+    <li><b>Fahnen per Kamera:</b> unter „Wind aus Fahne“ entweder „Live messen“ (Mast und Fahne antippen) oder „Automatisch erkennen“ (rote oder gelbe Fahnen werden selbst gefunden).</li>
+    <li><b>Auffälligkeiten:</b> findet Ausreißer, eine sinkende V0, Magazine mit vielen Störungen und fällige Reinigung.</li>
+    <li><b>Schusszähler per Mikrofon:</b> zählt Schüsse und schätzt aus dem Trefferklang am Stahl die Entfernung.</li>
+    <li><b>Mirage</b> (experimentell): Handy am Spektiv, zeigt, wohin das Flimmern zieht.</li>
+    <li><b>KI-Coach</b> (optional, online): braucht einen eigenen API-Schlüssel von Anthropic, die Kosten laufen über dieses Konto. Tageslimit und Verbrauchsanzeige schützen vor Überraschungen.</li>
+  </ul>
+
+  <h2 id="abgleich">Abgleichen</h2>
+  <p>Der <i>Abgleich-Assistent</i> unter Extras führt durch die Schritte. Schneller geht es mit dem <i>automatischen Abgleich</i> aus dem Schussbuch (siehe <a href="#ki">KI und Assistenten</a>).</p>
+  <ol>
+    <li><b>Fleck prüfen:</b> Treffpunktmitte auf Einschussentfernung korrigieren.</li>
+    <li><b>V0:</b> mit Chronograph messen oder über die tatsächlich nötige Höhenkorrektur auf 300 bis 600 m zurückrechnen (Profil → V0 abgleichen).</li>
+    <li><b>BC:</b> erst danach, mit einem Treffer weit draußen nahe Transschall (Profil → BC abgleichen), oder über zwei gemessene Geschwindigkeiten.</li>
+    <li><b>Klickwert:</b> Tall-Target-Test. Der gemessene Turmfaktor wird bei allen Klicks verrechnet.</li>
+  </ol>
+
+  <h2 id="anzeige">Anzeige und Bedienung</h2>
+  <ul>
+    <li>Unter <i>Optionen</i> (am Handy) bzw. oben rechts: Tag, Nacht, Rotlicht oder automatisch nach Sonnenstand, große Schrift, Sprache Deutsch/Englisch, Einheiten metrisch oder imperial.</li>
+    <li><i>Display wach</i> verhindert, dass der Bildschirm ausgeht.</li>
+    <li>Am Computer: <kbd>↑</kbd>/<kbd>↓</kbd> Entfernung, <kbd>←</kbd>/<kbd>→</kbd> Windrichtung, <kbd>+</kbd>/<kbd>−</kbd> Windstärke, <kbd>F</kbd> Feldmodus, <kbd>R</kbd> Rotlicht, <kbd>V</kbd> Vorlesen, <kbd>/</kbd> Suche, <kbd>?</kbd> Hilfe.</li>
+    <li>Direkt springen mit <code>#schuss</code>, <code>#ziele</code>, <code>#tafel</code>, <code>#buch</code>, <code>#extras</code>, <code>#profil</code>, <code>#feld</code> am Ende der Adresse.</li>
+  </ul>
+
+  <h2 id="daten">Daten und Sicherung</h2>
+  <ul>
+    <li>Alles bleibt auf deinem Gerät. Es gibt kein Konto und keine Übertragung an Dritte.</li>
+    <li><b>Profil teilen:</b> Code oder QR-Code für einen Freund, der ihn in seiner Flugbahn einfügt.</li>
+    <li><b>Daten sichern:</b> Profile, Geschosse, Ziele, Schussbuch und Streckenbuch als Datei exportieren und auf einem neuen Gerät importieren.</li>
+    <li>Geschoss-, Munitions- und Zielfernrohrdaten stammen von Hersteller- und Händlerseiten (Stand 11/2026) und können sich ändern.</li>
+  </ul>
+  <p><small>Flugbahn liefert Rechenwerte. Die geltenden Waffen- und Jagdgesetze sind einzuhalten.</small></p>
+</main>
+</body>
+</html>

@@ -1,0 +1,189 @@
+<!doctype html>
+<html lang="de" data-l="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flugbahn – Ballistikrechner und Windmessung</title>
+<meta name="description" content="Flugbahn: Ballistikrechner für Stand und Revier, offline, ohne Werbung und ohne Abo. Dazu eigene Wetterstation, Handgerät und Funk-Windmesser bis 1200 m zum Selberbauen.">
+<meta name="theme-color" content="#2E3320">
+<meta property="og:title" content="Flugbahn – Ballistikrechner und Windmessung">
+<meta property="og:description" content="Feuerlösung in Sekunden, offline. Windradar mit eigenen Funkstationen bis 1200 m.">
+<meta property="og:image" content="bilder/handy-windradar.webp">
+<link rel="icon" href="app/icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="app/icons/apple-touch-icon.png">
+<link rel="stylesheet" href="app/fonts/fonts.css">
+<style>
+  :root{--bg:#D6D2BC;--surface:#E7E4D2;--ink:#1C2116;--muted:#545A43;--line:#ADA88C;--head:#2E3320;--acc:#C9B57E;--accent:#4B5320;--on-head:#E7E4D2}
+  @media (prefers-color-scheme: dark){:root{--bg:#101209;--surface:#181B11;--ink:#DEDCC4;--muted:#8E9279;--line:#353B27;--head:#0A0C06;--accent:#C9B57E}}
+  *{box-sizing:border-box}
+  img{max-width:100%;height:auto}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  html[data-l="de"] .en, html[data-l="en"] .de{display:none!important}
+  .wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .cond{font-family:"Barlow Semi Condensed","Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.08em}
+  header.top{background:var(--head);color:var(--on-head);border-bottom:3px solid var(--acc);position:sticky;top:0;z-index:5}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:calc(10px + env(safe-area-inset-top,0px)) 10px}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--on-head);text-decoration:none;font-weight:700;font-size:20px;letter-spacing:.16em}
+  .brand svg{width:30px;height:30px}
+  nav.links{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  nav.links a{color:var(--on-head);text-decoration:none;font-size:15px}
+  nav.links a:hover{color:var(--acc)}
+  .lang{background:none;border:1px solid var(--acc);color:var(--acc);font:600 13px "Barlow Semi Condensed",sans-serif;letter-spacing:.1em;padding:4px 9px;cursor:pointer}
+  @media (max-width:700px){nav.links a.opt{display:none}}
+  .hero{background:var(--head);color:var(--on-head);padding:42px 0 54px}
+  .hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center}
+  .hero h1{font-size:clamp(34px,6vw,58px);line-height:1.02;margin:0 0 14px;text-wrap:balance}
+  .hero p{font-size:18px;max-width:52ch;color:#CFCCB6;margin:0 0 22px}
+  .hero img{width:100%;max-width:330px;justify-self:center;border:3px solid #3A4029;box-shadow:0 18px 40px rgba(0,0,0,.45)}
+  @media (max-width:760px){.hero .wrap{grid-template-columns:1fr}.hero img{max-width:260px}}
+  .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;font:700 16px "Barlow Semi Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:2px solid var(--acc)}
+  .btn.pri{background:var(--acc);color:#1C2116}
+  .btn.sec{color:var(--acc)}
+  .btn[aria-disabled="true"]{opacity:.75;cursor:default}
+  .badges{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:14px;color:#B9B69F}
+  .badges span::before{content:"✓ ";color:var(--acc)}
+  section{padding:54px 0 10px}
+  h2{font-size:clamp(26px,4vw,36px);margin:0 0 6px;text-wrap:balance}
+  .lead{color:var(--muted);max-width:64ch;margin:0 0 24px;font-size:17px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .card{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);padding:16px 18px}
+  .card h3{font-family:"Barlow Semi Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em;font-size:19px;margin:0 0 6px}
+  .card ul{margin:0;padding-left:18px}
+  .card li{margin:3px 0}
+  .shots{display:flex;gap:16px;overflow-x:auto;padding:6px 2px 14px;scroll-snap-type:x mandatory}
+  .shots figure{margin:0;flex:0 0 220px;scroll-snap-align:start}
+  .shots img{width:100%;border:1px solid var(--line);display:block}
+  .shots figcaption{font-size:14px;color:var(--muted);margin-top:6px}
+  .dev{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;margin:20px 0 34px}
+  .dev img{width:100%;max-height:440px;object-fit:contain;background:#F4F3EC;border:1px solid var(--line)}
+  .dev.rev .txt{order:-1}
+  @media (max-width:760px){.dev{grid-template-columns:1fr}.dev.rev .txt{order:0}}
+  .dev h3{font-family:"Barlow Semi Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em;font-size:24px;margin:0 0 6px}
+  .wide{width:100%;background:#F4F3EC;border:1px solid var(--line);display:block}
+  .note{background:var(--surface);border-left:4px solid var(--accent);padding:12px 16px;margin:18px 0;max-width:780px}
+  .kits{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line)}
+  .kits th,.kits td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .kits th{font-family:"Barlow Semi Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em;font-size:15px}
+  a{color:var(--accent)}
+  footer{margin-top:60px;background:var(--head);color:#B9B69F;padding:26px 0 calc(26px + env(safe-area-inset-bottom,0px));font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer a{color:var(--on-head)}
+  footer nav{display:flex;gap:16px;flex-wrap:wrap}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap">
+  <a class="brand cond" href="#"><svg viewBox="0 0 32 32" fill="none" stroke="#C9B57E" stroke-width="2.4"><circle cx="16" cy="16" r="11"/><path d="M16 1v8M16 23v8M1 16h8M23 16h8"/><circle cx="16" cy="16" r="1.6" fill="#C9B57E"/></svg>Flugbahn</a>
+  <nav class="links">
+    <a class="opt" href="#app"><span class="de">App</span><span class="en">App</span></a>
+    <a class="opt" href="#geraete"><span class="de">Messgeräte</span><span class="en">Devices</span></a>
+    <a class="opt" href="#bauen"><span class="de">Selbst bauen</span><span class="en">Build</span></a>
+    <a href="app/"><span class="de">App öffnen</span><span class="en">Open app</span></a>
+    <button class="lang" type="button" id="lang">EN</button>
+  </nav>
+</div></header>
+
+<div class="hero"><div class="wrap">
+  <div>
+    <h1 class="cond"><span class="de">Treffen statt raten.</span><span class="en">Hit, don't guess.</span></h1>
+    <p class="de">Flugbahn rechnet deine Feuerlösung in Sekunden, auch ohne Netz am Stand oder im Revier. Mit eigenen Funk-Windmessern siehst du den Wind entlang der ganzen Bahn bis 1200 m.</p>
+    <p class="en">Flugbahn gives you a firing solution in seconds, even without signal at the range or in the field. With your own radio wind meters you see the wind along the whole bullet path up to 1200 m.</p>
+    <div class="btns">
+      <a class="btn pri" href="#" aria-disabled="true" title="Bald verfügbar"><span class="de">Google Play – bald</span><span class="en">Google Play – soon</span></a>
+      <a class="btn sec" href="app/"><span class="de">Im Browser testen</span><span class="en">Try in browser</span></a>
+    </div>
+    <div class="badges"><span class="de">Einmalkauf</span><span class="en">One-time purchase</span><span class="de">Keine Werbung, kein Abo</span><span class="en">No ads, no subscription</span><span class="de">Offline</span><span class="en">Offline</span><span class="de">Deutsch und Englisch</span><span class="en">German and English</span></div>
+  </div>
+  <img src="bilder/handy-schuss.webp" width="420" height="910" alt="Flugbahn: Feuerlösung mit Turmrichtung und Absehen">
+</div></div>
+
+<main>
+<section id="app"><div class="wrap">
+  <h2 class="cond"><span class="de">Die App</span><span class="en">The app</span></h2>
+  <p class="lead de">Für Sportschützen, Jäger und PRS. Alle Daten bleiben auf deinem Handy, es gibt kein Konto.</p>
+  <p class="lead en">For target shooters, hunters and PRS. All data stays on your phone, no account needed.</p>
+  <div class="shots">
+    <figure><img src="bilder/handy-schuss.webp" width="420" height="910" loading="lazy" alt=""><figcaption class="de">Feuerlösung mit Turmrichtung</figcaption><figcaption class="en">Firing solution with turret direction</figcaption></figure>
+    <figure><img src="bilder/handy-windradar.webp" width="420" height="746" loading="lazy" alt=""><figcaption class="de">Windradar und Treffermelder</figcaption><figcaption class="en">Wind radar and hit detector</figcaption></figure>
+    <figure><img src="bilder/handy-ziele.webp" width="420" height="910" loading="lazy" alt=""><figcaption class="de">Mehrere Ziele auf einen Blick</figcaption><figcaption class="en">Multiple targets at a glance</figcaption></figure>
+    <figure><img src="bilder/handy-nacht.webp" width="420" height="910" loading="lazy" alt=""><figcaption class="de">Rotlicht-Modus für die Nacht</figcaption><figcaption class="en">Red-light mode for the night</figcaption></figure>
+  </div>
+  <div class="grid">
+    <div class="card"><h3><span class="de">Feuerlösung</span><span class="en">Firing solution</span></h3><ul class="de"><li>Höhe und Seite in MRAD oder MOA, mit Klicks</li><li>Drehrichtung für über 270 Zielfernrohre</li><li>46 Herstellerabsehen mit echten Teilungen</li><li>Warnung, wenn der Verstellbereich endet</li></ul><ul class="en"><li>Elevation and windage in MRAD or MOA, with clicks</li><li>Turret direction for 270+ riflescopes</li><li>46 manufacturer reticles with real subtensions</li><li>Warning when elevation travel runs out</li></ul></div>
+    <div class="card"><h3><span class="de">Physik</span><span class="en">Physics</span></h3><ul class="de"><li>G1/G7, BC-Staffeln oder eigene Widerstandskurve</li><li>Wetter per Standort, Kestrel-Import</li><li>Drall, Coriolis, Pulvertemperatur</li><li>Kurve aus deinen Treffern abgleichen</li></ul><ul class="en"><li>G1/G7, banded BCs or your own drag curve</li><li>Weather by location, Kestrel import</li><li>Spin drift, Coriolis, powder temperature</li><li>True the curve from your hits</li></ul></div>
+    <div class="card"><h3><span class="de">Daten</span><span class="en">Data</span></h3><ul class="de"><li>Über 1.700 Geschosse von Herstellerangaben</li><li>Über 2.400 Fabrikladungen in 180 Kalibern</li><li>Profile per QR-Code teilen</li><li>Schussbuch, Streckenbuch, Schusstafel</li></ul><ul class="en"><li>1,700+ bullets from manufacturer data</li><li>2,400+ factory loads in 180 calibers</li><li>Share profiles by QR code</li><li>Shot log, harvest log, range card</li></ul></div>
+    <div class="card"><h3><span class="de">KI auf dem Gerät</span><span class="en">On-device AI</span></h3><ul class="de"><li>Trefferbild per Foto auswerten</li><li>Fahnenwinkel live per Kamera</li><li>Sprachsteuerung und Sprachausgabe</li><li>Windprognose und Windlese-Trainer</li></ul><ul class="en"><li>Score your group from a photo</li><li>Live flag angle by camera</li><li>Voice control and spoken corrections</li><li>Wind forecast and wind reading trainer</li></ul></div>
+  </div>
+</div></section>
+
+<section id="geraete"><div class="wrap">
+  <h2 class="cond"><span class="de">Messgeräte</span><span class="en">Devices</span></h2>
+  <p class="lead de">Eigene Hardware, verbunden per Bluetooth und Funk (LoRa). Jedes Gerät gibt es in vielen Tarnmustern.</p>
+  <p class="lead en">Your own hardware, connected by Bluetooth and radio (LoRa). Every device comes in many camo patterns.</p>
+
+  <div class="dev"><img src="bilder/funkstation.webp" width="679" height="1206" loading="lazy" alt="Funkstation mit Antenne">
+    <div class="txt"><h3><span class="de">Funkstation und Windradar</span><span class="en">Radio station and wind radar</span></h3>
+      <p class="de">Bis zu sechs Stationen entlang der Bahn melden Wind und Richtung per Funk an die Brücke am Schützen. Die App zeigt den <b>wirksamen Seitenwind</b> über die ganze Strecke und gibt ein Signal, wenn der Wind ruhig ist.</p>
+      <p class="en">Up to six stations along the range report wind speed and direction by radio to the bridge next to the shooter. The app shows the <b>effective crosswind</b> over the whole distance and beeps when the wind settles.</p>
+      <ul class="de"><li>Reichweite bis 1200 m mit Paketverlust-Anzeige</li><li>Akku und Solar, Stativ oder Sandsack</li><li>Treffermelder für Stahlziele</li></ul>
+      <ul class="en"><li>Range up to 1200 m with packet-loss display</li><li>Battery and solar, tripod or sandbag</li><li>Hit detector for steel targets</li></ul></div></div>
+
+  <div class="dev rev"><img src="bilder/handgeraet.webp" width="434" height="1284" loading="lazy" alt="Handgerät">
+    <div class="txt"><h3><span class="de">Handgerät</span><span class="en">Handheld</span></h3>
+      <p class="de">Rundes Touch-Display, Flügelrad, Temperatur, Luftdruck, Feuchte und Kompass. Es schickt die Werte direkt in die App, auch die Munitionstemperatur.</p>
+      <p class="en">Round touch display, vane anemometer, temperature, pressure, humidity and compass. It sends readings straight to the app, including ammo temperature.</p></div></div>
+
+  <img class="wide" src="bilder/farben.webp" width="1000" height="202" loading="lazy" alt="Handgerät in sechs Farben und Tarnmustern">
+  <p class="lead de" style="margin-top:10px">Farben und Muster: Oliv, RAL 8000, Sand, Flecktarn, Concamo, Rhodesian Brushstroke, Wüstentarn, Schwarz-Rot-Gold und mehr.</p>
+  <p class="lead en" style="margin-top:10px">Colours and patterns: olive, RAL 8000, sand, Flecktarn, Concamo, Rhodesian brushstroke, desert camo, black-red-gold and more.</p>
+</div></section>
+
+<section id="bauen"><div class="wrap">
+  <h2 class="cond"><span class="de">Selbst bauen</span><span class="en">Build it yourself</span></h2>
+  <p class="lead de">Die Bauanleitung ist kostenlos. Du brauchst einen 3D-Drucker, einen Lötkolben und etwa einen Nachmittag pro Gerät.</p>
+  <p class="lead en">The build guide is free (German). You need a 3D printer, a soldering iron and about an afternoon per device.</p>
+  <div class="btns" style="margin-bottom:22px"><a class="btn pri" href="bauanleitung/Flugbahn-Bauanleitung.pdf" download><span class="de">Bauanleitung (PDF, 25 Seiten)</span><span class="en">Build guide (PDF, German)</span></a></div>
+  <div class="grid">
+    <figure class="card" style="margin:0"><img src="bilder/feldgeraete.webp" width="639" height="596" alt="" style="width:100%"><figcaption><span class="de">Windmesser und Windfahne: Druckteile</span><span class="en">Anemometer and wind vane: printed parts</span></figcaption></figure>
+    <figure class="card" style="margin:0"><img src="bilder/windmesser.webp" width="707" height="363" alt="" style="width:100%"><figcaption><span class="de">Feldgeräte: Fahne und Treffermelder</span><span class="en">Field devices: flag and hit detector</span></figcaption></figure>
+    <figure class="card" style="margin:0"><img src="bilder/zubehoer.webp" width="900" height="932" alt="" style="width:100%"><figcaption><span class="de">Zubehör: Patronenbox, Ablage, Ladehilfe</span><span class="en">Accessories: ammo box, tray, loading aid</span></figcaption></figure>
+  </div>
+
+  <h3 class="cond" style="margin-top:34px;font-size:22px"><span class="de">Bausätze</span><span class="en">Kits</span></h3>
+  <table class="kits">
+    <thead><tr><th><span class="de">Set</span><span class="en">Kit</span></th><th><span class="de">Inhalt</span><span class="en">Contents</span></th></tr></thead>
+    <tbody>
+      <tr><td><b><span class="de">Handgerät</span><span class="en">Handheld</span></b></td><td><span class="de">Gehäuse in Wunschfarbe, Elektronik, Akku</span><span class="en">Housing in your colour, electronics, battery</span></td></tr>
+      <tr><td><b><span class="de">Set „1 Zone“</span><span class="en">“1 zone” kit</span></b></td><td><span class="de">Funkbrücke und eine Funkstation</span><span class="en">Radio bridge and one station</span></td></tr>
+      <tr><td><b><span class="de">Set „Komplett“</span><span class="en">“Complete” kit</span></b></td><td><span class="de">Handgerät, Brücke und zwei Stationen</span><span class="en">Handheld, bridge and two stations</span></td></tr>
+    </tbody>
+  </table>
+  <p class="note de">Bausätze sind in Vorbereitung. Preise und Bestellung folgen. Interesse? Schreib eine E-Mail an die Adresse im <a href="impressum.html">Impressum</a>.</p>
+  <p class="note en">Kits are in preparation. Prices and ordering will follow. Interested? Send an email to the address in the <a href="impressum.html">legal notice</a>.</p>
+</div></section>
+
+<section id="hinweis"><div class="wrap">
+  <p class="note de"><b>Hinweis:</b> Flugbahn liefert Rechenwerte. Überprüfe die Ergebnisse am Schießstand und gleiche die V0 an deine Waffe an. Beachte die Vorschriften deines Landes zu Waffen, Jagd und Funk.</p>
+  <p class="note en"><b>Note:</b> Flugbahn provides calculated values. Verify results at the range and true the muzzle velocity for your rifle. Follow your country's rules on firearms, hunting and radio.</p>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <span>© 2026 Flugbahn</span>
+  <nav><a href="app/handbuch.html"><span class="de">Handbuch</span><span class="en">Manual</span></a><a href="app/datenschutz.html"><span class="de">Datenschutz</span><span class="en">Privacy</span></a><a href="impressum.html"><span class="de">Impressum</span><span class="en">Legal notice</span></a></nav>
+</div></footer>
+<script>
+(function () {
+  var h = document.documentElement, b = document.getElementById("lang"), l;
+  try { l = localStorage.getItem("flugbahn.site_lang"); } catch (e) {}
+  if (!l) l = /^de\b/i.test(navigator.language || "de") ? "de" : "en";
+  function set(x) { l = x; h.dataset.l = x; h.lang = x; b.textContent = x === "de" ? "EN" : "DE"; try { localStorage.setItem("flugbahn.site_lang", x); } catch (e) {} }
+  set(l);
+  b.addEventListener("click", function () { set(l === "de" ? "en" : "de"); });
+  document.querySelectorAll('[aria-disabled="true"]').forEach(function (a) { a.addEventListener("click", function (e) { e.preventDefault(); }); });
+})();
+</script>
+</body>
+</html>

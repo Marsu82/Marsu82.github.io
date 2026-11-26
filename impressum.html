@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="de" data-l="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Impressum – Flugbahn</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="/app/icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/app/fonts/fonts.css">
+<style>
+  :root{--bg:#D6D2BC;--surface:#E7E4D2;--ink:#1C2116;--muted:#545A43;--line:#ADA88C;--head:#2E3320;--acc:#C9B57E;--accent:#4B5320;--on-head:#E7E4D2}
+  @media (prefers-color-scheme: dark){:root{--bg:#101209;--surface:#181B11;--ink:#DEDCC4;--muted:#8E9279;--line:#353B27;--head:#0A0C06;--accent:#C9B57E}}
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  html[data-l="de"] .en, html[data-l="en"] .de{display:none!important}
+  .wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  .cond{font-family:"Barlow Semi Condensed","Arial Narrow",sans-serif;text-transform:uppercase;letter-spacing:.08em}
+  header.top{background:var(--head);color:var(--on-head);border-bottom:3px solid var(--acc);position:sticky;top:0;z-index:5}
+  header.top .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;padding-block:calc(10px + env(safe-area-inset-top,0px)) 10px}
+  .brand{display:flex;align-items:center;gap:10px;color:var(--on-head);text-decoration:none;font-weight:700;font-size:20px;letter-spacing:.16em}
+  .brand svg{width:30px;height:30px}
+  nav.links{display:flex;gap:16px;align-items:center;flex-wrap:wrap}
+  nav.links a{color:var(--on-head);text-decoration:none;font-size:15px}
+  nav.links a:hover{color:var(--acc)}
+  .lang{background:none;border:1px solid var(--acc);color:var(--acc);font:600 13px "Barlow Semi Condensed",sans-serif;letter-spacing:.1em;padding:4px 9px;cursor:pointer}
+  @media (max-width:700px){nav.links a.opt{display:none}}
+  .hero{background:var(--head);color:var(--on-head);padding:42px 0 54px}
+  .hero .wrap{display:grid;grid-template-columns:1.2fr .8fr;gap:36px;align-items:center}
+  .hero h1{font-size:clamp(34px,6vw,58px);line-height:1.02;margin:0 0 14px;text-wrap:balance}
+  .hero p{font-size:18px;max-width:52ch;color:#CFCCB6;margin:0 0 22px}
+  .hero img{width:100%;max-width:330px;justify-self:center;border:3px solid #3A4029;box-shadow:0 18px 40px rgba(0,0,0,.45)}
+  @media (max-width:760px){.hero .wrap{grid-template-columns:1fr}.hero img{max-width:260px}}
+  .btns{display:flex;gap:12px;flex-wrap:wrap}
+  .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 18px;font:700 16px "Barlow Semi Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;text-decoration:none;border:2px solid var(--acc)}
+  .btn.pri{background:var(--acc);color:#1C2116}
+  .btn.sec{color:var(--acc)}
+  .btn[aria-disabled="true"]{opacity:.75;cursor:default}
+  .badges{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;font-size:14px;color:#B9B69F}
+  .badges span::before{content:"✓ ";color:var(--acc)}
+  section{padding:54px 0 10px}
+  h2{font-size:clamp(26px,4vw,36px);margin:0 0 6px;text-wrap:balance}
+  .lead{color:var(--muted);max-width:64ch;margin:0 0 24px;font-size:17px}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px}
+  .card{background:var(--surface);border:1px solid var(--line);border-top:3px solid var(--accent);padding:16px 18px}
+  .card h3{font-family:"Barlow Semi Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em;font-size:19px;margin:0 0 6px}
+  .card ul{margin:0;padding-left:18px}
+  .card li{margin:3px 0}
+  .shots{display:flex;gap:16px;overflow-x:auto;padding:6px 2px 14px;scroll-snap-type:x mandatory}
+  .shots figure{margin:0;flex:0 0 220px;scroll-snap-align:start}
+  .shots img{width:100%;border:1px solid var(--line);display:block}
+  .shots figcaption{font-size:14px;color:var(--muted);margin-top:6px}
+  .dev{display:grid;grid-template-columns:1fr 1fr;gap:28px;align-items:center;margin:20px 0 34px}
+  .dev img{width:100%;max-height:440px;object-fit:contain;background:#F4F3EC;border:1px solid var(--line)}
+  .dev.rev .txt{order:-1}
+  @media (max-width:760px){.dev{grid-template-columns:1fr}.dev.rev .txt{order:0}}
+  .dev h3{font-family:"Barlow Semi Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em;font-size:24px;margin:0 0 6px}
+  .wide{width:100%;background:#F4F3EC;border:1px solid var(--line);display:block}
+  .note{background:var(--surface);border-left:4px solid var(--accent);padding:12px 16px;margin:18px 0;max-width:780px}
+  .kits{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line)}
+  .kits th,.kits td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+  .kits th{font-family:"Barlow Semi Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em;font-size:15px}
+  a{color:var(--accent)}
+  footer{margin-top:60px;background:var(--head);color:#B9B69F;padding:26px 0 calc(26px + env(safe-area-inset-bottom,0px));font-size:14px}
+  footer .wrap{display:flex;justify-content:space-between;gap:16px;flex-wrap:wrap}
+  footer a{color:var(--on-head)}
+  footer nav{display:flex;gap:16px;flex-wrap:wrap}
+
+  main.page{max-width:760px;margin:0 auto;padding:30px 16px 20px}
+  main.page h1{font-family:"Barlow Semi Condensed",sans-serif;text-transform:uppercase;letter-spacing:.07em;font-size:32px;margin:0 0 12px}
+  main.page h2{font-size:18px;margin:26px 0 6px}
+  em{background:#f3d27a55;font-style:normal;padding:0 3px}
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand cond" href="/">Flugbahn</a><nav class="links"><a href="/app/">App</a></nav></div></header>
+<main class="page">
+<h1>Impressum</h1>
+<p>Angaben nach § 5 DDG (Digitale-Dienste-Gesetz)</p>
+<p><em>[Vorname Nachname]</em><br><em>[Straße Hausnummer]</em><br><em>[PLZ Ort]</em><br>Deutschland</p>
+<h2>Kontakt</h2>
+<p>E-Mail: <em>[Kontaktadresse eintragen]</em></p>
+<h2>Umsatzsteuer</h2>
+<p><em>[Falls vorhanden: Umsatzsteuer-ID nach § 27a UStG. Als Kleinunternehmer nach § 19 UStG diesen Abschnitt löschen.]</em></p>
+<h2>Verantwortlich für den Inhalt</h2>
+<p><em>[Vorname Nachname, Anschrift wie oben]</em></p>
+<h2>Verbraucherstreitbeilegung</h2>
+<p>Wir sind nicht bereit und nicht verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+<h2>Haftung für Rechenwerte</h2>
+<p>Flugbahn liefert berechnete Werte. Sie ersetzen nicht die Überprüfung am Schießstand. Die geltenden Waffen-, Jagd- und Funkvorschriften sind einzuhalten.</p>
+</main>
+<footer><div class="wrap"><span>© 2026 Flugbahn</span><nav><a href="/app/handbuch.html">Handbuch</a><a href="/app/datenschutz.html">Datenschutz</a><a href="/impressum.html">Impressum</a></nav></div></footer>
+</body>
+</html>
