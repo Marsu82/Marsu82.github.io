@@ -23,7 +23,7 @@
 :root{
   --bg:#D6D2BC; --surface:#E7E4D2; --surface-2:#DCD8C2; --ink:#1C2116; --muted:#545A43; --line:#ADA88C;
   --accent:#4B5320; --accent-ink:#F0EDDA; --accent-soft:#C6C8A2;
-  --hold:#B0261C; --good:#3D5A1E; --warn:#8A5600; --warn-soft:#E9D9AE; --crit:#A3241A; --crit-soft:#EBC9BF;
+  --hold:#B0261C; --good:#3D5A1E; --warn:#7A4B00; --warn-soft:#E9D9AE; --crit:#A3241A; --crit-soft:#EBC9BF;
   --head:#2E3320; --head-ink:#E7E4D2; --head-accent:#C9B57E; --head-accent-ink:#151208;
   --font-display:"Barlow Semi Condensed","Arial Narrow",Arial,sans-serif;
   --font-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
@@ -45,7 +45,7 @@
   color-scheme:dark}
 /* Rotlicht: erhält die Dunkeladaption der Augen */
 :root[data-mode="red"]{
-  --bg:#000000; --surface:#070000; --surface-2:#110100; --ink:#E8291C; --muted:#9A1C12; --line:#3A0A05;
+  --bg:#000000; --surface:#070000; --surface-2:#110100; --ink:#E8291C; --muted:#C42317; --line:#3A0A05;
   --accent:#FF3524; --accent-ink:#000000; --accent-soft:#2A0503;
   --hold:#FF7A40; --good:#E8291C; --warn:#FF5A24; --warn-soft:#240402; --crit:#FF7A40; --crit-soft:#2A0503;
   --head:#000000; --head-ink:#E8291C; --head-accent:#FF3524; --head-accent-ink:#000000;
@@ -68,6 +68,8 @@ select option,select optgroup{background:var(--surface);color:var(--ink)}
 .pnav{position:sticky;top:var(--pnav-top,0px);z-index:3;display:flex;gap:6px;overflow-x:auto;padding:8px 2px;margin:0 0 6px;background:var(--bg);scrollbar-width:none}
 .pnav::-webkit-scrollbar{display:none}
 .panel.pane-profil{overflow:clip}
+:root[data-mode="red"] .top .tabs button{opacity:1}
+.out .hint{color:var(--ink)}
 .pnav-b{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 13px "Barlow Semi Condensed",sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;cursor:pointer}
 .pnav-b:hover,.pnav-b[aria-current]{border-color:var(--accent);background:var(--accent);color:var(--surface)}
 .top .btn.primary{background:var(--head-accent);color:var(--head-accent-ink);border-color:var(--head-accent)}
@@ -2004,7 +2006,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 6a72df8717</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · e0ed1cd353</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -4524,13 +4526,14 @@ function backupReminder() {
     $("import-no").onclick = done;
   } catch (e) {}
 }
+const NEWS_EN = {"Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen": "Search now finds functions too: type e.g. “target” or “sensor” and jump there", "Sprungleiste im Reiter Profil": "Section bar on the Profile tab", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)": "18 WWII riflescopes with range drum (Profile → Riflescope, group “Historisch (2. Weltkrieg)”)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)": "70 slugs and 31 shotshells with maker data (Extras → Shotgun)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser": "2,600+ factory loads: new incl. Winchester and Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)": "Shotgun: shot, pattern, lead, danger zone and slugs (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden": "Wireless ammo-box sensor: Shot → Corrections → Connect sensor", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl": "New profile now via “+ New” below the profile picker", "Scheibe direkt bei „Trefferbild per Foto“ wählbar": "Target face selectable right in “Group from photo”", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)": "Group from photo: holes are found automatically (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch": "Automatic MV and BC truing from the shot log", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“": "Voice control 🎤: “distance 650, wind 3 from 9 o'clock”"};
 function showNews() {
   let seen = ""; try { seen = localStorage.getItem("flugbahn.news") || ""; } catch (e) { return; }
   if (seen === NEWS.v) return;
   try { localStorage.setItem("flugbahn.news", NEWS.v); } catch (e) {}
   if (!seen && !localStorage.getItem("flugbahn.intro")) return;   // Neue Nutzer sehen die Einführung
   const more = NEWS.items.length - 8;
-  $("import-txt").innerHTML = `<b>Neu in Flugbahn:</b> ${NEWS.items.slice(0, 8).map(i => `<span>${escapeHtml(i)}</span>`).join(" · ")}${more > 0 ? ` <small>(${LANG === "en" ? `and ${more} more, see the manual` : `und ${more} weitere, siehe Handbuch`})</small>` : ""}`;
+  $("import-txt").innerHTML = `<b>${LANG === "en" ? "New in Flugbahn:" : "Neu in Flugbahn:"}</b> ${NEWS.items.slice(0, 8).map(i => `<span>${escapeHtml(LANG === "en" ? NEWS_EN[i] || i : i)}</span>`).join(" · ")}${more > 0 ? ` <small>(${LANG === "en" ? `and ${more} more, see the manual` : `und ${more} weitere, siehe Handbuch`})</small>` : ""}`;
   $("import-yes").hidden = true; $("import-no").textContent = "OK";
   $("import-banner").hidden = false;
   $("import-no").onclick = () => { $("import-banner").hidden = true; $("import-yes").hidden = false; $("import-no").textContent = "Verwerfen"; };
@@ -4982,7 +4985,7 @@ function initGps() {
 function renderLadder() {
   const tb = $("ld-rows"); if (!tb) return;
   const rows = state.ladder;
-  tb.innerHTML = rows.map((r, i) => `<tr><td><span class="inp"><input data-ld="${i}:c" inputmode="decimal" value="${r.c != null ? fmtIn(r.c) : ""}"></span></td><td><span class="inp"><input data-ld="${i}:v" inputmode="decimal" value="${r.v != null ? fmtIn(r.v) : ""}"></span></td><td><span class="inp"><input data-ld="${i}:y" inputmode="decimal" value="${r.y != null ? fmtIn(r.y) : ""}"></span></td></tr>`).join("");
+  tb.innerHTML = rows.map((r, i) => `<tr><td><span class="inp"><input data-ld="${i}:c" inputmode="decimal" aria-label="${tr(`Zeile ${i + 1}: Ladung`, `Row ${i + 1}: charge`)}" value="${r.c != null ? fmtIn(r.c) : ""}"></span></td><td><span class="inp"><input data-ld="${i}:v" inputmode="decimal" aria-label="${tr(`Zeile ${i + 1}: Geschwindigkeit`, `Row ${i + 1}: velocity`)}" value="${r.v != null ? fmtIn(r.v) : ""}"></span></td><td><span class="inp"><input data-ld="${i}:y" inputmode="decimal" aria-label="${tr(`Zeile ${i + 1}: Treffpunkt Höhe`, `Row ${i + 1}: vertical impact`)}" value="${r.y != null ? fmtIn(r.y) : ""}"></span></td></tr>`).join("");
   const ok = rows.filter(r => r.c > 0 && r.v > 0).sort((a, b) => a.c - b.c), out = $("ld-out");
   if (ok.length < 3) { out.innerHTML = `<dt>${tr("Auswertung", "Analysis")}</dt><dd>${tr("mindestens 3 Ladungen mit Geschwindigkeit", "at least 3 charges with velocity")}</dd>`; $("ld-svg").innerHTML = ""; return; }
   let best = null;
@@ -6157,6 +6160,11 @@ function initProfilNav() {
   });
 }
 try { initProfilNav(); } catch (e) { console.error("initProfilNav", e); }
+// Breite Tabellen per Tastatur scrollbar machen (Barrierefreiheit)
+(function () {
+  const fix = () => document.querySelectorAll(".twrap:not([tabindex])").forEach(el => { el.tabIndex = 0; el.setAttribute("role", "region"); if (!el.getAttribute("aria-label")) el.setAttribute("aria-label", tr("Tabelle, seitlich scrollbar", "Table, scrolls sideways")); });
+  fix(); new MutationObserver(() => fix()).observe(document.body, { childList: true, subtree: true });
+})();
 // Direktlink: ?go=<Stichwort oder Feld-ID> springt nach dem Laden dorthin (z. B. ?go=scheibe, ?go=flinte)
 (function () {
   let q = ""; try { q = (new URLSearchParams(location.search).get("go") || "").trim().toLowerCase(); } catch (e) {}
