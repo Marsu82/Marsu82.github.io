@@ -2151,7 +2151,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 74a1ab89df</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 22abaf78b6</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button><button class="btn" type="button" id="news-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Neuigkeiten anzeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -2164,7 +2164,7 @@ function buildProfileForm() {
     <p class="hint" style="margin:0">Geschoss-BCs von den Herstellerseiten (Hornady, Sierra, Berger, Lapua, Nosler, Barnes, Norma, RWS, Geco, Sako, Swift, Cutting Edge, Lehigh), Fabrikladungen von Hornady, Norma, Barnes, RWS, Geco, Sako, Lapua und Nosler, einzelne Ladungen nach Händlerangabe (Frankonia), Stand 11/2026. Turmrichtungen der Zielfernrohre nach Hersteller- und Händlerangaben (u. a. Optics-Trade, Frankonia), teils nach Markenkonvention. Physik: Punktmasse-Modell, G1/G7-Standardtabellen, Drall-Abdrift und aerodynamischer Sprung nach Litz, Stabilität nach Miller.</p>
     <p class="sec-t" style="margin-top:12px">Hinweis</p>
     <p class="hint" style="margin:0">Flugbahn liefert Rechenwerte. Ergebnisse vor dem Einsatz am Schießstand überprüfen. Die geltenden Waffen- und Jagdgesetze sind einzuhalten.</p>
-    <p class="hint" id="about-links" hidden><a href="handbuch.html" id="lnk-manual">Handbuch</a> · <a href="datenschutz.html">Datenschutzerklärung</a></p>
+    <p class="hint" id="about-links" hidden><a href="handbuch.html" id="lnk-manual">Handbuch</a> · <a href="datenschutz.html" id="lnk-privacy">Datenschutzerklärung</a></p>
   </div></details>
   <div class="store">Profile und Eingaben werden nur in diesem Browser gespeichert.</div>`;
   host.innerHTML = html;
@@ -4896,7 +4896,7 @@ $("dsf-apply").addEventListener("click", () => {
 });
 $("intro-again").addEventListener("click", showIntro);
 $("news-again").addEventListener("click", () => newsBanner(true));
-if (LANG === "en" && $("lnk-manual")) { $("lnk-manual").href = "handbook.html"; $("lnk-manual").textContent = "Manual"; }
+if (LANG === "en" && $("lnk-manual")) { $("lnk-manual").href = "handbook.html"; $("lnk-manual").textContent = "Manual"; $("lnk-privacy").href = "privacy.html"; $("lnk-privacy").textContent = "Privacy policy"; }
 $("ex-btn").addEventListener("click", async () => {
   try { localStorage.setItem("flugbahn.lastExport", String(Date.now())); } catch (e) {}
   const txt = exportData(), msg = $("ex-msg");
