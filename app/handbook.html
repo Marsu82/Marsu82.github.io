@@ -1,0 +1,285 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Flugbahn – Manual</title>
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="fonts/fonts.css">
+<style>
+  :root{--bg:#D6D2BC;--surface:#E7E4D2;--ink:#1C2116;--muted:#545A43;--line:#ADA88C;--head:#2E3320;--acc:#C9B57E;--accent:#4B5320}
+  @media (prefers-color-scheme: dark){:root{--bg:#101209;--surface:#181B11;--ink:#DEDCC4;--muted:#8E9279;--line:#353B27;--head:#0A0C06;--accent:#C9B57E}}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 "IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+  header{background:var(--head);color:#E7E4D2;border-bottom:3px solid var(--acc);padding-block:calc(14px + env(safe-area-inset-top,0px)) 14px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+  header b{font-family:"Barlow Semi Condensed","Arial Narrow",sans-serif;letter-spacing:.14em;text-transform:uppercase;font-size:20px}
+  header a{color:#E7E4D2;font-size:14px}
+  main{max-width:760px;margin:0 auto;padding-block:20px 60px;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+  h1{font-family:"Barlow Semi Condensed","Arial Narrow",sans-serif;font-size:32px;letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px;text-wrap:balance}
+  h2{font-family:"Barlow Semi Condensed","Arial Narrow",sans-serif;font-size:21px;letter-spacing:.06em;text-transform:uppercase;margin:34px 0 8px;padding-top:10px;border-top:3px solid var(--accent);text-wrap:balance}
+  h3{font-size:16px;margin:18px 0 4px}
+  p,li{max-width:68ch}
+  ul,ol{padding-left:22px}
+  li{margin:3px 0}
+  .lead{color:var(--muted)}
+  nav.toc{background:var(--surface);border:1px solid var(--line);padding:12px 16px;margin:18px 0}
+  nav.toc ol{margin:0;columns:2;column-gap:24px}
+  @media (max-width:520px){nav.toc ol{columns:1}}
+  a{color:var(--accent)}
+  .tip{background:var(--surface);border-left:4px solid var(--accent);padding:10px 14px;margin:12px 0}
+  kbd{font-family:"IBM Plex Mono",ui-monospace,monospace;border:1px solid var(--line);padding:0 5px;font-size:14px}
+  small{color:var(--muted)}
+  .hs{position:sticky;top:0;z-index:2;background:var(--bg);padding:10px 0;margin:8px 0 0}
+  .hs input{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+  .hs input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  .hs small{display:block;margin-top:4px}
+  mark{background:var(--acc);color:#1C2116;padding:0;border-radius:2px}
+  .totop{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));background:var(--head);color:#E7E4D2;border:2px solid var(--acc);padding:10px 14px;font:600 14px "Barlow Semi Condensed",sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+  .totop[hidden]{display:none}
+</style>
+</head>
+<body>
+<header><b>Flugbahn</b><span><a href="handbuch.html" hreflang="de" lang="de" style="margin-right:14px">Deutsch</a><a href="./">Back to app</a></span></header>
+<main>
+  <h1>Manual</h1>
+  <p class="lead">Flugbahn is a ballistics calculator for the range and the hunting ground. This manual explains the tabs in order. After the first load, the app works offline.</p>
+
+  <div class="hs" role="search"><input id="hs-q" type="search" autocomplete="off" placeholder="Search the manual, e.g. suppressor, IPSC, stock" aria-label="Search the manual"><small id="hs-n" aria-live="polite"></small></div>
+  <nav class="toc" aria-label="Contents"><ol>
+    <li><a href="#start">Ready in five minutes</a></li>
+    <li><a href="#profil">Profile</a></li>
+    <li><a href="#schuss">Shot</a></li>
+    <li><a href="#ziele">Targets</a></li>
+    <li><a href="#tafel">Table</a></li>
+    <li><a href="#buch">Log</a></li>
+    <li><a href="#extras">Extras</a></li>
+    <li><a href="#geraete">Measuring devices and wind radar</a></li>
+    <li><a href="#historisch">Historical riflescopes</a></li>
+    <li><a href="#kurzwaffe">Handguns</a></li>
+    <li><a href="#stand">Range tools</a></li>
+    <li><a href="#flinte">Shotgun</a></li>
+    <li><a href="#ki">AI and assistants</a></li>
+    <li><a href="#abgleich">Truing</a></li>
+    <li><a href="#anzeige">Display and controls</a></li>
+    <li><a href="#daten">Data and backup</a></li>
+  </ol></nav>
+
+  <h2 id="start">Ready in five minutes</h2>
+  <ol>
+    <li>Open <b>Profile</b> and search for your load under <i>Factory ammunition</i>, for example “308 175”. For handloads, pick the bullet from the list instead and enter the V0.</li>
+    <li>Under <i>Riflescope</i>, choose your model. Flugbahn takes over the click value, direction of rotation and focal plane. Check the direction of rotation once against the arrow on your turret.</li>
+    <li>Enter the sight height (centre of scope to centre of bore) and the zero distance.</li>
+    <li>In the <b>Shot</b> tab, enter distance, wind and weather. The solution shows clicks and direction of rotation.</li>
+    <li>After your first shots at 300 to 600 m, true the V0 (see <a href="#abgleich">Truing</a>).</li>
+  </ol>
+  <div class="tip">The results are calculated values. Always check them at the range before you rely on them in the field.</div>
+
+  <h2 id="profil">Profile</h2>
+  <p><b>More settings:</b> Rarely used fields (turret factor, reticle subtension, adjustment range, canted mount, rifle weight, powder charge, cold bore, suppressor) are folded away under “More settings” in the Riflescope and Rifle sections. If a value there differs from the default, the heading shows “n changed”. The search at the top also jumps straight to these fields.</p>
+  <p class="tip"><b>Creating a new profile:</b> tap <b>“+ New”</b> at the top below the profile selector. The app copies the current profile, jumps to the Profile tab and selects the name. Overwrite the name, then search for your load under <i>Factory ammunition</i> and choose your scope under <i>Riflescope</i>. Everything is saved automatically.</p>
+  <h3>Bullet and drag</h3>
+  <ul>
+    <li><b>Factory ammunition</b> sets bullet, BC and manufacturer V0. The V0 applies to the manufacturer’s test barrel. From shorter barrels it is lower.</li>
+    <li><b>Single BC (G1/G7):</b> G7 suits modern boat-tail bullets, G1 flat-base and hunting bullets.</li>
+    <li><b>Multiple BCs by velocity:</b> for manufacturers that publish stepped BCs. For Hornady, Flugbahn takes over the three values automatically.</li>
+    <li><b>Custom drag curve:</b> value pairs Mach;Cd, for example from Doppler measurements, as text or a CSV file.</li>
+  </ul>
+  <h3>Riflescope</h3>
+  <ul>
+    <li>The direction “up” is given as seen from above onto the elevation turret, “R” as seen onto the cap of the windage turret.</li>
+    <li>For reticles in the <b>2nd focal plane</b>, enter the magnification at which the subtension is correct. Then choose the magnification you have set in the Shot tab.</li>
+    <li><b>Reticle subtension</b> separate from the turret: for scopes with a MOA turret and a MRAD reticle.</li>
+    <li>Enter the <b>adjustment range</b> and canted mount, and Flugbahn warns you when the turret runs out.</li>
+  </ul>
+  <h3>Rifle, zero, hunting</h3>
+  <ul>
+    <li><b>Point of impact there:</b> if you zero 4 cm high at 100 m, enter +4.</li>
+    <li><b>GEE and MPBR:</b> Flugbahn calculates the optimum zero distance (GEE, günstigste Einschussentfernung) for your vital zone and applies it at the press of a button.</li>
+    <li><b>Zeroing aid:</b> tap the group on the target, Flugbahn tells you the clicks.</li>
+    <li><b>Hunting:</b> minimum energy and minimum velocity give the hunting limit. The E100 check under § 19 BJagdG (German Federal Hunting Act) is in the same section.</li>
+    <li><b>Suppressor and cold bore:</b> enter the offset once, then switch it on and off in the Shot tab under <i>Corrections</i>.</li>
+  </ul>
+
+  <h2 id="schuss">Shot</h2>
+  <p><b>Quick input (phone):</b> Above the solution there is a bar with distance (− / +), wind speed and wind direction as a clock position. It is linked to the fields further down and stays above the solution while you scroll. A direction that does not match a full hour is shown in degrees.</p>
+  <ul>
+    <li><b>Distance</b> via field, slider, quick select or ±50.</li>
+    <li><b>Wind:</b> tap or drag the wind clock (12 o’clock = from the target). Estimate the speed from the signs or enter it as a compass direction. For changing wind, use three zones.</li>
+    <li><b>Weather:</b> measured values or density altitude from the Kestrel. “Load Kestrel CSV” takes the latest measurement from an export. In the installed app, “Load weather” fetches the values for your location.</li>
+    <li><b>Solution:</b> elevation and windage with clicks and direction of rotation. The reticle shows the hold, the target size and, if you like, the holds for all targets.</li>
+    <li><b>Follow-up correction:</b> enter where the hit landed in the reticle, Flugbahn tells you the new adjustment.</li>
+    <li><b>Field mode:</b> large numbers and buttons, suitable for gloves and red light. <i>Read aloud</i> announces the solution.</li>
+  </ul>
+
+  <h2 id="ziele">Targets</h2>
+  <p>For gong courses and several high-seat distances. Each target gets elevation, windage and a hit probability. The probability takes into account target size, group size and uncertainty in wind, distance and V0. With <i>Target series</i> you create a whole series at once.</p>
+
+  <h2 id="tafel">Table</h2>
+  <ul>
+    <li><b>Dope table</b> with drop, clicks, drift, velocity and energy. <i>Compact</i> shows only the essentials in large text.</li>
+    <li><b>Wind table:</b> windage clicks for different wind speeds per distance.</li>
+    <li><b>Compare profiles:</b> up to four profiles side by side. In the chart, a comparison profile can be shown as a second line.</li>
+    <li><i>Copy as text</i> for sending. In the installed app the table can be printed.</li>
+  </ul>
+
+  <h2 id="buch">Log</h2>
+  <p><b>Ammo stock:</b> Enter the profile’s current stock below the shot counter. Every shot in the counter (including from the shot log, microphone counter and session) is subtracted from it. With “Warn below”, a notice appears in the Shot tab when you run low; the packing list shows the stock as well. After buying, simply enter the new stock.</p>
+  <ul>
+    <li><b>Shot counter</b> per profile with cleaning reminder.</li>
+    <li><b>Shot log:</b> enter the point of impact after the shot. Statistics and the impact chart show whether the elevation is right on average. “True V0” transfers an entry straight into truing.</li>
+    <li><b>Harvest log</b> for game taken, with CSV export.</li>
+  </ul>
+
+  <h2 id="extras">Extras</h2>
+  <p><b>Overview:</b> The tools are sorted into seven groups (Wind, Measure &amp; true, Groups &amp; loads, Range &amp; match, Handgun &amp; shotgun, Hunting &amp; terrain, Calculate &amp; print). The group buttons at the top filter, and the search field also finds tools by words in their content. Tapping a heading opens or closes a tool; the app remembers which ones are open. “Close all” tidies up. Jumps from the search in the header open the matching tool by themselves.</p>
+  <p>Chronograph analysis, group size calculator, powder temperature table, angle table for the high seat, light and hunting times with moon phase, click value test, BC from two velocities, twist calculator, maximum range, stage timer, wind from flag angle (also by camera), turret tape and credit-card-sized range card for printing, unit converter, distance by GPS, ladder test for handloading, spotter pairing, magazine statistics, PRS stage planner and wind reading trainer.</p>
+  <p><small>The tools in Extras and the shot log always calculate in metric.</small></p>
+
+  <h2 id="geraete">Measuring devices and wind radar</h2>
+  <p>Under <b>Shot → Connect device</b> you pair the Flugbahn handheld, a weather station or the radio bridge via Bluetooth. Weather, wind and ammunition temperature are then taken over continuously, and the solution is sent back to the device.</p>
+  <ul>
+    <li><b>Wind radar:</b> shows all wind stations along the range (up to six via the radio bridge) and calculates the <i>effective crosswind</i> for the whole trajectory. Wind close to the shooter counts more. It also shows the history of the last few minutes, a forecast for the next 10 seconds and the notice “Wind calm – shoot now”.</li>
+    <li><b>Multiple shooters:</b> Each hit detector sits on <i>one</i> target and reports its number (1–8). In the range list (Targets tab) you give each shooter their target number. Each hit then shows the name, e.g. “Target 3 · Max: 5”. If two shooters fire at <i>different</i> targets at the same time, every hit is assigned correctly. If two fire at the <i>same</i> target, the detector cannot tell them apart: in that case use separate targets or take turns.</li>
+    <li><b>Shot sensor (who hit?):</b> A small sensor on the rail of each rifle reports the time of the shot. In the range list under “Shot sensor”, tap “connect”. The app compares shot time + time of flight with the time of the hit and writes to the log “Hit target 2 – Anna (time of flight 0.88 s)”, “No hit – Max” or “wrong target!”. This is unambiguous if shots at the same target are at least about 0.3 s apart. Hit detectors and bridge need firmware 0.4.0 for this.</li>
+    <li><b>Session:</b> Under <i>Targets → Session</i>, “Start session”. The app counts hits, misses, hit rate and average cant for each shooter. Automatically with hit detectors and shot sensors, otherwise by hand with “+ Hit” / “+ Miss”. “End session” saves it, “Share results” sends the text, e.g. to a WhatsApp group.</li>
+    <li><b>Cant:</b> The shot sensor measures how tilted the rifle is held just before the shot. Lay all rifles down level and tap “Zero cant”. After that, the log reports every shot with more than 1° of cant. At 600 m, 2° shifts the point of impact by about 10 cm sideways.</li>
+    <li><b>Hit detector:</b> Steel targets with a wireless hit detector appear below the wind radar. Every hit beeps and vibrates.</li>
+    <li><b>Barrel thermometer:</b> If the ammunition sensor sits in a clip on the barrel, choose “Sensor on barrel”. The app warns from the temperature you have set.</li>
+    <li>Without devices, the wind radar works with the wind zones you enter by hand.</li>
+  </ul>
+
+  <h3 id="uebertragung">How the data gets to your phone</h3>
+  <ol>
+    <li><b>Bluetooth (up to approx. 10–30 m):</b> Handheld, weather station, radio bridge and wireless sensor connect directly to the phone. In the app, tap “Connect device” (or “Connect sensor”), Android shows the Flugbahn devices found, pick one. Pairing in the Android settings is not needed. It requires Chrome or Edge; on the iPhone, the Bluefy browser.</li>
+    <li><b>What is transmitted:</b> Each device sends its readings as a short line of text, the handheld every second, the wireless sensor every 5 s. Example: <kbd>{"t":14.2,"p":987.4,"h":61,"wa":3.1,"wd":90,"at":21.4,"bat":80}</kbd> = air 14.2 °C, pressure 987.4 hPa, humidity 61 %, wind 3.1 m/s from 3 o’clock, ammunition 21.4 °C, battery 80 %. You choose which values the app takes over with the ticks below the button. It recalculates at most every 2 s.</li>
+    <li><b>LoRa radio along the range (up to 1200 m):</b> Bluetooth does not reach that far. The stations along the range and the hit detectors at the target therefore send a small packet every 2 s on 868 MHz (licence-free in the EU) to the radio bridge at the shooter. The bridge collects up to 6 wind zones and 8 targets and passes everything to the phone in one message via Bluetooth. The app shows missing packets as packet loss.</li>
+    <li><b>Back to the device:</b> The app sends the firing solution (elevation, windage, clicks, direction of rotation) to the handheld. It then also appears on its display.</li>
+    <li><b>Ammunition sensor:</b> plugged into the handheld by cable, the temperature then travels with its data. Or the <b>wireless sensor</b> with its own battery: <i>Shot → Corrections → “Connect sensor”</i>. It sends temperature and battery level every 5 s and goes to sleep after 10 minutes without a connection.</li>
+  </ol>
+  <p class="tip">There is no cloud and no account. The readings only travel between your own devices and are never uploaded anywhere.</p>
+
+  <h2 id="historisch">Historical riflescopes</h2>
+  <p>Under <b>Profile → Riflescope</b> there is the group <b>“Historical (WWII)”</b> with 18 scopes: German (Zielvier, Dialytan, Ajack, ZF41, ZF4), Soviet (PE, PEM, PU), American (M73B1, M81/M82, M84, Unertl), British (No. 32) and Japanese (Type 97, Type 99).</p>
+  <ul>
+    <li><b>Range drum:</b> Instead of clicks, many of these scopes have a drum with range marks, graduated for a particular cartridge (e.g. 7.92×57 s.S. or 7.62×54R light ball 1908). In the elevation display the app shows which mark to set the drum to with <i>your</i> ammunition, e.g. “Set drum to 4.3”. If the drum does not go far enough, it tells you how much to hold over. Set the zero on the smallest mark (usually 100 m).</li>
+    <li><b>Reticle:</b> “post” (pointed post with crossbar, Zielstachel), “post with crosshair” and “fine crosshair”. Hold with the tip or the centre respectively.</li>
+    <li><b>Windage:</b> On many German scopes, only the armourer set the windage. In that case, hold off for wind in the reticle.</li>
+    <li><b>Sources and gaps:</b> Each scope states where the data comes from and what is not documented (e.g. click values of American scopes). Check missing values with the click value test.</li>
+  </ul>
+
+  <h2 id="kurzwaffe">Handguns</h2>
+  <p><b>BDS disciplines in the shot timer</b> (Extras → Handgun &amp; shotgun → Shot timer, group “BDS-Sportordnung”). Times and shot counts follow the BDS (Bund Deutscher Sportschützen) handgun sport manual (Sporthandbuch Kurzwaffen):</p>
+  <ul>
+    <li><b>25 m precision (Präzision)</b> (K 3.03): 10 shots in 5 minutes.</li>
+    <li><b>25 m interval (Intervall)</b>: 7 s lead-in, then five times 3 s shooting time (high tone) and 7 s pause (low tone). The app shows each window; more than one shot in a window is reported as a disqualification, as is a shot outside a window.</li>
+    <li><b>25 m timed series (Zeitserie)</b>: 5 shots in 20 s or 10 s after a 7 s lead-in; shots after time is up are marked.</li>
+    <li><b>Multi-distance (Mehrdistanz)</b> (K 4.06–4.08): skills (Fertigkeit) 5 shots in 10 s per position; course (Parcours) 20 shots with a target time of 80 s (variant 1) or 60 s pistol / 70 s revolver (variant 2). For each full second over, the app shows the ring deduction. Random lead-in of 3–7 s.</li>
+    <li><b>Falling plates (Fallscheiben)</b> (K 5): 5 plates in at most 1 minute. <b>Speed</b> (K 6): 5 plates, one shot each, 1 minute.</li>
+  </ul>
+  <p><b>Rifle and shotgun</b> (group “BDS Büchse und Flinte”, following the BDS long gun sport manual, Sporthandbuch Langwaffen): precision 10 shots in 10 min (50/100/300 m), timed series 5 shots in 40, 30 and 20 s, symbol target 4 shots in 10 s, skills 10 shots in 40 s with magazine change, interval 50/100 m with five times 8 s shooting time and 12 s pause (shots during the pause are extra shots; the app tells you how many best hits are deducted), multi-distance skills 5 shots in 15 s and course with a target time of 70 s or 50 s, rifle falling plates with at most 8 shots in one minute.</p>
+  <p><b>Series scoring:</b> After the series, tap in the rings for each shot (e.g. “10 9 9 8 10”). For extra shots, late shots or an exceeded maximum, the app deducts the corresponding number of best hits, and for course disciplines one ring for each full second over the target time. “Save series” stores the result in the exercise history (curve, average, best score; the last 30 series).</p>
+  <p>Best times are only saved if the series complied with the rules. The app does not replace a range officer: it hears bangs, including those from the neighbouring lane; if so, lower the sensitivity.</p>
+  <p>Under <b>Profile → Rifle → Weapon type</b>, choose “Handgun (iron sights, red dot)”. The solution then shows the <b>hold at the target in cm</b> instead of clicks, e.g. “Hold 4 cm higher, 3 cm right”. If you choose a handgun cartridge (9 mm Luger, .45 ACP, .40 S&amp;W, 10 mm, .380, .38 Special, .357 Magnum, .44 Magnum, 9×21, .357 SIG, .32 S&amp;W Long), the app switches the profile over by itself: sight height 18 mm, zero 25 m.</p>
+  <ul>
+    <li><b>Barrel length:</b> Handgun velocities depend heavily on barrel length. Enter your barrel length, and the app converts the manufacturer’s figure.</li>
+    <li><b>BC:</b> Most manufacturers do not give a BC for handgun ammunition. The app then estimates it from weight and calibre and notes this in the notes. True it at 25 and 50 m.</li>
+    <li><b>Targets:</b> ISSF/DSB 25 m precision and duel, 10 m air pistol, 50 m pistol; BDS Z9, Z20, Z10, Z15 and falling plates Z12 (150/200 mm); IPSC target and IPSC mini (scoring minor 5/3/1, major 5/4/2); NRA B-8 (25 yd), B-6 (50 yd), B-16, B-2 (50 ft); dot torture dot. The IPSC target and IPSC mini are entered true to size according to the BDS IPSC handgun rules (BDS-Sportordnung IPSC-Kurzwaffe, Appendix B2/B3), including the non-scoring border (0.5 and 0.3 cm respectively): a hole only in the border counts as a miss; if it touches the scoring area, it counts. Falling plates (15 cm small-bore, 20 cm large-calibre, each at 25 m) and the speed target Z10 have been checked against the BDS handgun sport manual. The NRA targets and the dot torture dot still come from secondary sources.</li>
+    <li><b>Shot timer</b> (Extras): start signal immediately, after 3 s or randomly after 2–4 s, then the microphone detects every shot. Display: first shot, splits, total time, par time signal and, with points, the hit factor. Drills such as Bill Drill, El Presidente, Mozambique, 5 × 5 and duel series; each one remembers its best time.</li>
+    <li><b>Sight correction</b> (Extras): enter point of impact, distance and sight radius, and the app tells you by how many millimetres (or clicks) to move the rear or front sight.</li>
+    <li><b>Error analysis</b> (Extras): evaluates the tapped hits and matches their position to the classic error target, e.g. “7:30: trigger jerked”. For left- and right-handers.</li>
+  </ul>
+
+  <h2 id="stand">Range tools</h2>
+  <p><b>Packing list</b> (Extras → Range &amp; match): templates for sport shooting, hunting and competition; your own items are added and apply to all templates. The ticks stay saved until you tap “Clear all ticks”.</p>
+  <ul>
+    <li><b>Wind from the hit:</b> enter the hit’s offset, and the app works back to the actual effective crosswind and applies it.</li>
+    <li><b>Training programmes:</b> cold shot, 5 shots in 60 s, position change, distance ladder from the target list, dry fire – with voice announcements and timer.</li>
+    <li><b>Load comparison:</b> up to three factory loads as a drop curve and table (drop, energy, wind).</li>
+    <li><b>Match:</b> stages from the PRS planner, points per shooter, ranking, stage timer with announcements, sharing.</li>
+    <li><b>Chronograph:</b> your own chronograph via Bluetooth; every shot goes into the V0 analysis.</li>
+  </ul>
+
+  <h2 id="flinte">Shotgun</h2>
+  <p>Under <b>Extras → Shotgun</b> you choose shot material, shot size, load, velocity, choke and game species. For each distance, the table shows velocity and energy per pellet, the pattern diameter, the expected hits in the kill zone and the lead. From this you can see up to what distance the shot makes sense, and the danger area.</p>
+  <ul>
+    <li><b>Steel shot:</b> notes on size, lead ban and choke. With 3/4 or full choke and steel, the app warns you.</li>
+    <li><b>Pattern by photo:</b> Under <i>Group by photo</i>, tick “Count shot pattern”. Then tap the centre and the edge of the 75 cm circle, and the app counts the pellets in the circle.</li>
+    <li><b>Slug:</b> “Create as profile” creates a profile with typical values for the slug type. After that, all rifle functions work. Enter the values from the box and true them.</li>
+  </ul>
+
+  <h2 id="ki">AI and assistants</h2>
+  <p>Everything runs on the device and without a network, except the optional coach.</p>
+  <ul>
+    <li><b>Voice:</b> 🎤 on the solution, then e.g. “Distance 650, wind 3 from 9 o’clock, temperature minus 4”. 🔊 announces the correction, with “auto” on every change.</li>
+    <li><b>Group by photo</b> (Extras): photograph the target straight on, tap the centre and the edge of the outermost ring. The holes are found. Tap wrong ones to remove them, tap missing ones to add them. Then transfer them to the group.</li>
+    <li><b>Automatic truing</b> (Extras): searches all shot log entries for the V0 and BC that match your real hits, with an indication of accuracy. The more entries at different distances, the better.</li>
+    <li><b>Ammunition by photo:</b> photograph the label on the box, choose matching loads. The text recognition downloads the first time (approx. 5 MB).</li>
+    <li><b>Flags by camera:</b> under “Wind from flag”, either “Measure live” (tap mast and flag) or “Detect automatically” (red or yellow flags are found by themselves).</li>
+    <li><b>Anomalies:</b> finds outliers, a dropping V0, magazines with many malfunctions and cleaning that is due.</li>
+    <li><b>Shot counter by microphone:</b> counts shots and estimates the distance from the sound of the hit on steel.</li>
+    <li><b>Mirage</b> (experimental): phone on the spotting scope, shows which way the shimmer is moving.</li>
+    <li><b>AI coach</b> (optional, online): needs your own API key from Anthropic; costs are charged to that account. A daily limit and usage display protect you from surprises.</li>
+  </ul>
+
+  <h2 id="abgleich">Truing</h2>
+  <p>The <i>truing assistant</i> in Extras guides you through the steps. It is quicker with <i>automatic truing</i> from the shot log (see <a href="#ki">AI and assistants</a>).</p>
+  <ol>
+    <li><b>Check the zero:</b> correct the mean point of impact at the zero distance.</li>
+    <li><b>V0:</b> measure it with a chronograph or work it back from the elevation correction actually needed at 300 to 600 m (Profile → True V0).</li>
+    <li><b>BC:</b> only after that, with a hit far out near transonic (Profile → True BC), or from two measured velocities.</li>
+    <li><b>Click value:</b> tall target test. The measured turret factor is applied to all clicks.</li>
+  </ol>
+
+  <h2 id="anzeige">Display and controls</h2>
+  <p><b>Text size:</b> Under Options, choose “Text: large” (115 %) or “extra large” (130 %). The whole interface is enlarged, including buttons and targets; tapping on the target stays accurate. On very narrow phones, the app only enlarges as far as it can without cutting anything off. The setting applies to this device.</p>
+  <p><b>Colour schemes:</b> Under <i>Options → Colours</i>, there are eight schemes besides Olive: Flecktarn, Desert/Coyote, Ranger Green, Navy Grey, Tactical Black, Hunting (loden with blaze orange), Sport (blue/yellow) and Black-Red-Gold. Each has a day and a night variant and follows the Day/Night/Auto setting. Red light mode always stays red.</p>
+  <p class="tip"><b>Can’t find something?</b> Tap <b>“Search”</b> at the top (on a computer, the <kbd>/</kbd> key). The search finds ammunition, bullets, riflescopes <i>and</i> functions: “target”, “sensor”, “shotgun”, “backup”, “red light” and so on. Tapping a result jumps straight there. In the Profile tab, the bar at the top leads to every section.</p>
+  <p><b>Direct links:</b> <kbd>marsu82.github.io/app/?go=target</kbd> opens the app straight at the target. Instead of “target”, any search word works, e.g. <kbd>?go=shotgun</kbd>, <kbd>?go=sensor</kbd>, <kbd>?go=windradar</kbd>. Handy for showing someone else a particular place.</p>
+  <ul>
+    <li>Under <i>Options</i> (on a phone) or at the top right: day, night, red light or automatic by the position of the sun, large text, language German/English, units metric or imperial.</li>
+    <li><i>Keep display on</i> stops the screen from switching off.</li>
+    <li>On a computer: <kbd>↑</kbd>/<kbd>↓</kbd> distance, <kbd>←</kbd>/<kbd>→</kbd> wind direction, <kbd>+</kbd>/<kbd>−</kbd> wind speed, <kbd>F</kbd> field mode, <kbd>R</kbd> red light, <kbd>V</kbd> read aloud, <kbd>/</kbd> search, <kbd>?</kbd> help.</li>
+    <li>Jump directly with <code>#schuss</code>, <code>#ziele</code>, <code>#tafel</code>, <code>#buch</code>, <code>#extras</code>, <code>#profil</code>, <code>#feld</code> at the end of the address.</li>
+  </ul>
+
+  <h2 id="daten">Data and backup</h2>
+  <ul>
+    <li>Everything stays on your device. There is no account and no transfer to third parties.</li>
+    <li><b>Share profile:</b> code or QR code for a friend, who pastes it into their Flugbahn.</li>
+    <li><b>Back up data:</b> export profiles, bullets, targets, shot log and harvest log as a file and import them on a new device.</li>
+    <li>Bullet, ammunition and riflescope data come from manufacturer and retailer websites (as of 11/2026) and may change.</li>
+  </ul>
+  <p><small>Flugbahn provides calculated values. Applicable firearms and hunting laws must be observed.</small></p>
+</main>
+<a class="totop" id="totop" href="#" hidden>Back to top</a>
+<script>
+(() => {
+  // Search: show only matching paragraphs and list items, highlight matches
+  const q = document.getElementById("hs-q"), n = document.getElementById("hs-n"), main = document.querySelector("main");
+  const blocks = [...main.querySelectorAll("p, li, h2, h3, .tip")].filter(el => !el.closest(".hs, nav.toc"));
+  const orig = new Map(blocks.map(el => [el, el.innerHTML]));
+  const esc = t => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  let t = 0;
+  q.addEventListener("input", () => { clearTimeout(t); t = setTimeout(run, 120); });
+  function run() {
+    const v = q.value.trim(); blocks.forEach(el => { el.innerHTML = orig.get(el); el.hidden = false; }); main.querySelectorAll("ul, ol").forEach(l => { l.hidden = false; });
+    document.querySelector("nav.toc").hidden = !!v;
+    if (v.length < 2) { n.textContent = ""; return; }
+    const re = new RegExp(esc(v), "gi"); let hits = 0;
+    blocks.forEach(el => { const txt = el.textContent; if (/^H[23]$/.test(el.tagName)) return; const ok = re.test(txt); re.lastIndex = 0; el.hidden = !ok; if (ok) { hits++; mark(el, re); } });
+    // Show headings only if something was found below them
+    blocks.filter(el => el.tagName === "H3").forEach(h => { let x = h.nextElementSibling, any = false; while (x && !/^H[23]$/.test(x.tagName)) { if (!x.hidden && (x.matches("p,.tip") || x.querySelector("li:not([hidden])"))) any = true; x = x.nextElementSibling; } h.hidden = !any; });
+    blocks.filter(el => el.tagName === "H2").forEach(h => { let x = h.nextElementSibling, any = false; while (x && x.tagName !== "H2") { if (!x.hidden && (x.matches("p,.tip") || x.querySelector("li:not([hidden])"))) any = true; x = x.nextElementSibling; } h.hidden = !any; });
+    main.querySelectorAll("ul, ol").forEach(l => { if (l.closest("nav.toc")) return; l.hidden = !l.querySelector("li:not([hidden])"); });
+    n.textContent = hits ? (hits === 1 ? "1 match" : `${hits} matches`) : "No matches.";
+  }
+  function mark(el, re) { const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), list = []; while (w.nextNode()) list.push(w.currentNode);
+    list.forEach(tn => { const s = tn.nodeValue; if (!re.test(s)) { re.lastIndex = 0; return; } re.lastIndex = 0; const f = document.createDocumentFragment(); let last = 0; s.replace(re, (m, i) => { f.append(s.slice(last, i)); const mk = document.createElement("mark"); mk.textContent = m; f.append(mk); last = i + m.length; }); f.append(s.slice(last)); tn.replaceWith(f); }); }
+  // Back to top
+  const top = document.getElementById("totop");
+  addEventListener("scroll", () => { top.hidden = scrollY < 600; }, { passive: true });
+  top.addEventListener("click", e => { e.preventDefault(); scrollTo({ top: 0, behavior: "smooth" }); });
+})();
+</script>
+</body>
+</html>
