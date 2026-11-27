@@ -2,7 +2,7 @@
   "relation": ["delegate_permission/common.handle_all_urls"],
   "target": {
     "namespace": "android_app",
-    "package_name": "PAKETNAME_EINTRAGEN",
-    "sha256_cert_fingerprints": ["SHA256_FINGERPRINT_DES_SIGNIERSCHLUESSELS_EINTRAGEN"]
+    "package_name": "de.marsu82.flugbahn",
+    "sha256_cert_fingerprints": ["44:E7:35:46:31:B2:B9:B0:7A:15:87:48:A6:27:63:C4:23:8B:1E:CD:16:38:B4:84:41:5E:D9:9F:6C:C2:18:55"]
   }
 }]

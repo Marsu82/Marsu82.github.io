@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Flugbahn für Android</title>
+<meta name="robots" content="noindex">
+<style>
+  :root{--bg:#D6D2BC;--surface:#E7E4D2;--ink:#1C2116;--muted:#545A43;--line:#ADA88C;--accent:#4B5320;--on:#E7E4D2}
+  @media (prefers-color-scheme: dark){:root{--bg:#101209;--surface:#181B11;--ink:#DEDCC4;--muted:#8E9279;--line:#353B27;--accent:#C9B57E;--on:#101209}}
+  body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
+  main{max-width:640px;margin:0 auto;padding:24px 16px 48px}
+  h1{font-size:1.6rem;margin:.2em 0 .4em}
+  .btn{display:inline-block;background:var(--accent);color:var(--on);padding:14px 22px;border-radius:6px;font-weight:700;text-decoration:none;font-size:1.1rem}
+  .card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;margin:20px 0}
+  img{max-width:260px;width:100%;height:auto;background:#fff;border-radius:6px}
+  small,.muted{color:var(--muted)}
+  a{color:inherit}
+</style>
+</head>
+<body>
+<main>
+  <p><a href="../">← Flugbahn</a></p>
+  <h1>Flugbahn für Android (Testversion)</h1>
+  <p>Die App öffnet die Webversion als eigene App ohne Browserleiste. Inhalte aktualisieren sich automatisch über die Webseite.</p>
+  <p><a class="btn" href="flugbahn.apk" download>APK herunterladen</a> <small>(ca. 0,5 MB, Android 5 oder neuer)</small></p>
+  <div class="card">
+    <b>Installieren</b>
+    <ol>
+      <li>Auf <b>APK herunterladen</b> tippen. Chrome fragt eventuell, ob du die Datei behalten willst: <b>Trotzdem herunterladen</b>.</li>
+      <li>Die Datei öffnen. Android fragt nach der Erlaubnis, <b>Apps aus dieser Quelle</b> zu installieren: einmal erlauben.</li>
+      <li><b>Installieren</b> tippen. Play Protect warnt vielleicht, weil die App (noch) nicht aus dem Play Store kommt: <b>Trotzdem installieren</b>.</li>
+      <li>Flugbahn über das neue Symbol starten. Chrome muss auf dem Handy installiert sein.</li>
+    </ol>
+  </div>
+  <div class="card">
+    <b>Auf ein anderes Handy bringen</b>
+    <p>QR-Code mit der Kamera scannen:</p>
+    <img src="flugbahn-apk-qr.png" alt="QR-Code zum Herunterladen der Flugbahn-APK" width="624" height="774">
+  </div>
+  <p class="muted">Später gibt es die App im Play Store. Die Testversion kann dann einfach deinstalliert werden.</p>
+</main>
+</body>
+</html>
