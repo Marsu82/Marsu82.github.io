@@ -29,6 +29,13 @@
   .tip{background:var(--surface);border-left:4px solid var(--accent);padding:10px 14px;margin:12px 0}
   kbd{font-family:"IBM Plex Mono",ui-monospace,monospace;border:1px solid var(--line);padding:0 5px;font-size:14px}
   small{color:var(--muted)}
+  .hs{position:sticky;top:0;z-index:2;background:var(--bg);padding:10px 0;margin:8px 0 0}
+  .hs input{width:100%;font:inherit;font-size:16px;padding:10px 12px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+  .hs input:focus-visible{outline:2px solid var(--accent);outline-offset:1px}
+  .hs small{display:block;margin-top:4px}
+  mark{background:var(--acc);color:#1C2116;padding:0;border-radius:2px}
+  .totop{position:fixed;right:max(14px,env(safe-area-inset-right,0px));bottom:calc(14px + env(safe-area-inset-bottom,0px));background:var(--head);color:#E7E4D2;border:2px solid var(--acc);padding:10px 14px;font:600 14px "Barlow Semi Condensed",sans-serif;letter-spacing:.06em;text-transform:uppercase;text-decoration:none}
+  .totop[hidden]{display:none}
 </style>
 </head>
 <body>
@@ -37,6 +44,7 @@
   <h1>Handbuch</h1>
   <p class="lead">Flugbahn ist ein Ballistikrechner für Stand und Revier. Diese Anleitung erklärt die Reiter der Reihe nach. Die App arbeitet nach dem ersten Laden offline.</p>
 
+  <div class="hs" role="search"><input id="hs-q" type="search" autocomplete="off" placeholder="Im Handbuch suchen, z. B. Schalldämpfer, IPSC, Bestand" aria-label="Im Handbuch suchen"><small id="hs-n" aria-live="polite"></small></div>
   <nav class="toc" aria-label="Inhalt"><ol>
     <li><a href="#start">In fünf Minuten startklar</a></li>
     <li><a href="#profil">Profil</a></li>
@@ -48,6 +56,7 @@
     <li><a href="#geraete">Messgeräte und Windradar</a></li>
     <li><a href="#historisch">Historische Zielfernrohre</a></li>
     <li><a href="#kurzwaffe">Kurzwaffen</a></li>
+    <li><a href="#stand">Stand-Werkzeuge</a></li>
     <li><a href="#flinte">Flinte</a></li>
     <li><a href="#ki">KI und Assistenten</a></li>
     <li><a href="#abgleich">Abgleichen</a></li>
@@ -242,5 +251,35 @@
   </ul>
   <p><small>Flugbahn liefert Rechenwerte. Die geltenden Waffen- und Jagdgesetze sind einzuhalten.</small></p>
 </main>
+<a class="totop" id="totop" href="#" hidden>Nach oben</a>
+<script>
+(() => {
+  // Suche: nur passende Absätze und Listenpunkte zeigen, Treffer markieren
+  const q = document.getElementById("hs-q"), n = document.getElementById("hs-n"), main = document.querySelector("main");
+  const blocks = [...main.querySelectorAll("p, li, h2, h3, .tip")].filter(el => !el.closest(".hs, nav.toc"));
+  const orig = new Map(blocks.map(el => [el, el.innerHTML]));
+  const esc = t => t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+  let t = 0;
+  q.addEventListener("input", () => { clearTimeout(t); t = setTimeout(run, 120); });
+  function run() {
+    const v = q.value.trim(); blocks.forEach(el => { el.innerHTML = orig.get(el); el.hidden = false; }); main.querySelectorAll("ul, ol").forEach(l => { l.hidden = false; });
+    document.querySelector("nav.toc").hidden = !!v;
+    if (v.length < 2) { n.textContent = ""; return; }
+    const re = new RegExp(esc(v), "gi"); let hits = 0;
+    blocks.forEach(el => { const txt = el.textContent; if (/^H[23]$/.test(el.tagName)) return; const ok = re.test(txt); re.lastIndex = 0; el.hidden = !ok; if (ok) { hits++; mark(el, re); } });
+    // Überschriften nur zeigen, wenn darunter etwas gefunden wurde
+    blocks.filter(el => el.tagName === "H3").forEach(h => { let x = h.nextElementSibling, any = false; while (x && !/^H[23]$/.test(x.tagName)) { if (!x.hidden && (x.matches("p,.tip") || x.querySelector("li:not([hidden])"))) any = true; x = x.nextElementSibling; } h.hidden = !any; });
+    blocks.filter(el => el.tagName === "H2").forEach(h => { let x = h.nextElementSibling, any = false; while (x && x.tagName !== "H2") { if (!x.hidden && (x.matches("p,.tip") || x.querySelector("li:not([hidden])"))) any = true; x = x.nextElementSibling; } h.hidden = !any; });
+    main.querySelectorAll("ul, ol").forEach(l => { if (l.closest("nav.toc")) return; l.hidden = !l.querySelector("li:not([hidden])"); });
+    n.textContent = hits ? (hits === 1 ? "1 Stelle gefunden" : `${hits} Stellen gefunden`) : "Nichts gefunden.";
+  }
+  function mark(el, re) { const w = document.createTreeWalker(el, NodeFilter.SHOW_TEXT), list = []; while (w.nextNode()) list.push(w.currentNode);
+    list.forEach(tn => { const s = tn.nodeValue; if (!re.test(s)) { re.lastIndex = 0; return; } re.lastIndex = 0; const f = document.createDocumentFragment(); let last = 0; s.replace(re, (m, i) => { f.append(s.slice(last, i)); const mk = document.createElement("mark"); mk.textContent = m; f.append(mk); last = i + m.length; }); f.append(s.slice(last)); tn.replaceWith(f); }); }
+  // Nach oben
+  const top = document.getElementById("totop");
+  addEventListener("scroll", () => { top.hidden = scrollY < 600; }, { passive: true });
+  top.addEventListener("click", e => { e.preventDefault(); scrollTo({ top: 0, behavior: "smooth" }); });
+})();
+</script>
 </body>
 </html>
