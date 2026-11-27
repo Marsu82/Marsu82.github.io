@@ -109,6 +109,27 @@ select option,select optgroup{background:var(--surface);color:var(--ink)}
 .pnav{position:sticky;top:var(--pnav-top,0px);z-index:3;display:flex;gap:6px;overflow-x:auto;padding:8px 2px;margin:0 0 6px;background:var(--bg);scrollbar-width:none}
 .pnav::-webkit-scrollbar{display:none}
 .panel.pane-profil{overflow:clip}
+/* Extras: Leiste mit Suche und Gruppen, Werkzeuge klappbar */
+.panel.pane-tools{overflow:clip}
+.news-l{margin:4px 0 2px;padding-left:1.1em}.news-l li{margin:2px 0}
+.tnav{position:sticky;top:var(--tnav-top,0px);z-index:3;background:var(--bg);padding:8px 2px 6px;margin:0 0 4px;border-bottom:1px solid var(--line)}
+.tnav-row{display:flex;gap:6px;align-items:center}
+.tnav-q{flex:1 1 auto;min-width:0;font:inherit;font-size:16px;padding:8px 10px;border:1px solid var(--line);background:var(--surface);color:var(--ink)}
+.tnav-chips{display:flex;gap:6px;overflow-x:auto;padding:8px 0 2px;scrollbar-width:none}
+.tnav-chips::-webkit-scrollbar{display:none}
+.tnav-c{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 13px "Barlow Semi Condensed",sans-serif;letter-spacing:.05em;text-transform:uppercase;padding:6px 10px;cursor:pointer}
+.tnav-c[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:var(--surface)}
+.tnav-c small{font-weight:400;opacity:.8;margin-left:3px}
+.tool-cat{grid-column:1/-1;margin:14px 0 0;padding:6px 14px;font:700 13px "Barlow Semi Condensed",sans-serif;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);border-top:2px solid var(--line)}
+.tool > h3 > .tool-tg{all:unset;box-sizing:border-box;display:flex;align-items:center;gap:8px;width:100%;cursor:pointer;min-height:32px}
+.tool > h3 > .tool-tg:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.tool > h3 > .tool-tg::after{content:"";margin-left:auto;flex:0 0 auto;width:8px;height:8px;border-right:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translateY(-3px);transition:transform .15s}
+.tool.zu > h3 > .tool-tg::after{transform:rotate(-45deg)}
+.tool.zu{padding-top:10px;padding-bottom:10px}
+.tool.zu > h3{margin:0}
+.tool.zu > :not(h3){display:none !important}
+.tool .tool-sub{display:block;font:400 13px/1.35 "IBM Plex Sans",system-ui,sans-serif;letter-spacing:0;text-transform:none;color:var(--muted);margin-top:2px}
+.tool:not(.zu) .tool-sub{display:none}
 :root[data-mode="red"] .top .tabs button{opacity:1}
 .out .hint{color:var(--ink)}
 .pnav-b{flex:0 0 auto;border:1px solid var(--line);background:var(--surface);color:var(--ink);font:600 13px "Barlow Semi Condensed",sans-serif;letter-spacing:.06em;text-transform:uppercase;padding:6px 10px;cursor:pointer}
@@ -2091,7 +2112,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · f783b53bda</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · f92bf1f984</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -3555,6 +3576,7 @@ function gotoField(id) {
   const pane = el.closest(".pane-profil,.pane-schuss,.pane-ziele,.pane-tabelle,.pane-buch,.pane-tools");
   const map = { "pane-profil": "profil", "pane-schuss": "schuss", "pane-ziele": "ziele", "pane-tabelle": "tabelle", "pane-buch": "buch", "pane-tools": "tools" };
   if (pane && matchMedia("(max-width:979px)").matches) setView(map[[...pane.classList].find(c => map[c])]);
+  toolReveal(el);
   let d = el.closest("details"); while (d) { d.open = true; d = d.parentElement.closest("details"); }
   setTimeout(() => { el.scrollIntoView({ block: "center", behavior: "smooth" }); if (el.focus && el.tagName !== "CANVAS") el.focus({ preventScroll: true }); if (el.id === "tgt") drawTarget(); }, 60);
 }
@@ -4635,7 +4657,7 @@ function checkShareLink() {
   $("import-no").onclick = done;
 }
 
-const NEWS = { v: "2026-11-27i", items: ["IPSC-Scheibe und IPSC-Mini jetzt maßgenau nach BDS-Sportordnung (Appendix B2/B3) mit C-Zone und nicht wertendem Rand", "BDS-Fallscheiben korrigiert: KK 15 cm und Großkaliber 20 cm, beide auf 25 m","Neue Kurzwaffen-Scheiben: NRA B-8, B-6, B-16, B-2, BDS-Fallscheiben, IPSC-Mini, Dot Torture", "Schusstimer mit Splits, Parzeit und Hit Factor (Extras)", "Visierkorrektur für Kimme und Korn (Extras)", "Fehlerbild-Diagnose für Kurzwaffen (Extras)", "Chronograph zum Selbstbauen: Messungen per Bluetooth direkt in die V0-Auswertung", "Wind aus dem Treffer zurückrechnen (Extras)", "Trainingsprogramme mit Sprachansage (Extras)", "Ladungsvergleich als Grafik (Extras)", "Wettkampf mit Stage-Timer und Rangliste (Extras)", "Sitzung am Stand: Treffer, Fehlschüsse und Quote je Schütze, Auswertung per WhatsApp teilen (Ziele → Sitzung)", "Verkantungswarnung mit dem Schussmelder", "Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP", "Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)", "IPSC-Scheibe mit A/C/D-Wertung", "Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)", "Standliste: Ziel-Nr. je Schütze für die Treffermelder", "Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich", "8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)", "Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen", "Sprungleiste im Reiter Profil", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl", "Scheibe direkt bei „Trefferbild per Foto“ wählbar", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“", "Windprognose für die nächsten 10 Sekunden im Windradar", "Munition per Foto der Schachtel erkennen", "Auffälligkeiten: Ausreißer, V0-Abfall, Magazine", "Fahnen automatisch im Kamerabild erkennen, Mirage (experimentell)", "Windlese-Trainer, Schusszähler per Mikrofon, PRS-Stage-Planer", "Vereinsmodus: Zielliste per QR teilen", "Optionaler KI-Coach mit eigenem API-Schlüssel", "Windradar: Wind aller Stationen entlang der Bahn, wirksamer Seitenwind und Schussfenster (Schuss → Messgerät)", "Treffermelder für Stahlziele mit Ton und Vibration", "Korrektur ansagen lassen (🔊 an der Lösung)", "Entfernung, Winkel und Richtung per GPS (Extras)", "Leitertest fürs Wiederladen (Extras)", "Spotter koppeln per QR-Code (Extras)", "Magazin-Statistik mit Störungen (Extras)", "Fahnenwinkel mit der Kamera messen (Extras → Wind aus Fahne)", "Chronograph-Dateien von Garmin und LabRadar laden", "Laufthermometer-Modus für den Munitionsfühler", "Funkbrücke (LoRa): Wind auf der ganzen Strecke bis 1200 m", "Bis zu drei Wetterstationen füllen die Windzonen", "Windverlauf und Schussfenster mit Ton", "Windmesser-Abgleich in der App", "Messgerät per Bluetooth verbinden (Schuss → Korrekturen)", "Munitionstemperatur getrennt von der Luft (Schuss → Korrekturen)", "Taupunkt mit Beschlagwarnung", "Scheiben von BDS, DSB und ISSF mit Ringwertung und Abweichung (Profil → Einschuss)", "Militärladungen wie M193, M80, GP 11 mit Hinweisen", "Widerstandskurve aus Treffern oder Geschwindigkeiten (Profil)", "BC aus Geschossmaßen schätzen", "Absehen der Hersteller mit echten Maßen", "Über 2400 Fabrikladungen und 1700 Geschosse", "Standliste für mehrere Schützen (Reiter Ziele)", "Lauflänge speichern: Fabrik-V0 wird automatisch umgerechnet", "Imperiale Einheiten (yd, fps, Zoll) zum Umschalten", "Kleinkaliber .22 lr, .22 WMR, .17 HMR", "E100-Prüfung nach § 19 BJagdG, Mondphase, MPBR", "Turmband und Scheckkarte zum Ausdrucken", "Schalldämpfer, Kaltlauf, Klickwert-Test, Abgleich-Assistent", "Suche, Schusszähler, Ladedaten, Stage-Timer"] };
+const NEWS = { v: "2026-11-27j", items: ["Extras übersichtlicher: 7 Gruppen, Suchfeld und zugeklappte Werkzeuge mit Kurzbeschreibung","IPSC-Scheibe und IPSC-Mini jetzt maßgenau nach BDS-Sportordnung (Appendix B2/B3) mit C-Zone und nicht wertendem Rand", "BDS-Fallscheiben korrigiert: KK 15 cm und Großkaliber 20 cm, beide auf 25 m","Neue Kurzwaffen-Scheiben: NRA B-8, B-6, B-16, B-2, BDS-Fallscheiben, IPSC-Mini, Dot Torture", "Schusstimer mit Splits, Parzeit und Hit Factor (Extras)", "Visierkorrektur für Kimme und Korn (Extras)", "Fehlerbild-Diagnose für Kurzwaffen (Extras)", "Chronograph zum Selbstbauen: Messungen per Bluetooth direkt in die V0-Auswertung", "Wind aus dem Treffer zurückrechnen (Extras)", "Trainingsprogramme mit Sprachansage (Extras)", "Ladungsvergleich als Grafik (Extras)", "Wettkampf mit Stage-Timer und Rangliste (Extras)", "Sitzung am Stand: Treffer, Fehlschüsse und Quote je Schütze, Auswertung per WhatsApp teilen (Ziele → Sitzung)", "Verkantungswarnung mit dem Schussmelder", "Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP", "Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)", "IPSC-Scheibe mit A/C/D-Wertung", "Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)", "Standliste: Ziel-Nr. je Schütze für die Treffermelder", "Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich", "8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)", "Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen", "Sprungleiste im Reiter Profil", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl", "Scheibe direkt bei „Trefferbild per Foto“ wählbar", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“", "Windprognose für die nächsten 10 Sekunden im Windradar", "Munition per Foto der Schachtel erkennen", "Auffälligkeiten: Ausreißer, V0-Abfall, Magazine", "Fahnen automatisch im Kamerabild erkennen, Mirage (experimentell)", "Windlese-Trainer, Schusszähler per Mikrofon, PRS-Stage-Planer", "Vereinsmodus: Zielliste per QR teilen", "Optionaler KI-Coach mit eigenem API-Schlüssel", "Windradar: Wind aller Stationen entlang der Bahn, wirksamer Seitenwind und Schussfenster (Schuss → Messgerät)", "Treffermelder für Stahlziele mit Ton und Vibration", "Korrektur ansagen lassen (🔊 an der Lösung)", "Entfernung, Winkel und Richtung per GPS (Extras)", "Leitertest fürs Wiederladen (Extras)", "Spotter koppeln per QR-Code (Extras)", "Magazin-Statistik mit Störungen (Extras)", "Fahnenwinkel mit der Kamera messen (Extras → Wind aus Fahne)", "Chronograph-Dateien von Garmin und LabRadar laden", "Laufthermometer-Modus für den Munitionsfühler", "Funkbrücke (LoRa): Wind auf der ganzen Strecke bis 1200 m", "Bis zu drei Wetterstationen füllen die Windzonen", "Windverlauf und Schussfenster mit Ton", "Windmesser-Abgleich in der App", "Messgerät per Bluetooth verbinden (Schuss → Korrekturen)", "Munitionstemperatur getrennt von der Luft (Schuss → Korrekturen)", "Taupunkt mit Beschlagwarnung", "Scheiben von BDS, DSB und ISSF mit Ringwertung und Abweichung (Profil → Einschuss)", "Militärladungen wie M193, M80, GP 11 mit Hinweisen", "Widerstandskurve aus Treffern oder Geschwindigkeiten (Profil)", "BC aus Geschossmaßen schätzen", "Absehen der Hersteller mit echten Maßen", "Über 2400 Fabrikladungen und 1700 Geschosse", "Standliste für mehrere Schützen (Reiter Ziele)", "Lauflänge speichern: Fabrik-V0 wird automatisch umgerechnet", "Imperiale Einheiten (yd, fps, Zoll) zum Umschalten", "Kleinkaliber .22 lr, .22 WMR, .17 HMR", "E100-Prüfung nach § 19 BJagdG, Mondphase, MPBR", "Turmband und Scheckkarte zum Ausdrucken", "Schalldämpfer, Kaltlauf, Klickwert-Test, Abgleich-Assistent", "Suche, Schusszähler, Ladedaten, Stage-Timer"] };
 function backupReminder() {
   try {
     const own = state.log.length + state.bullets.length + state.profiles.filter(p => !/\(Beispiel\)$/.test(p.name || "")).length;
@@ -4650,14 +4672,14 @@ function backupReminder() {
     $("import-no").onclick = done;
   } catch (e) {}
 }
-const NEWS_EN = {"IPSC-Scheibe und IPSC-Mini jetzt maßgenau nach BDS-Sportordnung (Appendix B2/B3) mit C-Zone und nicht wertendem Rand":"IPSC Target and IPSC Mini now true to the BDS rulebook drawings (Appendix B2/B3), incl. C zone and non-scoring border","BDS-Fallscheiben korrigiert: KK 15 cm und Großkaliber 20 cm, beide auf 25 m":"BDS falling plates corrected: rimfire 15 cm and centrefire 20 cm, both at 25 m","Neue Kurzwaffen-Scheiben: NRA B-8, B-6, B-16, B-2, BDS-Fallscheiben, IPSC-Mini, Dot Torture":"New handgun targets: NRA B-8, B-6, B-16, B-2, BDS falling plates, IPSC Mini, Dot Torture","Schusstimer mit Splits, Parzeit und Hit Factor (Extras)":"Shot timer with splits, par time and hit factor (Extras)","Visierkorrektur für Kimme und Korn (Extras)":"Iron-sight correction (Extras)","Fehlerbild-Diagnose für Kurzwaffen (Extras)":"Handgun error-chart diagnosis (Extras)","Chronograph zum Selbstbauen: Messungen per Bluetooth direkt in die V0-Auswertung":"DIY chronograph: readings go straight into the MV analysis via Bluetooth","Wind aus dem Treffer zurückrechnen (Extras)":"Work out the wind from the hit (Extras)","Trainingsprogramme mit Sprachansage (Extras)":"Training drills with voice prompts (Extras)","Ladungsvergleich als Grafik (Extras)":"Load comparison chart (Extras)","Wettkampf mit Stage-Timer und Rangliste (Extras)":"Match with stage timer and ranking (Extras)","Sitzung am Stand: Treffer, Fehlschüsse und Quote je Schütze, Auswertung per WhatsApp teilen (Ziele → Sitzung)":"Range session: hits, misses and hit rate per shooter, share the summary via WhatsApp (Targets → Session)","Verkantungswarnung mit dem Schussmelder":"Cant warning with the shot sensor","Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP":"Handguns: weapon type under Profile → Rifle, hold in cm, sample profiles 9 mm and .45 ACP","Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)":"Almost 400 handgun loads (9mm, .45 ACP, .40, 10mm Auto, .380, .38, .357, .44 and more)","IPSC-Scheibe mit A/C/D-Wertung":"IPSC target with A/C/D scoring","Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)":"Shot sensor on the rifle: the app knows who hit, misses and wrong targets (range list)","Standliste: Ziel-Nr. je Schütze für die Treffermelder":"Range list: target number per shooter for the hit detectors","Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich":"Bundeswehr colour schemes: Army, Air Force, Navy, Cyber and Information Domain, Support area","8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)":"8 new colour schemes: Flecktarn, desert, ranger green, navy, black, hunting, sport, black-red-gold (Options → Colours)","Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen": "Search now finds functions too: type e.g. “target” or “sensor” and jump there", "Sprungleiste im Reiter Profil": "Section bar on the Profile tab", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)": "18 WWII riflescopes with range drum (Profile → Riflescope, group “Historisch (2. Weltkrieg)”)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)": "70 slugs and 31 shotshells with maker data (Extras → Shotgun)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser": "2,600+ factory loads: new incl. Winchester and Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)": "Shotgun: shot, pattern, lead, danger zone and slugs (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden": "Wireless ammo-box sensor: Shot → Corrections → Connect sensor", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl": "New profile now via “+ New” below the profile picker", "Scheibe direkt bei „Trefferbild per Foto“ wählbar": "Target face selectable right in “Group from photo”", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)": "Group from photo: holes are found automatically (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch": "Automatic MV and BC truing from the shot log", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“": "Voice control 🎤: “distance 650, wind 3 from 9 o'clock”"};
+const NEWS_EN = {"Extras übersichtlicher: 7 Gruppen, Suchfeld und zugeklappte Werkzeuge mit Kurzbeschreibung":"Clearer Extras: 7 groups, a search box and collapsed tools with a short description","IPSC-Scheibe und IPSC-Mini jetzt maßgenau nach BDS-Sportordnung (Appendix B2/B3) mit C-Zone und nicht wertendem Rand":"IPSC Target and IPSC Mini now true to the BDS rulebook drawings (Appendix B2/B3), incl. C zone and non-scoring border","BDS-Fallscheiben korrigiert: KK 15 cm und Großkaliber 20 cm, beide auf 25 m":"BDS falling plates corrected: the rimfire plate is shot at the same distance as the centrefire plate","Neue Kurzwaffen-Scheiben: NRA B-8, B-6, B-16, B-2, BDS-Fallscheiben, IPSC-Mini, Dot Torture":"New handgun targets: NRA B-8, B-6, B-16, B-2, BDS falling plates, IPSC Mini, Dot Torture","Schusstimer mit Splits, Parzeit und Hit Factor (Extras)":"Shot timer with splits, par time and hit factor (Extras)","Visierkorrektur für Kimme und Korn (Extras)":"Iron-sight correction (Extras)","Fehlerbild-Diagnose für Kurzwaffen (Extras)":"Handgun error-chart diagnosis (Extras)","Chronograph zum Selbstbauen: Messungen per Bluetooth direkt in die V0-Auswertung":"DIY chronograph: readings go straight into the MV analysis via Bluetooth","Wind aus dem Treffer zurückrechnen (Extras)":"Work out the wind from the hit (Extras)","Trainingsprogramme mit Sprachansage (Extras)":"Training drills with voice prompts (Extras)","Ladungsvergleich als Grafik (Extras)":"Load comparison chart (Extras)","Wettkampf mit Stage-Timer und Rangliste (Extras)":"Match with stage timer and ranking (Extras)","Sitzung am Stand: Treffer, Fehlschüsse und Quote je Schütze, Auswertung per WhatsApp teilen (Ziele → Sitzung)":"Range session: hits, misses and hit rate per shooter, share the summary via WhatsApp (Targets → Session)","Verkantungswarnung mit dem Schussmelder":"Cant warning with the shot sensor","Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP":"Handguns: weapon type under Profile → Rifle, hold in cm, sample profiles 9 mm and .45 ACP","Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)":"Almost 400 handgun loads (9mm, .45 ACP, .40, 10mm Auto, .380, .38, .357, .44 and more)","IPSC-Scheibe mit A/C/D-Wertung":"IPSC target with A/C/D scoring","Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)":"Shot sensor on the rifle: the app knows who hit, misses and wrong targets (range list)","Standliste: Ziel-Nr. je Schütze für die Treffermelder":"Range list: target number per shooter for the hit detectors","Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich":"Bundeswehr colour schemes: Army, Air Force, Navy, Cyber and Information Domain, Support area","8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)":"8 new colour schemes: Flecktarn, desert, ranger green, navy, black, hunting, sport, black-red-gold (Options → Colours)","Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen": "Search now finds functions too: type e.g. “target” or “sensor” and jump there", "Sprungleiste im Reiter Profil": "Section bar on the Profile tab", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)": "18 WWII riflescopes with range drum (Profile → Riflescope, group “Historisch (2. Weltkrieg)”)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)": "70 slugs and 31 shotshells with maker data (Extras → Shotgun)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser": "2,600+ factory loads: new incl. Winchester and Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)": "Shotgun: shot, pattern, lead, danger zone and slugs (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden": "Wireless ammo-box sensor: Shot → Corrections → Connect sensor", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl": "New profile now via “+ New” below the profile picker", "Scheibe direkt bei „Trefferbild per Foto“ wählbar": "Target face selectable right in “Group from photo”", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)": "Group from photo: holes are found automatically (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch": "Automatic MV and BC truing from the shot log", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“": "Voice control 🎤: “distance 650, wind 3 from 9 o'clock”"};
 function showNews() {
   let seen = ""; try { seen = localStorage.getItem("flugbahn.news") || ""; } catch (e) { return; }
   if (seen === NEWS.v) return;
   try { localStorage.setItem("flugbahn.news", NEWS.v); } catch (e) {}
   if (!seen && !localStorage.getItem("flugbahn.intro")) return;   // Neue Nutzer sehen die Einführung
-  const more = NEWS.items.length - 8;
-  $("import-txt").innerHTML = `<b>${LANG === "en" ? "New in Flugbahn:" : "Neu in Flugbahn:"}</b> ${NEWS.items.slice(0, 8).map(i => `<span>${escapeHtml(LANG === "en" ? NEWS_EN[i] || i : i)}</span>`).join(" · ")}${more > 0 ? ` <small>(${LANG === "en" ? `and ${more} more, see the manual` : `und ${more} weitere, siehe Handbuch`})</small>` : ""}`;
+  const more = NEWS.items.length - 4;
+  $("import-txt").innerHTML = `<b>${LANG === "en" ? "New in Flugbahn:" : "Neu in Flugbahn:"}</b><ul class="news-l">${NEWS.items.slice(0, 4).map(i => `<li>${escapeHtml(LANG === "en" ? NEWS_EN[i] || i : i)}</li>`).join("")}</ul>${more > 0 ? `<small>${LANG === "en" ? `and ${more} more in the manual` : `und ${more} weitere im Handbuch`}</small>` : ""}`;
   $("import-yes").hidden = true; $("import-no").textContent = "OK";
   $("import-banner").hidden = false;
   $("import-no").onclick = () => { $("import-banner").hidden = true; $("import-yes").hidden = false; $("import-no").textContent = "Verwerfen"; };
@@ -6767,6 +6789,7 @@ function initProfilNav() {
   pane.insertAdjacentHTML("afterbegin", `<nav id="pnav" class="pnav" aria-label="${tr("Abschnitte im Profil", "Profile sections")}">${items.map(([, t], i) => `<button type="button" class="pnav-b" data-pn="${i}">${escH(t)}</button>`).join("")}</nav>`);
   const hdr = () => (document.querySelector(".top")?.offsetHeight || 0);
   const setTop = () => pane.style.setProperty("--pnav-top", hdr() + "px"); setTop(); addEventListener("resize", setTop);
+  if (window.ResizeObserver && document.querySelector(".top")) new ResizeObserver(setTop).observe(document.querySelector(".top"));
   $("pnav").addEventListener("click", e => {
     const b = e.target.closest("[data-pn]"); if (!b) return;
     const d = items[+b.dataset.pn][0]; d.open = true;
@@ -6776,6 +6799,96 @@ function initProfilNav() {
   });
 }
 try { initProfilNav(); } catch (e) { console.error("initProfilNav", e); }
+
+/* ===================== Übersicht: Extras gruppiert, suchbar, klappbar ===================== */
+const TOOL_CATS = [
+  ["wind", "Wind", "Wind", ["fl-ang", "wb-box", "tw-svg", "mi-btn"]],
+  ["mess", "Messen & Abgleich", "Measure & true", ["ch-in", "wiz", "af-run", "bm-v1", "tt-clicks", "an-run", "pt-table"]],
+  ["treff", "Treffer & Ladung", "Groups & loads", ["gr-size", "ph-file", "lc-box", "ld-rows", "mg-n"]],
+  ["stand", "Stand & Wettkampf", "Range & match", ["st-time", "trn-box", "cmp-box", "prs-add", "sp-make", "sc-btn"]],
+  ["kw", "Kurzwaffe & Flinte", "Handgun & shotgun", ["stm-box", "vk-box", "fd-box", "fl2-box"]],
+  ["jagd", "Jagd & Gelände", "Hunting & terrain", ["sun-date", "gps-a", "ang-table", "mr-run"]],
+  ["calc", "Rechnen & Drucken", "Calculate & print", ["tw-out", "cv-val", "cc-box", "tp-dia", "ao-file"]]
+];
+// Kurzbeschreibung unter dem Titel, solange das Werkzeug zu ist
+const TOOL_SUB = {
+  "fl-ang": ["Windstärke aus dem Winkel der Fahne", "Wind speed from the flag angle"], "wb-box": ["Wind aus dem seitlichen Treffer zurückrechnen", "Work out the wind from a lateral miss"],
+  "tw-svg": ["Fahnen lesen üben", "Practise reading flags"], "mi-btn": ["Luftflimmern mit der Kamera", "Heat shimmer with the camera"],
+  "ch-in": ["V0, Streuung (SD) und Spreizung", "MV, SD and spread"], "wiz": ["Schritt für Schritt V0 und BC abgleichen", "True MV and BC step by step"],
+  "af-run": ["V0 und BC aus dem Schussbuch", "MV and BC from the shot log"], "bm-v1": ["BC aus zwei Geschwindigkeiten", "BC from two velocities"],
+  "tt-clicks": ["Tatsächlichen Klickwert messen", "Measure the real click value"], "an-run": ["Ausreißer, V0-Abfall, Magazine", "Outliers, MV drop, magazines"],
+  "pt-table": ["V0 und Haltepunkt je Temperatur", "MV and hold per temperature"],
+  "gr-size": ["Streukreis in mm, MOA und MRAD", "Group size in mm, MOA and MRAD"], "ph-file": ["Löcher im Foto automatisch finden", "Find holes in a photo"],
+  "lc-box": ["Ladungen als Grafik vergleichen", "Compare loads in a chart"], "ld-rows": ["Leitertest fürs Wiederladen", "Ladder test for reloading"], "mg-n": ["Treffer und Störungen je Magazin", "Hits and stoppages per magazine"],
+  "st-time": ["Startsignal, Parzeit, Zwischenzeiten", "Start beep, par time, splits"], "trn-box": ["Übungen mit Sprachansage", "Drills with voice prompts"],
+  "cmp-box": ["Stages und Rangliste", "Stages and ranking"], "prs-add": ["Stages für PRS planen", "Plan PRS stages"], "sp-make": ["Zweites Handy per QR koppeln", "Pair a second phone by QR"], "sc-btn": ["Schüsse per Mikrofon zählen", "Count shots by microphone"],
+  "stm-box": ["Splits, Parzeit, Hit Factor", "Splits, par time, hit factor"], "vk-box": ["Kimme und Korn korrigieren", "Correct iron sights"], "fd-box": ["Was das Trefferbild über den Abzug sagt", "What the group says about your trigger"], "fl2-box": ["Schrot, Garbe, Vorhalt, Flintenlaufgeschoss", "Shot, pattern, lead, slugs"],
+  "sun-date": ["Dämmerung, Mond, Nachtzeit (BJagdG)", "Twilight, moon, night time"], "gps-a": ["Entfernung und Winkel per GPS", "Distance and angle by GPS"], "ang-table": ["Haltepunkt bergauf und bergab", "Hold uphill and downhill"], "mr-run": ["Höchste Reichweite und Gefahrenbereich", "Maximum range and danger area"],
+  "tw-out": ["Drall und Stabilität (Miller)", "Twist and stability (Miller)"], "cv-val": ["Einheiten umrechnen", "Convert units"], "cc-box": ["Schusstafel zum Ausdrucken", "Printable dope card"], "tp-dia": ["Turmband zum Ausdrucken", "Printable turret tape"], "ao-file": ["Schachtel fotografieren, Ladung finden", "Photograph the box, find the load"]
+};
+const TOOLS_LS = "flugbahn.toolsOpen";
+function toolKey(t) { return t.dataset.tk || ""; }
+function toolSetOpen(t, open, keep) {
+  t.classList.toggle("zu", !open); const b = t.querySelector(":scope > h3 > .tool-tg"); if (b) b.setAttribute("aria-expanded", String(open));
+  if (open) setTimeout(() => { try { dispatchEvent(new Event("resize")); } catch (e) {} if (t.querySelector("#tgt")) drawTarget(); }, 30);
+  if (keep !== false) try { const all = [...document.querySelectorAll(".pane-tools .tool[data-tk]:not(.zu)")].map(toolKey); localStorage.setItem(TOOLS_LS, JSON.stringify(all)); } catch (e) {}
+}
+// Für Sprünge aus Suche und Direktlinks: Werkzeug sichtbar machen und öffnen
+function toolReveal(el) {
+  const t = el && el.closest && el.closest(".pane-tools .tool"); if (!t) return;
+  if (t.hidden || t.classList.contains("zu")) { const q = $("tnav-q"); if (q && q.value) { q.value = ""; q.dispatchEvent(new Event("input")); } if (t.hidden) toolFilter("all"); toolSetOpen(t, true); }
+}
+let toolCat = "all";
+function toolFilter(cat) {
+  toolCat = cat || toolCat; const q = ($("tnav-q") ? $("tnav-q").value : "").trim().toLowerCase();
+  const grid = document.querySelector(".pane-tools .tools-grid"); if (!grid) return;
+  grid.querySelectorAll(":scope > .tool").forEach(t => {
+    const okCat = toolCat === "all" || t.dataset.tc === toolCat;
+    const okQ = !q || t.textContent.toLowerCase().includes(q) ;
+    t.hidden = !(okCat && okQ);
+  });
+  grid.querySelectorAll(":scope > .tool-cat").forEach(h => { let n = h.nextElementSibling, any = false; while (n && !n.classList.contains("tool-cat")) { if (!n.hidden) any = true; n = n.nextElementSibling; } h.hidden = !any; });
+  document.querySelectorAll("#tnav .tnav-c").forEach(b => b.setAttribute("aria-pressed", String(b.dataset.tc === toolCat)));
+  const vis = grid.querySelectorAll(":scope > .tool:not([hidden])").length; const e = $("tnav-none"); if (e) e.hidden = vis > 0;
+  try { sessionStorage.setItem("flugbahn.toolCat", toolCat); } catch (er) {}
+}
+function initToolsNav() {
+  const pane = document.querySelector(".pane-tools"), grid = pane && pane.querySelector(".tools-grid"); if (!grid || $("tnav")) return;
+  const tools = [...grid.querySelectorAll(":scope > .tool")];
+  const keyOf = t => t.id || (t.querySelector("[id]") || {}).id || "";
+  let open = []; try { open = JSON.parse(localStorage.getItem(TOOLS_LS) || "[]"); } catch (e) {}
+  const byCat = new Map(TOOL_CATS.map(c => [c[0], []])); const rest = [];
+  tools.forEach(t => {
+    const k = keyOf(t); t.dataset.tk = k; const c = TOOL_CATS.find(c => c[3].includes(k)); t.dataset.tc = c ? c[0] : "calc";
+    (c ? byCat.get(c[0]) : rest).push(t);
+    const h = t.querySelector(":scope > h3"); if (!h) return;
+    const b = document.createElement("button"); b.type = "button"; b.className = "tool-tg"; b.setAttribute("aria-expanded", "true");
+    const ttl = document.createElement("span"); while (h.firstChild) ttl.appendChild(h.firstChild);
+    const sub = TOOL_SUB[k]; if (sub) { const sp = document.createElement("span"); sp.className = "tool-sub"; sp.textContent = tr(sub[0], sub[1]); ttl.appendChild(sp); }
+    b.appendChild(ttl); h.appendChild(b);
+    b.addEventListener("click", () => toolSetOpen(t, t.classList.contains("zu")));
+    toolSetOpen(t, open.includes(k), false);
+  });
+  if (rest.length) byCat.get("calc").push(...rest);
+  // Neu ordnen: Überschrift je Gruppe, darunter die Werkzeuge
+  TOOL_CATS.forEach(([id, de, en]) => { const list = byCat.get(id); if (!list.length) return; const hd = document.createElement("h3"); hd.className = "tool-cat"; hd.dataset.tc = id; hd.textContent = tr(de, en); grid.appendChild(hd); list.forEach(t => grid.appendChild(t)); });
+  const chips = [["all", tr("Alle", "All"), tools.length]].concat(TOOL_CATS.map(([id, de, en]) => [id, tr(de, en), byCat.get(id).length]).filter(c => c[2]));
+  grid.insertAdjacentHTML("beforebegin", `<div id="tnav" class="tnav" role="search">
+    <div class="tnav-row"><input id="tnav-q" class="tnav-q" type="search" autocomplete="off" placeholder="${tr("Werkzeug suchen, z. B. Wind, Drall, IPSC", "Find a tool, e.g. wind, twist, IPSC")}" aria-label="${tr("Werkzeug suchen", "Find a tool")}">
+    <button type="button" class="btn" id="tnav-close" title="${tr("Alle Werkzeuge zuklappen", "Collapse all tools")}">${tr("Alle zu", "Close all")}</button></div>
+    <div class="tnav-chips" role="group" aria-label="${tr("Gruppen", "Groups")}">${chips.map(([id, t, n]) => `<button type="button" class="tnav-c" data-tc="${id}" aria-pressed="false">${escH(t)}<small>${n}</small></button>`).join("")}</div>
+  </div><p id="tnav-none" class="note" hidden style="padding:8px 14px">${tr("Kein Werkzeug gefunden. Die Suche oben im Kopf findet auch Felder in den anderen Reitern.", "No tool found. The search in the header also finds fields on the other tabs.")}</p>`);
+  stopIn("tnav-q");
+  $("tnav-q").addEventListener("input", () => { const q = $("tnav-q").value.trim(); if (q && toolCat !== "all") toolCat = "all"; toolFilter(); });
+  $("tnav").addEventListener("click", e => { const c = e.target.closest(".tnav-c"); if (c) { toolFilter(c.dataset.tc); pane.scrollIntoView({ block: "start" }); window.scrollBy(0, -((document.querySelector(".top") || {}).offsetHeight || 0)); } });
+  $("tnav-close").addEventListener("click", () => grid.querySelectorAll(":scope > .tool").forEach(t => toolSetOpen(t, false)));
+  // Kopfzeile ändert ihre Höhe (Optionen, Breite): Leiste immer direkt darunter
+  const hd = document.querySelector(".top"), top = () => pane.style.setProperty("--tnav-top", ((hd || {}).offsetHeight || 0) + "px"); top(); addEventListener("resize", top);
+  if (hd && window.ResizeObserver) new ResizeObserver(top).observe(hd);
+  let c0 = "all"; try { c0 = sessionStorage.getItem("flugbahn.toolCat") || "all"; } catch (e) {}
+  toolFilter(chips.some(c => c[0] === c0) ? c0 : "all");
+}
+try { initToolsNav(); } catch (e) { console.error("initToolsNav", e); }
 // Breite Tabellen per Tastatur scrollbar machen (Barrierefreiheit)
 (function () {
   const fix = () => document.querySelectorAll(".twrap:not([tabindex])").forEach(el => { el.tabIndex = 0; el.setAttribute("role", "region"); if (!el.getAttribute("aria-label")) el.setAttribute("aria-label", tr("Tabelle, seitlich scrollbar", "Table, scrolls sideways")); });
