@@ -382,6 +382,10 @@ thead th span{display:block;font-weight:400;text-transform:none;letter-spacing:0
 tbody tr:nth-child(even){background:var(--surface-2)}
 tbody td:first-child{font-weight:600;text-align:left}
 tbody tr.tgt{background:var(--accent-soft)}
+/* Kleine Tabellen und die Kartenvorschau seitlich wischbar statt abgeschnitten (kleine Handys, große Schrift) */
+#wmx{overflow-x:auto;max-width:100%}
+.cc-preview{overflow-x:auto;max-width:100%}
+.tool table.mini{display:block;overflow-x:auto;max-width:100%}
 /* Schusstafel: Entfernungsspalte bleibt beim seitlichen Wischen stehen */
 #table td:first-child,#table th:first-child{position:sticky;left:0;z-index:1;background:var(--surface);box-shadow:1px 0 0 var(--line)}
 #table thead th:first-child{z-index:2}
@@ -2136,7 +2140,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · b3a7a0ffa1</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · b1d0dc0bfb</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -4574,12 +4578,17 @@ function applyPalette(v) {
 $("palette").addEventListener("change", e => applyPalette(e.target.value));
 // Schriftgröße: ganze Oberfläche vergrößern (draußen, Handschuhe, ohne Lesebrille)
 function applyFont(v) {
-  const z = +v > 1 ? +v : 0; if (z) root.style.zoom = String(z); else root.style.removeProperty("zoom");
+  // Höchstens so weit vergrößern, dass mindestens 320 Punkte Breite bleiben (sonst werden Tabellen abgeschnitten)
+  const want = +v > 1 ? +v : 0, cap = Math.max(1, (window.innerWidth || 400) / 320), z = want ? Math.min(want, cap) : 0;
+  if (z > 1.001) root.style.zoom = String(Math.round(z * 1000) / 1000); else root.style.removeProperty("zoom");
+  fontWant = want;
   root.toggleAttribute("data-zoom", !!z); if ($("fontsize")) $("fontsize").value = z ? String(v) : "";
   try { localStorage.setItem("flugbahn.font", z ? String(v) : ""); } catch (e) {}
   setTimeout(() => { try { dispatchEvent(new Event("resize")); } catch (e) {} }, 30);
 }
+let fontWant = 0, fontT = 0;
 $("fontsize").addEventListener("change", e => applyFont(e.target.value));
+addEventListener("resize", () => { if (!fontWant) return; clearTimeout(fontT); fontT = setTimeout(() => { const cap = Math.max(1, innerWidth / 320), z = Math.min(fontWant, cap), cur = +root.style.zoom || 1; if (Math.abs(z - cur) > 0.01) { if (z > 1.001) root.style.zoom = String(Math.round(z * 1000) / 1000); else root.style.removeProperty("zoom"); } }, 150); });
 try { const fv = localStorage.getItem("flugbahn.font"); if (fv) applyFont(fv); } catch (e) {}
 try { const pv = localStorage.getItem("flugbahn.palette"); if (pv) applyPalette(pv); } catch (e) {}
 $("lang").value = LANG;
