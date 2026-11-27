@@ -2069,7 +2069,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 9665929a8e</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 6fc403cc72</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -3978,6 +3978,7 @@ const FEATURES = [
   ["streckenbuch jagd erlegt harvest", "Streckenbuch", "Harvest log", "hunt"],
   ["kurzwaffe pistole revolver 9mm handgun waffenart", "Waffenart (Kurzwaffe)", "Weapon type (handgun)", "p-kw"],
   ["standliste schützen shooters", "Standliste", "Range list", "shooters"],
+  ["sitzung auswertung trefferquote statistik teilen whatsapp session verkantung", "Sitzung und Auswertung", "Session and summary", "ses-btn"],
   ["schussmelder wer hat getroffen fehlschuss rückstoß shot sensor", "Schussmelder (Standliste)", "Shot sensor (range list)", "shooters"],
   ["gps position entfernung messen", "Entfernung per GPS", "Range by GPS", "btn-gps"],
   ["spotter koppeln teilen spotter", "Spotter koppeln", "Pair a spotter", "sp-make"],
@@ -4604,7 +4605,7 @@ function checkShareLink() {
   $("import-no").onclick = done;
 }
 
-const NEWS = { v: "2026-11-27c", items: ["Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP", "Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)", "IPSC-Scheibe mit A/C/D-Wertung", "Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)", "Standliste: Ziel-Nr. je Schütze für die Treffermelder", "Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich", "8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)", "Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen", "Sprungleiste im Reiter Profil", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl", "Scheibe direkt bei „Trefferbild per Foto“ wählbar", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“", "Windprognose für die nächsten 10 Sekunden im Windradar", "Munition per Foto der Schachtel erkennen", "Auffälligkeiten: Ausreißer, V0-Abfall, Magazine", "Fahnen automatisch im Kamerabild erkennen, Mirage (experimentell)", "Windlese-Trainer, Schusszähler per Mikrofon, PRS-Stage-Planer", "Vereinsmodus: Zielliste per QR teilen", "Optionaler KI-Coach mit eigenem API-Schlüssel", "Windradar: Wind aller Stationen entlang der Bahn, wirksamer Seitenwind und Schussfenster (Schuss → Messgerät)", "Treffermelder für Stahlziele mit Ton und Vibration", "Korrektur ansagen lassen (🔊 an der Lösung)", "Entfernung, Winkel und Richtung per GPS (Extras)", "Leitertest fürs Wiederladen (Extras)", "Spotter koppeln per QR-Code (Extras)", "Magazin-Statistik mit Störungen (Extras)", "Fahnenwinkel mit der Kamera messen (Extras → Wind aus Fahne)", "Chronograph-Dateien von Garmin und LabRadar laden", "Laufthermometer-Modus für den Munitionsfühler", "Funkbrücke (LoRa): Wind auf der ganzen Strecke bis 1200 m", "Bis zu drei Wetterstationen füllen die Windzonen", "Windverlauf und Schussfenster mit Ton", "Windmesser-Abgleich in der App", "Messgerät per Bluetooth verbinden (Schuss → Korrekturen)", "Munitionstemperatur getrennt von der Luft (Schuss → Korrekturen)", "Taupunkt mit Beschlagwarnung", "Scheiben von BDS, DSB und ISSF mit Ringwertung und Abweichung (Profil → Einschuss)", "Militärladungen wie M193, M80, GP 11 mit Hinweisen", "Widerstandskurve aus Treffern oder Geschwindigkeiten (Profil)", "BC aus Geschossmaßen schätzen", "Absehen der Hersteller mit echten Maßen", "Über 2400 Fabrikladungen und 1700 Geschosse", "Standliste für mehrere Schützen (Reiter Ziele)", "Lauflänge speichern: Fabrik-V0 wird automatisch umgerechnet", "Imperiale Einheiten (yd, fps, Zoll) zum Umschalten", "Kleinkaliber .22 lr, .22 WMR, .17 HMR", "E100-Prüfung nach § 19 BJagdG, Mondphase, MPBR", "Turmband und Scheckkarte zum Ausdrucken", "Schalldämpfer, Kaltlauf, Klickwert-Test, Abgleich-Assistent", "Suche, Schusszähler, Ladedaten, Stage-Timer"] };
+const NEWS = { v: "2026-11-27d", items: ["Sitzung am Stand: Treffer, Fehlschüsse und Quote je Schütze, Auswertung per WhatsApp teilen (Ziele → Sitzung)", "Verkantungswarnung mit dem Schussmelder", "Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP", "Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)", "IPSC-Scheibe mit A/C/D-Wertung", "Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)", "Standliste: Ziel-Nr. je Schütze für die Treffermelder", "Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich", "8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)", "Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen", "Sprungleiste im Reiter Profil", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl", "Scheibe direkt bei „Trefferbild per Foto“ wählbar", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“", "Windprognose für die nächsten 10 Sekunden im Windradar", "Munition per Foto der Schachtel erkennen", "Auffälligkeiten: Ausreißer, V0-Abfall, Magazine", "Fahnen automatisch im Kamerabild erkennen, Mirage (experimentell)", "Windlese-Trainer, Schusszähler per Mikrofon, PRS-Stage-Planer", "Vereinsmodus: Zielliste per QR teilen", "Optionaler KI-Coach mit eigenem API-Schlüssel", "Windradar: Wind aller Stationen entlang der Bahn, wirksamer Seitenwind und Schussfenster (Schuss → Messgerät)", "Treffermelder für Stahlziele mit Ton und Vibration", "Korrektur ansagen lassen (🔊 an der Lösung)", "Entfernung, Winkel und Richtung per GPS (Extras)", "Leitertest fürs Wiederladen (Extras)", "Spotter koppeln per QR-Code (Extras)", "Magazin-Statistik mit Störungen (Extras)", "Fahnenwinkel mit der Kamera messen (Extras → Wind aus Fahne)", "Chronograph-Dateien von Garmin und LabRadar laden", "Laufthermometer-Modus für den Munitionsfühler", "Funkbrücke (LoRa): Wind auf der ganzen Strecke bis 1200 m", "Bis zu drei Wetterstationen füllen die Windzonen", "Windverlauf und Schussfenster mit Ton", "Windmesser-Abgleich in der App", "Messgerät per Bluetooth verbinden (Schuss → Korrekturen)", "Munitionstemperatur getrennt von der Luft (Schuss → Korrekturen)", "Taupunkt mit Beschlagwarnung", "Scheiben von BDS, DSB und ISSF mit Ringwertung und Abweichung (Profil → Einschuss)", "Militärladungen wie M193, M80, GP 11 mit Hinweisen", "Widerstandskurve aus Treffern oder Geschwindigkeiten (Profil)", "BC aus Geschossmaßen schätzen", "Absehen der Hersteller mit echten Maßen", "Über 2400 Fabrikladungen und 1700 Geschosse", "Standliste für mehrere Schützen (Reiter Ziele)", "Lauflänge speichern: Fabrik-V0 wird automatisch umgerechnet", "Imperiale Einheiten (yd, fps, Zoll) zum Umschalten", "Kleinkaliber .22 lr, .22 WMR, .17 HMR", "E100-Prüfung nach § 19 BJagdG, Mondphase, MPBR", "Turmband und Scheckkarte zum Ausdrucken", "Schalldämpfer, Kaltlauf, Klickwert-Test, Abgleich-Assistent", "Suche, Schusszähler, Ladedaten, Stage-Timer"] };
 function backupReminder() {
   try {
     const own = state.log.length + state.bullets.length + state.profiles.filter(p => !/\(Beispiel\)$/.test(p.name || "")).length;
@@ -4619,7 +4620,7 @@ function backupReminder() {
     $("import-no").onclick = done;
   } catch (e) {}
 }
-const NEWS_EN = {"Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP":"Handguns: weapon type under Profile → Rifle, hold in cm, sample profiles 9 mm and .45 ACP","Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)":"Almost 400 handgun loads (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 and more)","IPSC-Scheibe mit A/C/D-Wertung":"IPSC target with A/C/D scoring","Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)":"Shot sensor on the rifle: the app knows who hit, misses and wrong targets (range list)","Standliste: Ziel-Nr. je Schütze für die Treffermelder":"Range list: target number per shooter for the hit detectors","Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich":"Bundeswehr colour schemes: Army, Air Force, Navy, Cyber and Information Domain, Support area","8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)":"8 new colour schemes: Flecktarn, desert, ranger green, navy, black, hunting, sport, black-red-gold (Options → Colours)","Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen": "Search now finds functions too: type e.g. “target” or “sensor” and jump there", "Sprungleiste im Reiter Profil": "Section bar on the Profile tab", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)": "18 WWII riflescopes with range drum (Profile → Riflescope, group “Historisch (2. Weltkrieg)”)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)": "70 slugs and 31 shotshells with maker data (Extras → Shotgun)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser": "2,600+ factory loads: new incl. Winchester and Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)": "Shotgun: shot, pattern, lead, danger zone and slugs (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden": "Wireless ammo-box sensor: Shot → Corrections → Connect sensor", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl": "New profile now via “+ New” below the profile picker", "Scheibe direkt bei „Trefferbild per Foto“ wählbar": "Target face selectable right in “Group from photo”", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)": "Group from photo: holes are found automatically (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch": "Automatic MV and BC truing from the shot log", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“": "Voice control 🎤: “distance 650, wind 3 from 9 o'clock”"};
+const NEWS_EN = {"Sitzung am Stand: Treffer, Fehlschüsse und Quote je Schütze, Auswertung per WhatsApp teilen (Ziele → Sitzung)":"Range session: hits, misses and hit rate per shooter, share the summary via WhatsApp (Targets → Session)","Verkantungswarnung mit dem Schussmelder":"Cant warning with the shot sensor","Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP":"Handguns: weapon type under Profile → Rifle, hold in cm, sample profiles 9 mm and .45 ACP","Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)":"Almost 400 handgun loads (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 and more)","IPSC-Scheibe mit A/C/D-Wertung":"IPSC target with A/C/D scoring","Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)":"Shot sensor on the rifle: the app knows who hit, misses and wrong targets (range list)","Standliste: Ziel-Nr. je Schütze für die Treffermelder":"Range list: target number per shooter for the hit detectors","Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich":"Bundeswehr colour schemes: Army, Air Force, Navy, Cyber and Information Domain, Support area","8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)":"8 new colour schemes: Flecktarn, desert, ranger green, navy, black, hunting, sport, black-red-gold (Options → Colours)","Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen": "Search now finds functions too: type e.g. “target” or “sensor” and jump there", "Sprungleiste im Reiter Profil": "Section bar on the Profile tab", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)": "18 WWII riflescopes with range drum (Profile → Riflescope, group “Historisch (2. Weltkrieg)”)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)": "70 slugs and 31 shotshells with maker data (Extras → Shotgun)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser": "2,600+ factory loads: new incl. Winchester and Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)": "Shotgun: shot, pattern, lead, danger zone and slugs (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden": "Wireless ammo-box sensor: Shot → Corrections → Connect sensor", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl": "New profile now via “+ New” below the profile picker", "Scheibe direkt bei „Trefferbild per Foto“ wählbar": "Target face selectable right in “Group from photo”", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)": "Group from photo: holes are found automatically (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch": "Automatic MV and BC truing from the shot log", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“": "Voice control 🎤: “distance 650, wind 3 from 9 o'clock”"};
 function showNews() {
   let seen = ""; try { seen = localStorage.getItem("flugbahn.news") || ""; } catch (e) { return; }
   if (seen === NEWS.v) return;
@@ -4963,6 +4964,7 @@ function feldLive(d) {
       const hitAt = Date.now() - (h.ago_ms != null && h.ago_ms >= 0 ? h.ago_ms : 0);
       const who = typeof smAssign === "function" ? smAssign(h.t, hitAt) : null;
       feld.hitLog.unshift({ t: h.t, at: hitAt, g: h.g, n: neu, who });
+      if (!who) { const owners = (state.shooters || []).filter(r => r.z === +h.t); if (owners.length === 1) for (let q = 0; q < neu; q++) sessEv("hit", owners[0].n, { z: +h.t }); }
       feld.hitLog = feld.hitLog.slice(0, 12);
       feld.flash = { t: h.t, until: Date.now() + 2500 };
       if ($("hit-sig") && $("hit-sig").checked) { beep(); setTimeout(beep, 180); }
@@ -4985,7 +4987,7 @@ function renderHits() {
     const h = feld.hits[k], n = h.n - (state.hitBase[k] || 0), who = hitShooter(k);
     return `<span class="chip ${fl === k ? "good" : ""}" style="font-size:13px">${tr("Ziel", "Target")} ${k}${who ? ` · ${escH(who)}` : ""}: <b>${n}</b>${h.rssi != null ? ` · ${h.rssi} dBm` : ""}${h.age > 45 ? ` · ${tr("kein Signal", "no signal")}` : ""}${h.bat != null ? ` · ${h.bat} %` : ""}</span>`;
   }).join(" ");
-  $("hit-log").innerHTML = feld.hitLog.slice(0, 6).map(e => e.miss ? `${new Date(e.at).toLocaleTimeString(LOCALE)} · <b>${tr("Kein Treffer", "Miss")}</b> – ${escH(e.name)}${e.z ? ` (${tr("Ziel", "target")} ${e.z})` : ""}` : `${new Date(e.at).toLocaleTimeString(LOCALE)} · ${tr("Treffer Ziel", "Hit target")} ${e.t}${e.who ? ` – <b>${escH(e.who.name)}</b> (${tr("Flugzeit", "time of flight")} ${nf(e.who.tof, 2)} s${e.who.cross ? `, <span class="warn-t">${tr("falsches Ziel!", "wrong target!")}</span>` : ""})` : hitShooter(e.t) ? ` (${escH(hitShooter(e.t))})` : ""}${e.g ? ` (${nf(e.g, 0)} g)` : ""}`).join("<br>");
+  $("hit-log").innerHTML = feld.hitLog.slice(0, 6).map(e => e.cantw ? `${new Date(e.at).toLocaleTimeString(LOCALE)} · <span class="warn-t">${tr("Verkantet", "Canted")} ${nf(Math.abs(e.cant), 1)}° ${e.cant > 0 ? tr("rechts", "right") : tr("links", "left")}</span> – ${escH(e.name)}` : e.miss ? `${new Date(e.at).toLocaleTimeString(LOCALE)} · <b>${tr("Kein Treffer", "Miss")}</b> – ${escH(e.name)}${e.z ? ` (${tr("Ziel", "target")} ${e.z})` : ""}` : `${new Date(e.at).toLocaleTimeString(LOCALE)} · ${tr("Treffer Ziel", "Hit target")} ${e.t}${e.who ? ` – <b>${escH(e.who.name)}</b> (${tr("Flugzeit", "time of flight")} ${nf(e.who.tof, 2)} s${e.who.cross ? `, <span class="warn-t">${tr("falsches Ziel!", "wrong target!")}</span>` : ""})` : hitShooter(e.t) ? ` (${escH(hitShooter(e.t))})` : ""}${e.g ? ` (${nf(e.g, 0)} g)` : ""}`).join("<br>");
   if (fl) setTimeout(renderHits, 2600);
 }
 
@@ -6253,11 +6255,16 @@ function smShot(r, js) {
   const id = smId(r), m = smDev[id] || (smDev[id] = {});
   const neu = m.n != null && d.n > m.n ? d.n - m.n : 0;
   if (m.n == null && d.n > 0 && d.ago_ms >= 0 && d.ago_ms < 3000) { /* erster Wert direkt nach einem Schuss */ }
-  m.bat = d.bat; m.n = d.n;
+  m.bat = d.bat; m.n = d.n; if (d.roll != null) m.roll = d.roll;
   if (neu > 0 && d.ago_ms >= 0) {
-    const tof = smTof(r);
-    feld.shots.unshift({ sid: id, name: r.n, z: r.z || null, at: Date.now() - d.ago_ms, tof: tof || 1, done: false });
+    const tof = smTof(r), cant = d.cant != null && isFinite(d.cant) ? d.cant - (r.cant0 || 0) : null;
+    feld.shots.unshift({ sid: id, name: r.n, z: r.z || null, at: Date.now() - d.ago_ms, tof: tof || 1, done: false, cant });
     feld.shots = feld.shots.slice(0, 60);
+    sessEv("shot", r.n, { cant });
+    if (cant != null && Math.abs(cant) > (state.cantMax || 1)) {
+      feld.hitLog.unshift({ cantw: true, at: Date.now() - d.ago_ms, name: r.n, cant }); feld.hitLog = feld.hitLog.slice(0, 12); renderHits();
+      if ($("hit-sig") && $("hit-sig").checked) beep();
+    }
   }
   smRefresh();
 }
@@ -6274,6 +6281,7 @@ function smAssign(k, H) {
   }
   if (!best) return null;
   best.sh.done = true;
+  sessEv(best.sh.z != null && best.sh.z !== +k ? "cross" : "hit", best.sh.name, { z: +k, sensor: true });
   return { name: best.sh.name, tof: (H - best.sh.at) / 1000, cross: best.sh.z != null && best.sh.z !== +k };
 }
 // Fehlschüsse: kein Treffer bis Flugzeit + 2,5 s (Funkweg), nur wenn Treffermelder aktiv sind
@@ -6283,7 +6291,7 @@ setInterval(() => {
   feld.shots.forEach(sh => {
     if (sh.done || now - sh.at < (sh.tof + 2.5) * 1000) return;
     sh.done = true; ch = true;
-    if (sh.z == null || feld.hits[String(sh.z)]) feld.hitLog.unshift({ miss: true, at: sh.at, name: sh.name, z: sh.z });
+    if (sh.z == null || feld.hits[String(sh.z)]) { feld.hitLog.unshift({ miss: true, at: sh.at, name: sh.name, z: sh.z }); sessEv("miss", sh.name, { sensor: true }); }
   });
   if (ch) { feld.hitLog = feld.hitLog.slice(0, 12); renderHits(); }
 }, 500);
@@ -6308,6 +6316,90 @@ async function smAttach(r, d) {
   try { smShot(r, new TextDecoder().decode(await live.readValue())); } catch (e) {}
 }
 $("shooters").addEventListener("click", e => { const b = e.target.closest("[data-sm]"); if (b) smConnect(+b.dataset.sm); });
+
+/* ===================== Schießstand-Sitzung: Treffer, Fehlschüsse, Verkantung je Schütze ===================== */
+function sessState() { if (!state.sess) state.sess = { on: false, start: 0, ev: [] }; if (!Array.isArray(state.sessions)) state.sessions = []; return state.sess; }
+function sessEv(type, name, extra = {}) {
+  const S = sessState(); if (!S.on || !name) return;
+  S.ev.push({ t: type, n: name, at: Date.now(), ...extra }); if (S.ev.length > 3000) S.ev.shift();
+  save(); sessRender();
+}
+function sessStats(ev) {
+  const by = new Map();
+  ev.forEach(e => {
+    const r = by.get(e.n) || { name: e.n, shots: 0, hits: 0, miss: 0, cross: 0, cants: [] };
+    if (e.t === "shot") { r.shots++; if (e.cant != null) r.cants.push(e.cant); }
+    if (e.t === "hit") r.hits++;
+    if (e.t === "miss") r.miss++;
+    if (e.t === "cross") { r.cross++; }
+    if (e.t === "mhit") { r.shots++; r.hits++; }
+    if (e.t === "mmiss") { r.shots++; r.miss++; }
+    by.set(e.n, r);
+  });
+  return [...by.values()].map(r => {
+    const rated = r.hits + r.miss + r.cross, shots = Math.max(r.shots, rated);
+    const ca = r.cants.length ? r.cants.reduce((a, b) => a + Math.abs(b), 0) / r.cants.length : null;
+    return { ...r, shots, quote: rated ? r.hits / rated : null, cantAvg: ca, cantBad: r.cants.filter(c => Math.abs(c) > (state.cantMax || 1)).length };
+  });
+}
+function sessText(start, end, rows) {
+  const d = new Date(start), dur = Math.round(((end || Date.now()) - start) / 60000);
+  let t = `${tr("FLUGBAHN · Sitzung", "FLUGBAHN · Session")} ${d.toLocaleDateString(LOCALE)} ${d.toLocaleTimeString(LOCALE, { hour: "2-digit", minute: "2-digit" })} (${dur} min)\n`;
+  const s = state.shot; t += `${s.atm === "da" ? "DA " + nf(s.da, 0) + " m" : nf(s.temp, 0) + " °C, " + nf(s.press, 0) + " hPa"} · ${tr("Wind", "Wind")} ${nf(s.windSpeed, 1)} m/s\n`;
+  rows.forEach(r => { t += `\n${r.name}: ${r.hits}/${r.hits + r.miss + r.cross} ${tr("Treffer", "hits")}${r.quote != null ? ` (${nf(r.quote * 100, 0)} %)` : ""} · ${r.shots} ${tr("Schuss", "shots")}${r.cross ? ` · ${r.cross}× ${tr("falsches Ziel", "wrong target")}` : ""}${r.cantAvg != null ? ` · ${tr("Verkantung", "cant")} Ø ${nf(r.cantAvg, 1)}°` : ""}`; });
+  return t;
+}
+function sessRender() {
+  const box = $("ses-box"); if (!box) return;
+  const S = sessState(), rows = sessStats(S.ev);
+  $("ses-btn").textContent = S.on ? tr("Sitzung beenden", "End session") : tr("Sitzung starten", "Start session");
+  $("ses-btn").classList.toggle("primary", !S.on);
+  $("ses-state").textContent = S.on ? tr(`läuft seit ${new Date(S.start).toLocaleTimeString(LOCALE, { hour: "2-digit", minute: "2-digit" })}`, `running since ${new Date(S.start).toLocaleTimeString(LOCALE, { hour: "2-digit", minute: "2-digit" })}`) : "";
+  const names = [...new Set([...(state.shooters || []).map(r => r.n), ...rows.map(r => r.name)])];
+  $("ses-tab").innerHTML = !S.on && !rows.length ? "" : `<div class="twrap"><table class="mini"><thead><tr><th style="text-align:left">${tr("Schütze", "Shooter")}</th><th>${tr("Treffer", "Hits")}</th><th>${tr("Fehler", "Misses")}</th><th>${tr("Quote", "Rate")}</th><th>${tr("Schuss", "Shots")}</th><th>${tr("Verkantung Ø", "Cant avg")}</th>${S.on ? "<th></th>" : ""}</tr></thead><tbody>` +
+    names.map(n => { const r = rows.find(x => x.name === n) || { hits: 0, miss: 0, cross: 0, shots: 0, quote: null, cantAvg: null, cantBad: 0 };
+      return `<tr><td style="text-align:left"><b>${escH(n)}</b></td><td>${r.hits}${r.cross ? ` <span class="warn-t">+${r.cross}✕</span>` : ""}</td><td>${r.miss}</td><td>${r.quote != null ? nf(r.quote * 100, 0) + " %" : "–"}</td><td>${r.shots}</td><td>${r.cantAvg != null ? nf(r.cantAvg, 1) + "°" + (r.cantBad ? ` <span class="warn-t">(${r.cantBad}×)</span>` : "") : "–"}</td>${S.on ? `<td style="white-space:nowrap"><button class="btn" type="button" data-ses-h="${escH(n)}" style="padding:2px 8px;font-size:12px">+ ${tr("Treffer", "hit")}</button> <button class="btn" type="button" data-ses-m="${escH(n)}" style="padding:2px 8px;font-size:12px">+ ${tr("Fehler", "miss")}</button></td>` : ""}</tr>`; }).join("") + `</tbody></table></div>`;
+  $("ses-hist").innerHTML = state.sessions.length ? `<b>${tr("Frühere Sitzungen", "Earlier sessions")}</b><br>` + state.sessions.slice(0, 5).map((x, i) => `<a href="#" data-ses-old="${i}">${new Date(x.start).toLocaleDateString(LOCALE)} ${new Date(x.start).toLocaleTimeString(LOCALE, { hour: "2-digit", minute: "2-digit" })}</a> · ${x.rows.map(r => `${escH(r.name)} ${r.hits}/${r.hits + r.miss + r.cross}`).join(", ")}`).join("<br>") : "";
+}
+async function sessShare(txt) {
+  try { if (navigator.share) { await navigator.share({ text: txt }); return tr("Geteilt.", "Shared."); } } catch (e) { if (e && e.name === "AbortError") return ""; }
+  try { await navigator.clipboard.writeText(txt); return tr("Auswertung kopiert – in WhatsApp einfügen.", "Summary copied – paste it into WhatsApp."); } catch (e) { $("im-text").value = txt; return tr("Text steht unter Profil → Daten sichern.", "Text is under Profile → Back up data."); }
+}
+function initSession() {
+  const anchor = $("st2-msg"); if (!anchor) return; sessState();
+  anchor.insertAdjacentHTML("afterend", `<div id="ses-box" class="devbox" style="margin-top:12px">
+    <div class="devrow" style="justify-content:space-between;flex-wrap:wrap;gap:6px"><span class="sec-t" style="margin:0">${tr("Sitzung", "Session")}</span><span class="hint" id="ses-state" style="margin:0"></span></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin:6px 0"><button class="btn primary" type="button" id="ses-btn"></button><button class="btn" type="button" id="ses-share">${tr("Auswertung teilen", "Share summary")}</button><button class="btn" type="button" id="ses-null">${tr("Verkantung nullen", "Zero cant")}</button></div>
+    <div id="ses-tab"></div>
+    <p class="hint" id="ses-msg" style="margin:6px 0 0">${tr("Zählt Treffer, Fehlschüsse und Verkantung je Schütze. Mit Treffermeldern und Schussmeldern automatisch, sonst mit „+ Treffer“ / „+ Fehler“ von Hand. „Verkantung nullen“ tippen, während alle Waffen waagerecht liegen.", "Counts hits, misses and cant per shooter. Automatic with hit detectors and shot sensors, otherwise by hand with “+ hit” / “+ miss”. Tap “Zero cant” while all rifles lie level.")}</p>
+    <p class="hint" id="ses-hist" style="margin:6px 0 0"></p></div>`);
+  $("ses-btn").addEventListener("click", () => {
+    const S = sessState();
+    if (!S.on) { S.on = true; S.start = Date.now(); S.ev = []; $("ses-msg").textContent = tr("Sitzung läuft.", "Session running."); }
+    else {
+      S.on = false; const rows = sessStats(S.ev);
+      if (rows.length) { state.sessions.unshift({ start: S.start, end: Date.now(), rows }); state.sessions = state.sessions.slice(0, 30); }
+      $("ses-msg").textContent = tr("Sitzung gespeichert. Mit „Auswertung teilen“ an die Gruppe schicken.", "Session saved. Use “Share summary” to send it to the group.");
+    }
+    save(); sessRender();
+  });
+  $("ses-share").addEventListener("click", async () => {
+    const S = sessState(); const src = S.on || !state.sessions.length ? { start: S.start || Date.now(), end: null, rows: sessStats(S.ev) } : state.sessions[0];
+    if (!src.rows.length) { $("ses-msg").textContent = tr("Noch keine Schüsse in der Sitzung.", "No shots in the session yet."); return; }
+    const m = await sessShare(sessText(src.start, src.end, src.rows)); if (m) $("ses-msg").textContent = m;
+  });
+  $("ses-null").addEventListener("click", () => {
+    let n = 0; (state.shooters || []).forEach(r => { const d = smDev[r.id]; if (d && d.device && d.device.gatt.connected && d.roll != null) { r.cant0 = d.roll; n++; } });
+    save(); $("ses-msg").textContent = n ? tr(`Verkantung bei ${n} Schussmeldern genullt.`, `Cant zeroed on ${n} shot sensors.`) : tr("Kein verbundener Schussmelder mit Lagewert.", "No connected shot sensor with a level reading.");
+  });
+  $("ses-box").addEventListener("click", async e => {
+    const h = e.target.closest("[data-ses-h]"), m = e.target.closest("[data-ses-m]"), o = e.target.closest("[data-ses-old]");
+    if (h) sessEv("mhit", h.dataset.sesH); if (m) sessEv("mmiss", m.dataset.sesM);
+    if (o) { e.preventDefault(); const x = state.sessions[+o.dataset.sesOld]; const r = await sessShare(sessText(x.start, x.end, x.rows)); if (r) $("ses-msg").textContent = r; }
+  });
+  sessRender();
+}
+try { initSession(); } catch (e) { console.error("initSession", e); }
 
 /* ===================== Bedienung: Sprungmarken im Reiter Profil ===================== */
 function initProfilNav() {
