@@ -2147,7 +2147,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 346d341f00</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 032533378e</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -2826,7 +2826,7 @@ function renderCounter() {
   if (document.activeElement !== $("rc-low")) $("rc-low").value = p.stockLow > 0 ? String(p.stockLow) : "";
   $("rc-stock-msg").textContent = st == null ? trE("Bestand eintragen, dann zählt jeder Schuss im Zähler davon ab.", "Enter your stock; every shot on the counter is then taken off.")
     : st <= 0 ? trE("Keine Munition mehr für dieses Profil.", "No ammunition left for this profile.")
-    : `${trE("Reicht noch für", "Enough for")} ${nf(st, 0)} ${trE("Schuss", "shots")}${st >= 20 ? ` (≈ ${nf(Math.floor(st / 20), 0)} ${trE("Schachteln à 20", "boxes of 20")})` : ""}${p.stockLow > 0 && st < p.stockLow ? " · " + trE("Nachkaufen!", "Time to restock!") : ""}`;
+    : `${trE("Reicht noch für", "Enough for")} ${nf(st, 0)} ${trE("Schuss", "shots")}${st >= 20 ? ` (≈ ${nf(Math.floor(st / 20), 0)} ${Math.floor(st / 20) === 1 ? trE("Schachtel à 20", "box of 20") : trE("Schachteln à 20", "boxes of 20")})` : ""}${p.stockLow > 0 && st < p.stockLow ? " · " + trE("Nachkaufen!", "Time to restock!") : ""}`;
 }
 // Früh verfügbare Übersetzung (tr wird erst später im Skript definiert)
 function trE(de, en) { return LANG === "en" ? en : de; }
