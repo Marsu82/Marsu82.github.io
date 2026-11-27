@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-l="de">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -8,10 +8,13 @@
 <style>
   :root{--bg:#D6D2BC;--surface:#E7E4D2;--ink:#1C2116;--muted:#545A43;--line:#ADA88C;--accent:#4B5320;--on:#E7E4D2}
   @media (prefers-color-scheme: dark){:root{--bg:#101209;--surface:#181B11;--ink:#DEDCC4;--muted:#8E9279;--line:#353B27;--accent:#C9B57E;--on:#101209}}
+  html[data-l="de"] .en, html[data-l="en"] .de{display:none!important}
   body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.6 system-ui,-apple-system,"Segoe UI",sans-serif}
   main{max-width:640px;margin:0 auto;padding:24px 16px 48px}
+  .top{display:flex;justify-content:space-between;align-items:center;gap:10px}
   h1{font-size:1.6rem;margin:.2em 0 .4em}
   .btn{display:inline-block;background:var(--accent);color:var(--on);padding:14px 22px;border-radius:6px;font-weight:700;text-decoration:none;font-size:1.1rem}
+  .lang{border:1px solid var(--line);background:var(--surface);color:var(--ink);padding:6px 12px;font:600 14px system-ui,sans-serif;cursor:pointer}
   .card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px;margin:20px 0}
   img{max-width:260px;width:100%;height:auto;background:#fff;border-radius:6px}
   small,.muted{color:var(--muted)}
@@ -20,25 +23,43 @@
 </head>
 <body>
 <main>
-  <p><a href="../">← Flugbahn</a></p>
-  <h1>Flugbahn für Android (Testversion)</h1>
-  <p>Die App öffnet die Webversion als eigene App ohne Browserleiste. Inhalte aktualisieren sich automatisch über die Webseite.</p>
-  <p><a class="btn" href="flugbahn.apk" download>APK herunterladen</a> <small>(ca. 0,5 MB, Android 5 oder neuer)</small></p>
+  <div class="top"><a href="../">← Flugbahn</a><button class="lang" id="lang" type="button">EN</button></div>
+  <h1><span class="de">Flugbahn für Android (Testversion)</span><span class="en">Flugbahn for Android (test version)</span></h1>
+  <p class="de">Die App öffnet die Webversion als eigene App ohne Browserleiste. Inhalte aktualisieren sich automatisch über die Webseite.</p>
+  <p class="en">The app opens the web version as a standalone app without a browser bar. Content updates itself automatically from the website.</p>
+  <p><a class="btn" href="flugbahn.apk" download><span class="de">APK herunterladen</span><span class="en">Download APK</span></a> <small class="de">(ca. 0,5 MB, Android 5 oder neuer)</small><small class="en">(about 0.5 MB, Android 5 or newer)</small></p>
   <div class="card">
-    <b>Installieren</b>
-    <ol>
+    <b class="de">Installieren</b><b class="en">Install</b>
+    <ol class="de">
       <li>Auf <b>APK herunterladen</b> tippen. Chrome fragt eventuell, ob du die Datei behalten willst: <b>Trotzdem herunterladen</b>.</li>
       <li>Die Datei öffnen. Android fragt nach der Erlaubnis, <b>Apps aus dieser Quelle</b> zu installieren: einmal erlauben.</li>
       <li><b>Installieren</b> tippen. Play Protect warnt vielleicht, weil die App (noch) nicht aus dem Play Store kommt: <b>Trotzdem installieren</b>.</li>
       <li>Flugbahn über das neue Symbol starten. Chrome muss auf dem Handy installiert sein.</li>
     </ol>
+    <ol class="en">
+      <li>Tap <b>Download APK</b>. Chrome may ask whether to keep the file: <b>Download anyway</b>.</li>
+      <li>Open the file. Android asks for permission to install <b>apps from this source</b>: allow it once.</li>
+      <li>Tap <b>Install</b>. Play Protect may warn because the app is not (yet) from the Play Store: <b>Install anyway</b>.</li>
+      <li>Start Flugbahn from the new icon. Chrome must be installed on the phone.</li>
+    </ol>
   </div>
   <div class="card">
-    <b>Auf ein anderes Handy bringen</b>
-    <p>QR-Code mit der Kamera scannen:</p>
-    <img src="flugbahn-apk-qr.png" alt="QR-Code zum Herunterladen der Flugbahn-APK" width="624" height="774">
+    <b class="de">Auf ein anderes Handy bringen</b><b class="en">Get it onto another phone</b>
+    <p class="de">QR-Code mit der Kamera scannen:</p><p class="en">Scan the QR code with the camera:</p>
+    <img src="flugbahn-apk-qr.png" alt="QR-Code / QR code: flugbahn.apk" width="624" height="774">
   </div>
-  <p class="muted">Später gibt es die App im Play Store. Die Testversion kann dann einfach deinstalliert werden.</p>
+  <p class="muted de">Später gibt es die App im Play Store. Die Testversion kann dann einfach deinstalliert werden.</p>
+  <p class="muted en">The app will later be available on the Play Store. The test version can then simply be uninstalled.</p>
 </main>
+<script>
+(function () {
+  var h = document.documentElement, b = document.getElementById("lang"), l;
+  try { l = localStorage.getItem("flugbahn.site_lang"); } catch (e) {}
+  if (!l) l = /^de\b/i.test(navigator.language || "de") ? "de" : "en";
+  function set(x) { l = x; h.dataset.l = x; h.lang = x; b.textContent = x === "de" ? "EN" : "DE"; document.title = x === "de" ? "Flugbahn für Android" : "Flugbahn for Android"; try { localStorage.setItem("flugbahn.site_lang", x); } catch (e) {} }
+  set(l);
+  b.addEventListener("click", function () { set(l === "de" ? "en" : "de"); });
+})();
+</script>
 </body>
 </html>
