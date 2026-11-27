@@ -1190,5 +1190,237 @@
    }
   ],
   "use": "Dynamisches Schießen; Wertung Minor (A 5, C 3, D 1), Major C 4, D 2. Maße nach Sekundärquellen, nicht gegen das IPSC-Regelwerk geprüft."
+ },
+ {
+  "id": "nra-b8",
+  "name": "NRA B-8 (25 yd Pistole)",
+  "org": "NRA (USA)",
+  "dist": 22.9,
+  "rings": [
+   [
+    10,
+    85.3
+   ],
+   [
+    9,
+    140.7
+   ],
+   [
+    8,
+    203.2
+   ],
+   [
+    7,
+    279.4
+   ],
+   [
+    6,
+    375.9
+   ],
+   [
+    5,
+    499.9
+   ]
+  ],
+  "inner": 43.1,
+  "black": 140.7,
+  "shape": "round",
+  "w": null,
+  "h": null,
+  "score": "ring",
+  "use": "Pistole Präzision 25 yd; Ringe 10–5, X-Ring innen. Maße aus Sekundärquellen."
+ },
+ {
+  "id": "nra-b6",
+  "name": "NRA B-6 (50 yd Pistole)",
+  "org": "NRA (USA)",
+  "dist": 45.7,
+  "rings": [
+   [
+    10,
+    85.3
+   ],
+   [
+    9,
+    140.7
+   ],
+   [
+    8,
+    203.2
+   ],
+   [
+    7,
+    279.4
+   ],
+   [
+    6,
+    375.9
+   ],
+   [
+    5,
+    499.9
+   ]
+  ],
+  "inner": 43.1,
+  "black": 203.2,
+  "shape": "round",
+  "w": null,
+  "h": null,
+  "score": "ring",
+  "use": "Pistole Präzision 50 yd; Spiegel bis Ring 8. Maße aus Sekundärquellen."
+ },
+ {
+  "id": "nra-b16",
+  "name": "NRA B-16 (25 yd Präzision, verkleinert)",
+  "org": "NRA (USA)",
+  "dist": 22.9,
+  "rings": [
+   [
+    10,
+    38.4
+   ],
+   [
+    9,
+    66.0
+   ],
+   [
+    8,
+    97.0
+   ],
+   [
+    7,
+    135.1
+   ]
+  ],
+  "inner": 17.0,
+  "black": 135.1,
+  "shape": "round",
+  "w": null,
+  "h": null,
+  "score": "ring",
+  "use": "Pistole/KK 25 yd; Ringe 10–7. Maße aus Sekundärquellen."
+ },
+ {
+  "id": "nra-b2",
+  "name": "NRA B-2 (50 ft Pistole)",
+  "org": "NRA (USA)",
+  "dist": 15.2,
+  "rings": [
+   [
+    10,
+    22.9
+   ],
+   [
+    9,
+    39.1
+   ],
+   [
+    8,
+    56.6
+   ],
+   [
+    7,
+    78.0
+   ]
+  ],
+  "inner": null,
+  "black": 78.0,
+  "shape": "round",
+  "w": null,
+  "h": null,
+  "score": "ring",
+  "use": "Pistole/KK 50 ft (15 m); Ringe 10–7. Maße aus Sekundärquellen."
+ },
+ {
+  "id": "bds-z12-fall-150",
+  "name": "BDS-Fallscheibe 150 mm (Z12)",
+  "org": "BDS",
+  "dist": 15,
+  "rings": [
+   [
+    1,
+    150
+   ]
+  ],
+  "inner": null,
+  "black": 150,
+  "shape": "round",
+  "w": null,
+  "h": null,
+  "score": "zone",
+  "use": "Kurzwaffe Fallscheiben 15 m. Maße aus Sekundärquellen."
+ },
+ {
+  "id": "bds-z12-fall-200",
+  "name": "BDS-Fallscheibe 200 mm (Z12)",
+  "org": "BDS",
+  "dist": 25,
+  "rings": [
+   [
+    1,
+    200
+   ]
+  ],
+  "inner": null,
+  "black": 200,
+  "shape": "round",
+  "w": null,
+  "h": null,
+  "score": "zone",
+  "use": "Kurzwaffe Fallscheiben 25 m. Maße aus Sekundärquellen."
+ },
+ {
+  "id": "ipsc-mini",
+  "name": "IPSC-Mini-Scheibe",
+  "org": "IPSC",
+  "dist": 10,
+  "rings": [
+   [
+    1,
+    375
+   ]
+  ],
+  "inner": null,
+  "black": 0,
+  "shape": "ipsc",
+  "w": 300,
+  "h": 375,
+  "score": "ipsc",
+  "zones": [
+   {
+    "z": "A",
+    "w": 100,
+    "h": 215,
+    "c": 0,
+    "pts": 5
+   },
+   {
+    "z": "D",
+    "w": 300,
+    "h": 375,
+    "c": 75,
+    "pts": 1
+   }
+  ],
+  "use": "Dynamisch, kurze Distanz. A-Zone und Außenmaß aus Sekundärquellen; die C-Zone ist nicht belegt und fehlt deshalb (Treffer außerhalb A zählen als D)."
+ },
+ {
+  "id": "dot-torture",
+  "name": "Dot-Torture-Punkt (Ø 5 cm)",
+  "org": "Übung",
+  "dist": 3,
+  "rings": [
+   [
+    1,
+    50.8
+   ]
+  ],
+  "inner": null,
+  "black": 50.8,
+  "shape": "round",
+  "w": null,
+  "h": null,
+  "score": "zone",
+  "use": "Übung mit 10 Punkten zu 2″ (50 Schuss, ab 3 yd), jeder Treffer muss im Punkt liegen. Hier ein einzelner Punkt zum Auswerten."
  }
 ]
