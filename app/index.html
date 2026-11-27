@@ -2048,7 +2048,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 6cd79acee9</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 274e2237b7</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -2771,9 +2771,9 @@ function buildShooters() {
   const L = state.shooters;
   if (!L.length) { el.innerHTML = `<tbody><tr><td style="text-align:left;color:var(--muted);white-space:normal">Noch keine Schützen. Mit „Schütze hinzufügen“ legst du für jeden Mitschützen eine Zeile mit seinem Profil an.</td></tr></tbody>`; return; }
   const opts = state.profiles.map(q => `<option value="${q.id}">${escapeHtml(q.name || "Profil")}</option>`).join("");
-  let h = `<thead><tr><th style="text-align:left">Schütze</th><th style="text-align:left">Profil</th><th>Entf.<span>${uLab("d")}</span></th><th>Ziel-Nr.</th><th class="grp">Höhe</th><th>Seite</th><th class="grp">Info</th><th></th></tr></thead><tbody>`;
+  let h = `<thead><tr><th style="text-align:left">Schütze</th><th style="text-align:left">Profil</th><th>Entf.<span>${uLab("d")}</span></th><th>Ziel-Nr.</th><th>${tr("Schussmelder", "Shot sensor")}</th><th class="grp">Höhe</th><th>Seite</th><th class="grp">Info</th><th></th></tr></thead><tbody>`;
   L.forEach((r, i) => {
-    h += `<tr><td class="tg-n"><input data-st2="${i}:n" value="${escapeHtml(r.n)}" aria-label="Name des Schützen"></td><td><span class="inp" style="min-width:150px"><select data-st2="${i}:pid" aria-label="Profil des Schützen">${opts}</select></span></td><td class="tg-d"><input data-st2="${i}:d" inputmode="decimal" placeholder="${nf(toU("d", state.shot.dist), 0)}" value="${r.d ? fmtIn(dispU("d", r.d)) : ""}" aria-label="Entfernung"></td><td><span class="inp" style="min-width:64px"><select data-st2="${i}:z" aria-label="Ziel mit Treffermelder"><option value="">–</option>${[1, 2, 3, 4, 5, 6, 7, 8].map(z => `<option value="${z}"${r.z === z ? " selected" : ""}>${z}</option>`).join("")}</select></span></td><td class="grp res" id="st2-e-${i}">–</td><td class="res" id="st2-w-${i}">–</td><td class="grp" id="st2-i-${i}" style="text-align:left;font-size:12px;white-space:normal;min-width:120px">–</td><td><button class="iconbtn" type="button" data-st2-del="${i}" aria-label="Schütze entfernen">✕</button></td></tr>`;
+    h += `<tr><td class="tg-n"><input data-st2="${i}:n" value="${escapeHtml(r.n)}" aria-label="Name des Schützen"></td><td><span class="inp" style="min-width:150px"><select data-st2="${i}:pid" aria-label="Profil des Schützen">${opts}</select></span></td><td class="tg-d"><input data-st2="${i}:d" inputmode="decimal" placeholder="${nf(toU("d", state.shot.dist), 0)}" value="${r.d ? fmtIn(dispU("d", r.d)) : ""}" aria-label="Entfernung"></td><td><span class="inp" style="min-width:64px"><select data-st2="${i}:z" aria-label="Ziel mit Treffermelder"><option value="">–</option>${[1, 2, 3, 4, 5, 6, 7, 8].map(z => `<option value="${z}"${r.z === z ? " selected" : ""}>${z}</option>`).join("")}</select></span></td><td><button class="btn" type="button" data-sm="${i}" style="padding:3px 8px;font-size:12px;white-space:nowrap">${typeof smLabel === "function" ? smLabel(r) : "–"}</button></td><td class="grp res" id="st2-e-${i}">–</td><td class="res" id="st2-w-${i}">–</td><td class="grp" id="st2-i-${i}" style="text-align:left;font-size:12px;white-space:normal;min-width:120px">–</td><td><button class="iconbtn" type="button" data-st2-del="${i}" aria-label="Schütze entfernen">✕</button></td></tr>`;
   });
   el.innerHTML = h + "</tbody>";
   L.forEach((r, i) => { const sel = el.querySelector(`[data-st2="${i}:pid"]`); sel.value = state.profiles.some(q => q.id === r.pid) ? r.pid : state.profiles[0].id; });
@@ -3939,6 +3939,7 @@ const FEATURES = [
   ["schussbuch log", "Schussbuch", "Shot log", "log"],
   ["streckenbuch jagd erlegt harvest", "Streckenbuch", "Harvest log", "hunt"],
   ["standliste schützen shooters", "Standliste", "Range list", "shooters"],
+  ["schussmelder wer hat getroffen fehlschuss rückstoß shot sensor", "Schussmelder (Standliste)", "Shot sensor (range list)", "shooters"],
   ["gps position entfernung messen", "Entfernung per GPS", "Range by GPS", "btn-gps"],
   ["spotter koppeln teilen spotter", "Spotter koppeln", "Pair a spotter", "sp-make"],
   ["sicherung backup export sichern daten", "Datensicherung", "Backup", "ex-btn"],
@@ -4564,7 +4565,7 @@ function checkShareLink() {
   $("import-no").onclick = done;
 }
 
-const NEWS = { v: "2026-11-27a", items: ["Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich", "8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)", "Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen", "Sprungleiste im Reiter Profil", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl", "Scheibe direkt bei „Trefferbild per Foto“ wählbar", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“", "Windprognose für die nächsten 10 Sekunden im Windradar", "Munition per Foto der Schachtel erkennen", "Auffälligkeiten: Ausreißer, V0-Abfall, Magazine", "Fahnen automatisch im Kamerabild erkennen, Mirage (experimentell)", "Windlese-Trainer, Schusszähler per Mikrofon, PRS-Stage-Planer", "Vereinsmodus: Zielliste per QR teilen", "Optionaler KI-Coach mit eigenem API-Schlüssel", "Windradar: Wind aller Stationen entlang der Bahn, wirksamer Seitenwind und Schussfenster (Schuss → Messgerät)", "Treffermelder für Stahlziele mit Ton und Vibration", "Korrektur ansagen lassen (🔊 an der Lösung)", "Entfernung, Winkel und Richtung per GPS (Extras)", "Leitertest fürs Wiederladen (Extras)", "Spotter koppeln per QR-Code (Extras)", "Magazin-Statistik mit Störungen (Extras)", "Fahnenwinkel mit der Kamera messen (Extras → Wind aus Fahne)", "Chronograph-Dateien von Garmin und LabRadar laden", "Laufthermometer-Modus für den Munitionsfühler", "Funkbrücke (LoRa): Wind auf der ganzen Strecke bis 1200 m", "Bis zu drei Wetterstationen füllen die Windzonen", "Windverlauf und Schussfenster mit Ton", "Windmesser-Abgleich in der App", "Messgerät per Bluetooth verbinden (Schuss → Korrekturen)", "Munitionstemperatur getrennt von der Luft (Schuss → Korrekturen)", "Taupunkt mit Beschlagwarnung", "Scheiben von BDS, DSB und ISSF mit Ringwertung und Abweichung (Profil → Einschuss)", "Militärladungen wie M193, M80, GP 11 mit Hinweisen", "Widerstandskurve aus Treffern oder Geschwindigkeiten (Profil)", "BC aus Geschossmaßen schätzen", "Absehen der Hersteller mit echten Maßen", "Über 2400 Fabrikladungen und 1700 Geschosse", "Standliste für mehrere Schützen (Reiter Ziele)", "Lauflänge speichern: Fabrik-V0 wird automatisch umgerechnet", "Imperiale Einheiten (yd, fps, Zoll) zum Umschalten", "Kleinkaliber .22 lr, .22 WMR, .17 HMR", "E100-Prüfung nach § 19 BJagdG, Mondphase, MPBR", "Turmband und Scheckkarte zum Ausdrucken", "Schalldämpfer, Kaltlauf, Klickwert-Test, Abgleich-Assistent", "Suche, Schusszähler, Ladedaten, Stage-Timer"] };
+const NEWS = { v: "2026-11-27b", items: ["Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)", "Standliste: Ziel-Nr. je Schütze für die Treffermelder", "Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich", "8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)", "Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen", "Sprungleiste im Reiter Profil", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl", "Scheibe direkt bei „Trefferbild per Foto“ wählbar", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“", "Windprognose für die nächsten 10 Sekunden im Windradar", "Munition per Foto der Schachtel erkennen", "Auffälligkeiten: Ausreißer, V0-Abfall, Magazine", "Fahnen automatisch im Kamerabild erkennen, Mirage (experimentell)", "Windlese-Trainer, Schusszähler per Mikrofon, PRS-Stage-Planer", "Vereinsmodus: Zielliste per QR teilen", "Optionaler KI-Coach mit eigenem API-Schlüssel", "Windradar: Wind aller Stationen entlang der Bahn, wirksamer Seitenwind und Schussfenster (Schuss → Messgerät)", "Treffermelder für Stahlziele mit Ton und Vibration", "Korrektur ansagen lassen (🔊 an der Lösung)", "Entfernung, Winkel und Richtung per GPS (Extras)", "Leitertest fürs Wiederladen (Extras)", "Spotter koppeln per QR-Code (Extras)", "Magazin-Statistik mit Störungen (Extras)", "Fahnenwinkel mit der Kamera messen (Extras → Wind aus Fahne)", "Chronograph-Dateien von Garmin und LabRadar laden", "Laufthermometer-Modus für den Munitionsfühler", "Funkbrücke (LoRa): Wind auf der ganzen Strecke bis 1200 m", "Bis zu drei Wetterstationen füllen die Windzonen", "Windverlauf und Schussfenster mit Ton", "Windmesser-Abgleich in der App", "Messgerät per Bluetooth verbinden (Schuss → Korrekturen)", "Munitionstemperatur getrennt von der Luft (Schuss → Korrekturen)", "Taupunkt mit Beschlagwarnung", "Scheiben von BDS, DSB und ISSF mit Ringwertung und Abweichung (Profil → Einschuss)", "Militärladungen wie M193, M80, GP 11 mit Hinweisen", "Widerstandskurve aus Treffern oder Geschwindigkeiten (Profil)", "BC aus Geschossmaßen schätzen", "Absehen der Hersteller mit echten Maßen", "Über 2400 Fabrikladungen und 1700 Geschosse", "Standliste für mehrere Schützen (Reiter Ziele)", "Lauflänge speichern: Fabrik-V0 wird automatisch umgerechnet", "Imperiale Einheiten (yd, fps, Zoll) zum Umschalten", "Kleinkaliber .22 lr, .22 WMR, .17 HMR", "E100-Prüfung nach § 19 BJagdG, Mondphase, MPBR", "Turmband und Scheckkarte zum Ausdrucken", "Schalldämpfer, Kaltlauf, Klickwert-Test, Abgleich-Assistent", "Suche, Schusszähler, Ladedaten, Stage-Timer"] };
 function backupReminder() {
   try {
     const own = state.log.length + state.bullets.length + state.profiles.filter(p => !/\(Beispiel\)$/.test(p.name || "")).length;
@@ -4579,7 +4580,7 @@ function backupReminder() {
     $("import-no").onclick = done;
   } catch (e) {}
 }
-const NEWS_EN = {"Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich":"Bundeswehr colour schemes: Army, Air Force, Navy, Cyber and Information Domain, Support area","8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)":"8 new colour schemes: Flecktarn, desert, ranger green, navy, black, hunting, sport, black-red-gold (Options → Colours)","Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen": "Search now finds functions too: type e.g. “target” or “sensor” and jump there", "Sprungleiste im Reiter Profil": "Section bar on the Profile tab", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)": "18 WWII riflescopes with range drum (Profile → Riflescope, group “Historisch (2. Weltkrieg)”)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)": "70 slugs and 31 shotshells with maker data (Extras → Shotgun)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser": "2,600+ factory loads: new incl. Winchester and Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)": "Shotgun: shot, pattern, lead, danger zone and slugs (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden": "Wireless ammo-box sensor: Shot → Corrections → Connect sensor", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl": "New profile now via “+ New” below the profile picker", "Scheibe direkt bei „Trefferbild per Foto“ wählbar": "Target face selectable right in “Group from photo”", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)": "Group from photo: holes are found automatically (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch": "Automatic MV and BC truing from the shot log", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“": "Voice control 🎤: “distance 650, wind 3 from 9 o'clock”"};
+const NEWS_EN = {"Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)":"Shot sensor on the rifle: the app knows who hit, misses and wrong targets (range list)","Standliste: Ziel-Nr. je Schütze für die Treffermelder":"Range list: target number per shooter for the hit detectors","Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich":"Bundeswehr colour schemes: Army, Air Force, Navy, Cyber and Information Domain, Support area","8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)":"8 new colour schemes: Flecktarn, desert, ranger green, navy, black, hunting, sport, black-red-gold (Options → Colours)","Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen": "Search now finds functions too: type e.g. “target” or “sensor” and jump there", "Sprungleiste im Reiter Profil": "Section bar on the Profile tab", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)": "18 WWII riflescopes with range drum (Profile → Riflescope, group “Historisch (2. Weltkrieg)”)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)": "70 slugs and 31 shotshells with maker data (Extras → Shotgun)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser": "2,600+ factory loads: new incl. Winchester and Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)": "Shotgun: shot, pattern, lead, danger zone and slugs (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden": "Wireless ammo-box sensor: Shot → Corrections → Connect sensor", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl": "New profile now via “+ New” below the profile picker", "Scheibe direkt bei „Trefferbild per Foto“ wählbar": "Target face selectable right in “Group from photo”", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)": "Group from photo: holes are found automatically (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch": "Automatic MV and BC truing from the shot log", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“": "Voice control 🎤: “distance 650, wind 3 from 9 o'clock”"};
 function showNews() {
   let seen = ""; try { seen = localStorage.getItem("flugbahn.news") || ""; } catch (e) { return; }
   if (seen === NEWS.v) return;
@@ -4920,7 +4921,9 @@ function feldLive(d) {
     const k = String(h.t), old = feld.hits[k];
     if (old && h.n > old.n) {
       const neu = h.n - old.n;
-      feld.hitLog.unshift({ t: h.t, at: Date.now(), g: h.g, n: neu });
+      const hitAt = Date.now() - (h.ago_ms != null && h.ago_ms >= 0 ? h.ago_ms : 0);
+      const who = typeof smAssign === "function" ? smAssign(h.t, hitAt) : null;
+      feld.hitLog.unshift({ t: h.t, at: hitAt, g: h.g, n: neu, who });
       feld.hitLog = feld.hitLog.slice(0, 12);
       feld.flash = { t: h.t, until: Date.now() + 2500 };
       if ($("hit-sig") && $("hit-sig").checked) { beep(); setTimeout(beep, 180); }
@@ -4943,7 +4946,7 @@ function renderHits() {
     const h = feld.hits[k], n = h.n - (state.hitBase[k] || 0), who = hitShooter(k);
     return `<span class="chip ${fl === k ? "good" : ""}" style="font-size:13px">${tr("Ziel", "Target")} ${k}${who ? ` · ${escH(who)}` : ""}: <b>${n}</b>${h.rssi != null ? ` · ${h.rssi} dBm` : ""}${h.age > 45 ? ` · ${tr("kein Signal", "no signal")}` : ""}${h.bat != null ? ` · ${h.bat} %` : ""}</span>`;
   }).join(" ");
-  $("hit-log").innerHTML = feld.hitLog.slice(0, 5).map(e => `${new Date(e.at).toLocaleTimeString(LOCALE)} · ${tr("Treffer Ziel", "Hit target")} ${e.t}${hitShooter(e.t) ? ` (${escH(hitShooter(e.t))})` : ""}${e.g ? ` (${nf(e.g, 0)} g)` : ""}`).join("<br>");
+  $("hit-log").innerHTML = feld.hitLog.slice(0, 6).map(e => e.miss ? `${new Date(e.at).toLocaleTimeString(LOCALE)} · <b>${tr("Kein Treffer", "Miss")}</b> – ${escH(e.name)}${e.z ? ` (${tr("Ziel", "target")} ${e.z})` : ""}` : `${new Date(e.at).toLocaleTimeString(LOCALE)} · ${tr("Treffer Ziel", "Hit target")} ${e.t}${e.who ? ` – <b>${escH(e.who.name)}</b> (${tr("Flugzeit", "time of flight")} ${nf(e.who.tof, 2)} s${e.who.cross ? `, <span class="warn-t">${tr("falsches Ziel!", "wrong target!")}</span>` : ""})` : hitShooter(e.t) ? ` (${escH(hitShooter(e.t))})` : ""}${e.g ? ` (${nf(e.g, 0)} g)` : ""}`).join("<br>");
   if (fl) setTimeout(renderHits, 2600);
 }
 
@@ -6193,6 +6196,79 @@ function initFuehler() {
   fuState();
 }
 try { initFuehler(); } catch (e) { console.error("initFuehler", e); }
+
+/* ===================== Schussmelder am Gewehr: Schusszeit + Flugzeit → Zuordnung der Treffer ===================== */
+const smDev = {};                    // Schützen-ID → { device, n, bat, err }
+feld.shots = [];                     // { sid, name, z, at, tof, done }
+function smId(r) { if (!r.id) { r.id = "s" + Date.now().toString(36) + Math.random().toString(36).slice(2, 6); save(); } return r.id; }
+function smLabel(r) {
+  const d = smDev[r.id]; if (!d || !d.device) return tr("verbinden", "connect");
+  if (!d.device.gatt.connected) return tr("getrennt", "disconnected");
+  return `✓ ${d.n || 0} ${tr("Sch.", "sh.")}${d.bat != null ? ` · ${d.bat} %` : ""}`;
+}
+function smTof(r) {   // erwartete Flugzeit dieses Schützen auf seine Entfernung
+  try { const q = state.profiles.find(x => x.id === r.pid) || state.profiles[0], d = r.d > 0 ? r.d : state.shot.dist; const res = compute(q, { ...state.shot, dist: d }, { maxD: d }); return res && res.target ? res.target.t : null; } catch (e) { return null; }
+}
+function smShot(r, js) {
+  let d; try { d = JSON.parse(js); } catch (e) { return; }
+  const id = smId(r), m = smDev[id] || (smDev[id] = {});
+  const neu = m.n != null && d.n > m.n ? d.n - m.n : 0;
+  if (m.n == null && d.n > 0 && d.ago_ms >= 0 && d.ago_ms < 3000) { /* erster Wert direkt nach einem Schuss */ }
+  m.bat = d.bat; m.n = d.n;
+  if (neu > 0 && d.ago_ms >= 0) {
+    const tof = smTof(r);
+    feld.shots.unshift({ sid: id, name: r.n, z: r.z || null, at: Date.now() - d.ago_ms, tof: tof || 1, done: false });
+    feld.shots = feld.shots.slice(0, 60);
+  }
+  smRefresh();
+}
+function smRefresh() { document.querySelectorAll("[data-sm]").forEach(b => { const r = state.shooters[+b.dataset.sm]; if (r) b.textContent = smLabel(r); }); }
+// Treffer (Ziel k, Zeitpunkt H) dem passenden Schuss zuordnen: |H − Schusszeit − Flugzeit| möglichst klein
+function smAssign(k, H) {
+  let best = null;
+  for (const sh of feld.shots) {
+    if (sh.done) continue;
+    const dt = (H - sh.at) / 1000 - sh.tof, win = 0.25 + 0.08 * sh.tof;
+    if (Math.abs(dt) > win) continue;
+    const score = Math.abs(dt) - (sh.z === +k ? 0.05 : 0);
+    if (!best || score < best.score) best = { sh, score, dt };
+  }
+  if (!best) return null;
+  best.sh.done = true;
+  return { name: best.sh.name, tof: (H - best.sh.at) / 1000, cross: best.sh.z != null && best.sh.z !== +k };
+}
+// Fehlschüsse: kein Treffer bis Flugzeit + 2,5 s (Funkweg), nur wenn Treffermelder aktiv sind
+setInterval(() => {
+  if (!feld.shots.length || !Object.keys(feld.hits).length) return;
+  const now = Date.now(); let ch = false;
+  feld.shots.forEach(sh => {
+    if (sh.done || now - sh.at < (sh.tof + 2.5) * 1000) return;
+    sh.done = true; ch = true;
+    if (sh.z == null || feld.hits[String(sh.z)]) feld.hitLog.unshift({ miss: true, at: sh.at, name: sh.name, z: sh.z });
+  });
+  if (ch) { feld.hitLog = feld.hitLog.slice(0, 12); renderHits(); }
+}, 500);
+async function smConnect(i) {
+  const r = state.shooters[i]; if (!r) return;
+  const id = smId(r), m = smDev[id] || (smDev[id] = {});
+  if (m.device && m.device.gatt.connected) { m.manual = true; m.device.gatt.disconnect(); smRefresh(); return; }
+  if (!navigator.bluetooth) { $("st2-msg").textContent = tr("Bluetooth braucht Chrome oder Edge.", "Bluetooth needs Chrome or Edge."); return; }
+  try {
+    const d = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: "Flugbahn S" }], optionalServices: [DEV.svc] });
+    m.device = d; m.manual = false; m.n = null;
+    d.addEventListener("gattserverdisconnected", () => { smRefresh(); if (!m.manual) setTimeout(() => { if (!d.gatt.connected) smAttach(r, d).catch(() => {}); }, 2000); });
+    await smAttach(r, d);
+    $("st2-msg").textContent = tr(`Schussmelder für ${r.n} verbunden. Pfeil am Gehäuse zur Mündung.`, `Shot sensor for ${r.n} connected. Arrow on the housing towards the muzzle.`);
+  } catch (er) { if (er && er.name !== "NotFoundError") $("st2-msg").textContent = tr("Verbindung nicht möglich: ", "Could not connect: ") + (er.message || er); }
+  smRefresh();
+}
+async function smAttach(r, d) {
+  const srv = await d.gatt.connect(), svc = await srv.getPrimaryService(DEV.svc), live = await svc.getCharacteristic(DEV.live);
+  live.addEventListener("characteristicvaluechanged", e => smShot(r, new TextDecoder().decode(e.target.value)));
+  await live.startNotifications();
+  try { smShot(r, new TextDecoder().decode(await live.readValue())); } catch (e) {}
+}
+$("shooters").addEventListener("click", e => { const b = e.target.closest("[data-sm]"); if (b) smConnect(+b.dataset.sm); });
 
 /* ===================== Bedienung: Sprungmarken im Reiter Profil ===================== */
 function initProfilNav() {
