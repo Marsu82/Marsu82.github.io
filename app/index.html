@@ -2069,7 +2069,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 6fc403cc72</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 33ed953a83</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -3978,6 +3978,11 @@ const FEATURES = [
   ["streckenbuch jagd erlegt harvest", "Streckenbuch", "Harvest log", "hunt"],
   ["kurzwaffe pistole revolver 9mm handgun waffenart", "Waffenart (Kurzwaffe)", "Weapon type (handgun)", "p-kw"],
   ["standliste schützen shooters", "Standliste", "Range list", "shooters"],
+  ["chronograph chrono v0 messen geschwindigkeit lichtschranke", "Chronograph", "Chronograph", "ch-in"],
+  ["wind zurückrechnen treffer ablage seitlich wind aus treffer", "Wind aus dem Treffer", "Wind from the hit", "wb-h"],
+  ["training übung drill kaltschuss trockentraining timer", "Trainingsprogramme", "Training drills", "trn-sel"],
+  ["ladungsvergleich vergleich munition kurve energie compare loads", "Ladungsvergleich", "Load comparison", "lc-q"],
+  ["wettkampf rangliste prs stage match ranking", "Wettkampf und Rangliste", "Match and ranking", "cmp-go"],
   ["sitzung auswertung trefferquote statistik teilen whatsapp session verkantung", "Sitzung und Auswertung", "Session and summary", "ses-btn"],
   ["schussmelder wer hat getroffen fehlschuss rückstoß shot sensor", "Schussmelder (Standliste)", "Shot sensor (range list)", "shooters"],
   ["gps position entfernung messen", "Entfernung per GPS", "Range by GPS", "btn-gps"],
@@ -4605,7 +4610,7 @@ function checkShareLink() {
   $("import-no").onclick = done;
 }
 
-const NEWS = { v: "2026-11-27d", items: ["Sitzung am Stand: Treffer, Fehlschüsse und Quote je Schütze, Auswertung per WhatsApp teilen (Ziele → Sitzung)", "Verkantungswarnung mit dem Schussmelder", "Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP", "Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)", "IPSC-Scheibe mit A/C/D-Wertung", "Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)", "Standliste: Ziel-Nr. je Schütze für die Treffermelder", "Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich", "8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)", "Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen", "Sprungleiste im Reiter Profil", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl", "Scheibe direkt bei „Trefferbild per Foto“ wählbar", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“", "Windprognose für die nächsten 10 Sekunden im Windradar", "Munition per Foto der Schachtel erkennen", "Auffälligkeiten: Ausreißer, V0-Abfall, Magazine", "Fahnen automatisch im Kamerabild erkennen, Mirage (experimentell)", "Windlese-Trainer, Schusszähler per Mikrofon, PRS-Stage-Planer", "Vereinsmodus: Zielliste per QR teilen", "Optionaler KI-Coach mit eigenem API-Schlüssel", "Windradar: Wind aller Stationen entlang der Bahn, wirksamer Seitenwind und Schussfenster (Schuss → Messgerät)", "Treffermelder für Stahlziele mit Ton und Vibration", "Korrektur ansagen lassen (🔊 an der Lösung)", "Entfernung, Winkel und Richtung per GPS (Extras)", "Leitertest fürs Wiederladen (Extras)", "Spotter koppeln per QR-Code (Extras)", "Magazin-Statistik mit Störungen (Extras)", "Fahnenwinkel mit der Kamera messen (Extras → Wind aus Fahne)", "Chronograph-Dateien von Garmin und LabRadar laden", "Laufthermometer-Modus für den Munitionsfühler", "Funkbrücke (LoRa): Wind auf der ganzen Strecke bis 1200 m", "Bis zu drei Wetterstationen füllen die Windzonen", "Windverlauf und Schussfenster mit Ton", "Windmesser-Abgleich in der App", "Messgerät per Bluetooth verbinden (Schuss → Korrekturen)", "Munitionstemperatur getrennt von der Luft (Schuss → Korrekturen)", "Taupunkt mit Beschlagwarnung", "Scheiben von BDS, DSB und ISSF mit Ringwertung und Abweichung (Profil → Einschuss)", "Militärladungen wie M193, M80, GP 11 mit Hinweisen", "Widerstandskurve aus Treffern oder Geschwindigkeiten (Profil)", "BC aus Geschossmaßen schätzen", "Absehen der Hersteller mit echten Maßen", "Über 2400 Fabrikladungen und 1700 Geschosse", "Standliste für mehrere Schützen (Reiter Ziele)", "Lauflänge speichern: Fabrik-V0 wird automatisch umgerechnet", "Imperiale Einheiten (yd, fps, Zoll) zum Umschalten", "Kleinkaliber .22 lr, .22 WMR, .17 HMR", "E100-Prüfung nach § 19 BJagdG, Mondphase, MPBR", "Turmband und Scheckkarte zum Ausdrucken", "Schalldämpfer, Kaltlauf, Klickwert-Test, Abgleich-Assistent", "Suche, Schusszähler, Ladedaten, Stage-Timer"] };
+const NEWS = { v: "2026-11-27f", items: ["Chronograph zum Selbstbauen: Messungen per Bluetooth direkt in die V0-Auswertung", "Wind aus dem Treffer zurückrechnen (Extras)", "Trainingsprogramme mit Sprachansage (Extras)", "Ladungsvergleich als Grafik (Extras)", "Wettkampf mit Stage-Timer und Rangliste (Extras)", "Sitzung am Stand: Treffer, Fehlschüsse und Quote je Schütze, Auswertung per WhatsApp teilen (Ziele → Sitzung)", "Verkantungswarnung mit dem Schussmelder", "Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP", "Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)", "IPSC-Scheibe mit A/C/D-Wertung", "Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)", "Standliste: Ziel-Nr. je Schütze für die Treffermelder", "Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich", "8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)", "Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen", "Sprungleiste im Reiter Profil", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl", "Scheibe direkt bei „Trefferbild per Foto“ wählbar", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“", "Windprognose für die nächsten 10 Sekunden im Windradar", "Munition per Foto der Schachtel erkennen", "Auffälligkeiten: Ausreißer, V0-Abfall, Magazine", "Fahnen automatisch im Kamerabild erkennen, Mirage (experimentell)", "Windlese-Trainer, Schusszähler per Mikrofon, PRS-Stage-Planer", "Vereinsmodus: Zielliste per QR teilen", "Optionaler KI-Coach mit eigenem API-Schlüssel", "Windradar: Wind aller Stationen entlang der Bahn, wirksamer Seitenwind und Schussfenster (Schuss → Messgerät)", "Treffermelder für Stahlziele mit Ton und Vibration", "Korrektur ansagen lassen (🔊 an der Lösung)", "Entfernung, Winkel und Richtung per GPS (Extras)", "Leitertest fürs Wiederladen (Extras)", "Spotter koppeln per QR-Code (Extras)", "Magazin-Statistik mit Störungen (Extras)", "Fahnenwinkel mit der Kamera messen (Extras → Wind aus Fahne)", "Chronograph-Dateien von Garmin und LabRadar laden", "Laufthermometer-Modus für den Munitionsfühler", "Funkbrücke (LoRa): Wind auf der ganzen Strecke bis 1200 m", "Bis zu drei Wetterstationen füllen die Windzonen", "Windverlauf und Schussfenster mit Ton", "Windmesser-Abgleich in der App", "Messgerät per Bluetooth verbinden (Schuss → Korrekturen)", "Munitionstemperatur getrennt von der Luft (Schuss → Korrekturen)", "Taupunkt mit Beschlagwarnung", "Scheiben von BDS, DSB und ISSF mit Ringwertung und Abweichung (Profil → Einschuss)", "Militärladungen wie M193, M80, GP 11 mit Hinweisen", "Widerstandskurve aus Treffern oder Geschwindigkeiten (Profil)", "BC aus Geschossmaßen schätzen", "Absehen der Hersteller mit echten Maßen", "Über 2400 Fabrikladungen und 1700 Geschosse", "Standliste für mehrere Schützen (Reiter Ziele)", "Lauflänge speichern: Fabrik-V0 wird automatisch umgerechnet", "Imperiale Einheiten (yd, fps, Zoll) zum Umschalten", "Kleinkaliber .22 lr, .22 WMR, .17 HMR", "E100-Prüfung nach § 19 BJagdG, Mondphase, MPBR", "Turmband und Scheckkarte zum Ausdrucken", "Schalldämpfer, Kaltlauf, Klickwert-Test, Abgleich-Assistent", "Suche, Schusszähler, Ladedaten, Stage-Timer"] };
 function backupReminder() {
   try {
     const own = state.log.length + state.bullets.length + state.profiles.filter(p => !/\(Beispiel\)$/.test(p.name || "")).length;
@@ -4620,7 +4625,7 @@ function backupReminder() {
     $("import-no").onclick = done;
   } catch (e) {}
 }
-const NEWS_EN = {"Sitzung am Stand: Treffer, Fehlschüsse und Quote je Schütze, Auswertung per WhatsApp teilen (Ziele → Sitzung)":"Range session: hits, misses and hit rate per shooter, share the summary via WhatsApp (Targets → Session)","Verkantungswarnung mit dem Schussmelder":"Cant warning with the shot sensor","Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP":"Handguns: weapon type under Profile → Rifle, hold in cm, sample profiles 9 mm and .45 ACP","Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)":"Almost 400 handgun loads (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 and more)","IPSC-Scheibe mit A/C/D-Wertung":"IPSC target with A/C/D scoring","Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)":"Shot sensor on the rifle: the app knows who hit, misses and wrong targets (range list)","Standliste: Ziel-Nr. je Schütze für die Treffermelder":"Range list: target number per shooter for the hit detectors","Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich":"Bundeswehr colour schemes: Army, Air Force, Navy, Cyber and Information Domain, Support area","8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)":"8 new colour schemes: Flecktarn, desert, ranger green, navy, black, hunting, sport, black-red-gold (Options → Colours)","Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen": "Search now finds functions too: type e.g. “target” or “sensor” and jump there", "Sprungleiste im Reiter Profil": "Section bar on the Profile tab", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)": "18 WWII riflescopes with range drum (Profile → Riflescope, group “Historisch (2. Weltkrieg)”)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)": "70 slugs and 31 shotshells with maker data (Extras → Shotgun)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser": "2,600+ factory loads: new incl. Winchester and Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)": "Shotgun: shot, pattern, lead, danger zone and slugs (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden": "Wireless ammo-box sensor: Shot → Corrections → Connect sensor", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl": "New profile now via “+ New” below the profile picker", "Scheibe direkt bei „Trefferbild per Foto“ wählbar": "Target face selectable right in “Group from photo”", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)": "Group from photo: holes are found automatically (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch": "Automatic MV and BC truing from the shot log", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“": "Voice control 🎤: “distance 650, wind 3 from 9 o'clock”"};
+const NEWS_EN = {"Chronograph zum Selbstbauen: Messungen per Bluetooth direkt in die V0-Auswertung":"DIY chronograph: readings go straight into the MV analysis via Bluetooth","Wind aus dem Treffer zurückrechnen (Extras)":"Work out the wind from the hit (Extras)","Trainingsprogramme mit Sprachansage (Extras)":"Training drills with voice prompts (Extras)","Ladungsvergleich als Grafik (Extras)":"Load comparison chart (Extras)","Wettkampf mit Stage-Timer und Rangliste (Extras)":"Match with stage timer and ranking (Extras)","Sitzung am Stand: Treffer, Fehlschüsse und Quote je Schütze, Auswertung per WhatsApp teilen (Ziele → Sitzung)":"Range session: hits, misses and hit rate per shooter, share the summary via WhatsApp (Targets → Session)","Verkantungswarnung mit dem Schussmelder":"Cant warning with the shot sensor","Kurzwaffen: Waffenart unter Profil → Waffe, Haltepunkt in cm, Beispielprofile 9 mm und .45 ACP":"Handguns: weapon type under Profile → Rifle, hold in cm, sample profiles 9 mm and .45 ACP","Fast 400 Kurzwaffen-Ladungen (9 mm, .45 ACP, .40, 10 mm, .380, .38, .357, .44 u. a.)":"Almost 400 handgun loads (9mm, .45 ACP, .40, 10mm Auto, .380, .38, .357, .44 and more)","IPSC-Scheibe mit A/C/D-Wertung":"IPSC target with A/C/D scoring","Schussmelder am Gewehr: App erkennt, wer getroffen hat, Fehlschüsse und falsches Ziel (Standliste)":"Shot sensor on the rifle: the app knows who hit, misses and wrong targets (range list)","Standliste: Ziel-Nr. je Schütze für die Treffermelder":"Range list: target number per shooter for the hit detectors","Farbschemata für die Bundeswehr: Heer, Luftwaffe, Marine, Cyber- und Informationsraum, Unterstützungsbereich":"Bundeswehr colour schemes: Army, Air Force, Navy, Cyber and Information Domain, Support area","8 neue Farbschemata: Flecktarn, Wüste, Ranger Green, Marine, Schwarz, Jagd, Sport, Schwarz-Rot-Gold (Optionen → Farben)":"8 new colour schemes: Flecktarn, desert, ranger green, navy, black, hunting, sport, black-red-gold (Options → Colours)","Suche findet jetzt auch Funktionen: z. B. „Scheibe“ oder „Fühler“ eintippen und hinspringen": "Search now finds functions too: type e.g. “target” or “sensor” and jump there", "Sprungleiste im Reiter Profil": "Section bar on the Profile tab", "18 Zielfernrohre aus dem 2. Weltkrieg mit Entfernungstrommel (Profil → Zielfernrohr, Gruppe „Historisch“)": "18 WWII riflescopes with range drum (Profile → Riflescope, group “Historisch (2. Weltkrieg)”)", "70 Flintenlaufgeschosse und 31 Schrotpatronen mit Herstellerangaben (Extras → Flinte)": "70 slugs and 31 shotshells with maker data (Extras → Shotgun)", "Über 2600 Fabrikladungen: neu u. a. Winchester und Blaser": "2,600+ factory loads: new incl. Winchester and Blaser", "Flinte: Schrot, Garbe, Vorhalt, Gefahrenbereich und Flintenlaufgeschoss (Extras)": "Shotgun: shot, pattern, lead, danger zone and slugs (Extras)", "Funkfühler für die Patronenbox: Schuss → Korrekturen → Fühler verbinden": "Wireless ammo-box sensor: Shot → Corrections → Connect sensor", "Neues Profil jetzt mit „+ Neu“ oben unter der Profilauswahl": "New profile now via “+ New” below the profile picker", "Scheibe direkt bei „Trefferbild per Foto“ wählbar": "Target face selectable right in “Group from photo”", "Trefferbild per Foto: Löcher werden automatisch gefunden (Extras)": "Group from photo: holes are found automatically (Extras)", "Automatischer Abgleich von V0 und BC aus dem Schussbuch": "Automatic MV and BC truing from the shot log", "Sprachsteuerung 🎤: „Entfernung 650, Wind 3 aus 9 Uhr“": "Voice control 🎤: “distance 650, wind 3 from 9 o'clock”"};
 function showNews() {
   let seen = ""; try { seen = localStorage.getItem("flugbahn.news") || ""; } catch (e) { return; }
   if (seen === NEWS.v) return;
@@ -6400,6 +6405,198 @@ function initSession() {
   sessRender();
 }
 try { initSession(); } catch (e) { console.error("initSession", e); }
+/* ===================== Stand-Werkzeuge: Wind-Rückrechnung, Training, Ladungsvergleich, Wettkampf ===================== */
+function saySimple(t) { try { if (!("speechSynthesis" in window)) return; const u = new SpeechSynthesisUtterance(t); u.lang = L() ? "en-US" : "de-DE"; u.rate = 1.05; speechSynthesis.cancel(); speechSynthesis.speak(u); } catch (e) {} }
+const sfld = (id, de, en, u = "", ph = "") => `<label class="field"><span class="lbl">${tr(de, en)}</span><span class="inp"><input id="${id}" inputmode="decimal" autocomplete="off" placeholder="${ph}">${u ? `<span class="u">${u}</span>` : ""}</span></label>`;
+
+// ---------- 1. Wind aus dem Treffer zurückrechnen ----------
+function wbCalc() {
+  const out = $("wb-out"), s = state.shot, p = prof(); if (!last || last.error || !last.target) { out.innerHTML = ""; return null; }
+  const h = kiNum($("wb-h").value), v = kiNum($("wb-v").value);
+  const w1 = last.w1 && last.w1.get(Math.round(s.dist * 10)); if (!w1 || !isFinite(h)) { out.innerHTML = ""; return null; }
+  const d1 = fromUnit(Math.abs(w1.wind), p.unit) * s.dist * 100;            // cm Seitenablage je 1 m/s voller Seitenwind
+  const hcm = fromU("cm", h), cw = s.windSpeed * Math.sin(s.windDir * Math.PI / 180);   // + = von rechts
+  const ncw = cw - hcm / d1;
+  const res = { cw: ncw, d1 };
+  const side = ncw >= 0 ? tr("von rechts", "from right") : tr("von links", "from left");
+  let html = `<dt>${tr("Wirksamer Seitenwind", "Effective crosswind")}</dt><dd><b>${nf(toU("ws", Math.abs(ncw)), 1)} ${uLab("ws")}</b> ${side} (${tr("eingestellt", "set")} ${nf(toU("ws", Math.abs(cw)), 1)})</dd>
+    <dt>${tr("Wind je 1 m/s", "Per 1 m/s")}</dt><dd>${nf(toU("cm", d1), 1)} ${uLab("cm")} ${tr("auf", "at")} ${nf(toU("d", s.dist), 0)} ${uLab("d")}</dd>`;
+  if (isFinite(v) && Math.abs(fromU("cm", v)) > 0.15 * d1) html += `<dt>${tr("Höhe", "Elevation")}</dt><dd class="warn-t">${tr("Die Höhenablage kommt nicht vom Wind: V0, Wetter oder Fleck prüfen (Profil → V0 abgleichen).", "The vertical miss is not wind: check MV, weather or zero (Profile → True MV).")}</dd>`;
+  out.innerHTML = html; $("wb-apply").disabled = false; return res;
+}
+function initWindBack() {
+  addTool(`<div class="tool" id="wb-box"><h3>${tr("Wind aus dem Treffer", "Wind from the hit")}</h3>
+    <div class="fields">${sfld("wb-h", "Treffer seitlich (rechts +, links −)", "Impact sideways (right +, left −)", uLab("cm"), "0")}${sfld("wb-v", "Treffer Höhe (hoch +, tief −)", "Impact height (high +, low −)", uLab("cm"), "0")}</div>
+    <dl class="kv" id="wb-out"></dl>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">${kiBtn("wb-apply", tr("Als Wind übernehmen", "Use as wind"), "disabled")}</div>
+    <p class="hint">${tr("Geschossen mit der aktuellen Lösung (Entfernung und Wind aus Schuss)? Dann trägst du hier ein, wo der Treffer lag. Die App rechnet zurück, welcher Seitenwind wirklich gewirkt hat, und übernimmt ihn für den nächsten Schuss.", "Fired with the current solution (distance and wind from Shot)? Enter where the hit landed. The app works out the crosswind that really acted and uses it for the next shot.")}</p></div>`);
+  ["wb-h", "wb-v"].forEach(id => { $(id).addEventListener("input", e => { e.stopPropagation(); wbCalc(); }); });
+  $("wb-apply").addEventListener("click", () => { const r = wbCalc(); if (!r) return; const s = state.shot; s.zonesOn = false; s.windSpeed = Math.round(Math.abs(r.cw) * 10) / 10; s.windDir = r.cw >= 0 ? 90 : 270; $("wb-h").value = ""; $("wb-v").value = ""; fillShot(); changed(); $("wb-out").innerHTML = `<dt>${tr("Übernommen", "Applied")}</dt><dd>${nf(toU("ws", s.windSpeed), 1)} ${uLab("ws")} ${s.windDir === 90 ? tr("von rechts", "from right") : tr("von links", "from left")}</dd>`; $("wb-apply").disabled = true; });
+}
+
+// ---------- 2. Trainingsprogramme mit Ansage ----------
+const TRAIN = [
+  { k: "kalt", de: "Kaltschuss", en: "Cold-bore shot", steps: () => [[tr("Kaltschuss. Ein Schuss, so genau wie möglich.", "Cold-bore shot. One shot, as precise as possible."), 3], [tr("Feuer frei.", "Fire."), 30], [tr("Stopp. Treffer eintragen.", "Stop. Record the hit."), 0]] },
+  { k: "zeit5", de: "5 Schuss in 60 Sekunden", en: "5 shots in 60 seconds", steps: () => [[tr("Fünf Schuss in sechzig Sekunden. Bereit.", "Five shots in sixty seconds. Ready."), 3], [tr("Start!", "Go!"), 30], [tr("Noch dreißig Sekunden.", "Thirty seconds left."), 20], [tr("Zehn.", "Ten."), 5], ["5", 1], ["4", 1], ["3", 1], ["2", 1], ["1", 1], [tr("Stopp!", "Stop!"), 0]] },
+  { k: "pos", de: "3 Positionen, je 2 Schuss, 90 Sekunden", en: "3 positions, 2 shots each, 90 seconds", steps: () => [[tr("Drei Positionen, je zwei Schuss, neunzig Sekunden. Bereit.", "Three positions, two shots each, ninety seconds. Ready."), 3], [tr("Start! Position eins.", "Go! Position one."), 30], [tr("Wechsel. Position zwei.", "Change. Position two."), 30], [tr("Wechsel. Position drei.", "Change. Position three."), 20], [tr("Zehn Sekunden.", "Ten seconds."), 10], [tr("Stopp!", "Stop!"), 0]] },
+  { k: "leiter", de: "Entfernungsleiter (Ziele-Liste)", en: "Distance ladder (target list)", steps: () => {
+      const T = (state.shot.targets || []).filter(t => t.d > 0), p = prof(), ck = clickOf(p);
+      if (!T.length) return [[tr("Keine Ziele in der Ziele-Liste.", "No targets in the target list."), 0]];
+      const st = [[tr(`Entfernungsleiter mit ${T.length} Zielen.`, `Distance ladder with ${T.length} targets.`), 3]];
+      T.forEach(t => { const r = compute(p, { ...state.shot, dist: t.d }); const e = r && r.target ? Math.round(Math.abs(r.target.elev) / ck) : null, w = r && r.target ? Math.round(Math.abs(r.target.wind) / ck) : null;
+        st.push([`${t.n || tr("Ziel", "Target")}, ${Math.round(t.d)} ${tr("Meter", "metres")}. ${e != null ? tr(`${e} Klicks ${r.target.elev >= 0 ? "hoch" : "tief"}, ${w} ${r.target.wind >= 0 ? "rechts" : "links"}`, `${e} clicks ${r.target.elev >= 0 ? "up" : "down"}, ${w} ${r.target.wind >= 0 ? "right" : "left"}`) : ""}. ${tr("Feuer frei.", "Fire.")}`, 25]); });
+      st.push([tr("Leiter beendet.", "Ladder complete."), 0]); return st; } },
+  { k: "trocken", de: "Trockentraining Abzug (10×)", en: "Dry-fire trigger drill (10×)", steps: () => { const st = [[tr("Trockentraining. Waffe entladen? Zehn Wiederholungen.", "Dry fire. Rifle unloaded? Ten repetitions."), 5]]; for (let i = 1; i <= 10; i++) st.push([tr(`${i}. Anvisieren. Ausatmen. Abziehen.`, `${i}. Aim. Breathe out. Press.`), 8]); st.push([tr("Fertig.", "Done."), 0]); return st; } }
+];
+const trn = { timer: 0, steps: [], i: 0, until: 0, on: false };
+function trnTick() {
+  if (!trn.on) return; const now = Date.now();
+  if (now >= trn.until) {
+    if (trn.i >= trn.steps.length) { trnStop(true); return; }
+    const [t, d] = trn.steps[trn.i++]; saySimple(t); $("trn-say").textContent = t; trn.until = now + d * 1000;
+    if (d === 0 && trn.i >= trn.steps.length) { setTimeout(() => trnStop(true), 1200); }
+  }
+  const rest = Math.max(0, Math.ceil((trn.until - now) / 1000)); $("trn-clock").textContent = trn.on ? `${rest} s` : "";
+}
+function trnStop(done) { trn.on = false; clearInterval(trn.timer); $("trn-go").textContent = tr("Start", "Start"); $("trn-clock").textContent = done ? tr("fertig", "done") : ""; if (done) beep(); }
+function initTraining() {
+  addTool(`<div class="tool" id="trn-box"><h3>${tr("Trainingsprogramme", "Training drills")}</h3>
+    <div class="fields"><label class="field" style="grid-column:1/-1"><span class="lbl">${tr("Übung", "Drill")}</span><span class="inp"><select id="trn-sel">${TRAIN.map(t => `<option value="${t.k}">${tr(t.de, t.en)}</option>`).join("")}</select></span></label></div>
+    <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:6px">${kiBtn("trn-go", tr("Start", "Start"), 'class="btn primary"')}<b id="trn-clock" style="font:600 26px var(--font-mono)"></b></div>
+    <p id="trn-say" style="margin:6px 0 0;font-weight:600"></p>
+    <p class="hint">${tr("Die App sagt die Übung an und zählt die Zeit (Ton einschalten). Treffer trägst du unter Ziele → Sitzung ein oder sie kommen von den Treffermeldern.", "The app announces the drill and keeps time (sound on). Hits go into Targets → Session or come from the hit detectors.")}</p></div>`);
+  $("trn-go").addEventListener("click", () => {
+    if (trn.on) { trnStop(false); try { speechSynthesis.cancel(); } catch (e) {} return; }
+    const t = TRAIN.find(x => x.k === $("trn-sel").value); trn.steps = t.steps(); trn.i = 0; trn.until = 0; trn.on = true;
+    $("trn-go").textContent = tr("Abbrechen", "Cancel"); trn.timer = setInterval(trnTick, 200); trnTick();
+  });
+  $("trn-sel").addEventListener("change", e => e.stopPropagation());
+}
+
+// ---------- 3. Ladungsvergleich (bis 3 Fabrikladungen, gleiche Waffe) ----------
+function lcProfile(key) {
+  const r = AMMO.find(x => ammoKey(x) === key); if (!r) return null;
+  const p = prof(), q = { ...p, ammo: key, bcMode: "single" };
+  const b = BULLETS.find(x => x.b === r.b && x.gr === r.gr && x.n.toLowerCase().startsWith((r.n || "").toLowerCase()));
+  const g7 = r.g7 ?? (b && b.g7), g1 = r.g1 ?? (b && b.g1);
+  if (g7) { q.model = "G7"; q.bc = g7; } else if (g1) { q.model = "G1"; q.bc = g1; } else { const din = (r.d || CART_D[r.cart] || 7.8) / 25.4; q.model = "G1"; q.bc = Math.round(r.gr / 7000 / din / din * 1.0 * 1000) / 1000; }
+  q.weight = r.gr; q.v0 = Math.round(r.fps * 0.3048); q.diam = r.d || CART_D[r.cart] || p.diam; q.length = b && b.len ? b.len : null;
+  return { q, r };
+}
+function lcRender() {
+  const keys = [1, 2, 3].map(i => $("lc-" + i).value).filter(Boolean), out = $("lc-out");
+  if (!keys.length) { out.innerHTML = ""; return; }
+  const s = state.shot, maxD = Math.max(300, Math.min(1500, Math.round((s.dist || 600) * 1.3 / 100) * 100)), cols = ["#1f6fd1", "#d62828", "#2a9d3a"];
+  const series = keys.map((k, i) => { const x = lcProfile(k); if (!x) return null; const pts = []; for (let d = 0; d <= maxD; d += maxD / 30) { const r = compute(x.q, { ...s, dist: Math.max(1, d) }, { maxD: d + 1 }); if (r && r.target) pts.push({ d, y: -fromUnit(r.target.elev, x.q.unit) * Math.max(1, d) * 100, w: fromUnit(r.target.wind, x.q.unit) * Math.max(1, d) * 100, v: r.target.v, e: r.target.e }); } return { k, x, pts, c: cols[i] }; }).filter(Boolean);
+  const W = 640, H = 240, ml = 48, mb = 26, ys = series.flatMap(z => z.pts.map(q => q.y)), ymin = Math.min(...ys, -5), ymax = Math.max(...ys, 5);
+  const X = d => ml + d / maxD * (W - ml - 10), Y = y => 10 + (ymax - y) / (ymax - ymin) * (H - mb - 10);
+  let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="${tr("Geschossbahn im Vergleich", "Trajectory comparison")}" style="display:block;font:10px var(--font-mono)">`;
+  for (let d = 0; d <= maxD; d += maxD / 6) svg += `<line x1="${X(d)}" y1="10" x2="${X(d)}" y2="${H - mb}" stroke="var(--line)"/><text x="${X(d)}" y="${H - 8}" text-anchor="middle" fill="var(--muted)">${nf(toU("d", d), 0)}</text>`;
+  svg += `<line x1="${ml}" y1="${Y(0)}" x2="${W - 10}" y2="${Y(0)}" stroke="var(--muted)" stroke-dasharray="4 3"/><text x="${ml - 4}" y="${Y(0) + 3}" text-anchor="end" fill="var(--muted)">0</text><text x="${ml - 4}" y="${Y(ymin) + 3}" text-anchor="end" fill="var(--muted)">${nf(toU("cm", ymin), 0)}</text>${Y(0) - Y(ymax) > 14 ? `<text x="${ml - 4}" y="${Y(ymax) + 8}" text-anchor="end" fill="var(--muted)">${nf(toU("cm", ymax), 0)}</text>` : ""}`;
+  series.forEach(z => { svg += `<polyline fill="none" stroke="${z.c}" stroke-width="2.4" points="${z.pts.map(q => `${X(q.d).toFixed(1)},${Y(q.y).toFixed(1)}`).join(" ")}"/>`; });
+  svg += `</svg>`;
+  const at = [100, 300, 500, s.dist].filter((v, i, a) => v <= maxD && a.indexOf(v) === i).sort((a, b) => a - b);
+  const row = (z, d) => { const q = z.pts.reduce((a, b) => Math.abs(b.d - d) < Math.abs(a.d - d) ? b : a); return q; };
+  out.innerHTML = svg + `<div class="twrap"><table class="mini"><thead><tr><th style="text-align:left">${tr("Ladung", "Load")}</th>${at.map(d => `<th>${nf(toU("d", d), 0)} ${uLab("d")}</th>`).join("")}</tr></thead><tbody>` +
+    series.map(z => `<tr><td style="text-align:left"><span style="color:${z.c};font-weight:700">■</span> ${escH(z.x.r.b + " " + z.x.r.gr + " gr " + z.x.r.n)}<br><small>${nf(toU("v", z.x.q.v0), 0)} ${uLab("v")} · ${z.x.q.model} ${nf(z.x.q.bc, 3)}</small></td>${at.map(d => { const q = row(z, d); return `<td>${nf(Math.round(toU("cm", q.y)) || 0, 0)} ${uLab("cm")}<br><small>${nf(q.e || 0, 0)} J · ${nf(toU("cm", Math.abs(q.w)), 0)} ${uLab("cm")} ${tr("Wind", "wind")}</small></td>`; }).join("")}</tr>`).join("") + `</tbody></table></div>`;
+}
+function initLoadCompare() {
+  addTool(`<div class="tool" id="lc-box"><h3>${tr("Ladungsvergleich", "Load comparison")}</h3>
+    <div class="fields">${sfld("lc-q", "Suche (Kaliber, Marke)", "Search (calibre, brand)", "", tr("z. B. 308 Win", "e.g. 308 Win"))}${[1, 2, 3].map(i => `<label class="field"><span class="lbl">${tr("Ladung", "Load")} ${i}</span><span class="inp"><select id="lc-${i}"><option value="">–</option></select></span></label>`).join("")}</div>
+    <div id="lc-out" style="margin-top:8px"></div>
+    <p class="hint">${tr("Vergleicht bis zu drei Fabrikladungen für deine Waffe (Visierhöhe und Fleck aus dem aktiven Profil) beim aktuellen Wetter: Fallkurve, Energie und Seitenablage durch den eingestellten Wind. Fehlt ein BC, wird er geschätzt.", "Compares up to three factory loads for your rifle (sight height and zero from the active profile) in the current weather: drop, energy and wind drift with the wind set. Missing BCs are estimated.")}</p></div>`);
+  const fill = () => {
+    const q = ($("lc-q").value || prof().ammo && AMMO.find(x => ammoKey(x) === prof().ammo)?.cart || "").toLowerCase().split(/\s+/).filter(Boolean);
+    const list = AMMO.filter(r => q.every(w => ammoKey(r).toLowerCase().includes(w))).slice(0, 150);
+    [1, 2, 3].forEach(i => { const sel = $("lc-" + i), v = sel.value; sel.innerHTML = `<option value="">–</option>` + list.map(r => `<option value="${escH(ammoKey(r))}">${escH(ammoKey(r))}</option>`).join(""); if (v && list.some(r => ammoKey(r) === v)) sel.value = v; });
+  };
+  $("lc-q").addEventListener("input", e => { e.stopPropagation(); fill(); });
+  [1, 2, 3].forEach(i => $("lc-" + i).addEventListener("change", e => { e.stopPropagation(); lcRender(); }));
+  $("lc-box").addEventListener("toggle", () => {}, true);
+  let tries = 0; const wait = setInterval(() => { if (AMMO.length || ++tries > 40) { clearInterval(wait); fill(); } }, 500);
+}
+
+// ---------- 4. Wettkampf: Stages aus dem PRS-Planer, Punkte je Schütze, Rangliste ----------
+function compState() { if (!state.comp) state.comp = { scores: {}, cur: 0 }; return state.comp; }
+const cmp = { timer: 0, until: 0, said: {} };
+function compNames() { return (state.shooters || []).map(r => r.n).filter(Boolean); }
+function compRender() {
+  const box = $("cmp-out"); if (!box) return;
+  const C = compState(), st = state.prs.length ? state.prs : [{ n: "Stage 1", s: 90 }], names = compNames();
+  if (!names.length) { box.innerHTML = `<p class="hint">${tr("Lege zuerst unter Ziele → Standliste die Schützen an.", "First add the shooters under Targets → Range list.")}</p>`; return; }
+  const tot = n => st.reduce((a, _, i) => a + (+((C.scores[n] || {})[i]) || 0), 0);
+  const rank = names.slice().sort((a, b) => tot(b) - tot(a));
+  box.innerHTML = `<div class="twrap"><table class="mini"><thead><tr><th>#</th><th style="text-align:left">${tr("Schütze", "Shooter")}</th>${st.map((x, i) => `<th>${escH(x.n || "Stage " + (i + 1))}</th>`).join("")}<th>${tr("Summe", "Total")}</th></tr></thead><tbody>` +
+    rank.map((n, j) => `<tr><td>${j + 1}</td><td style="text-align:left"><b>${escH(n)}</b></td>${st.map((_, i) => `<td><span class="inp" style="width:4.2em"><input data-cmp="${escH(n)}|${i}" inputmode="numeric" value="${(C.scores[n] || {})[i] ?? ""}" aria-label="${escH(n)} Stage ${i + 1}"></span></td>`).join("")}<td><b>${tot(n)}</b></td></tr>`).join("") + `</tbody></table></div>`;
+  $("cmp-stage").innerHTML = st.map((x, i) => `<option value="${i}"${i === C.cur ? " selected" : ""}>${escH(x.n || "Stage " + (i + 1))}${x.s ? ` (${x.s} s)` : ""}</option>`).join("");
+}
+function compTick() {
+  const rest = Math.ceil((cmp.until - Date.now()) / 1000); $("cmp-clock").textContent = rest > 0 ? `${rest} s` : "";
+  [60, 30, 10, 5, 4, 3, 2, 1].forEach(v => { if (rest === v && !cmp.said[v]) { cmp.said[v] = 1; saySimple(v >= 10 ? tr(`Noch ${v} Sekunden`, `${v} seconds`) : String(v)); } });
+  if (rest <= 0) { clearInterval(cmp.timer); cmp.timer = 0; saySimple(tr("Stopp! Stage beendet.", "Stop! Stage over.")); beep(); $("cmp-go").textContent = tr("Stage starten", "Start stage"); }
+}
+function initCompetition() {
+  addTool(`<div class="tool" id="cmp-box"><h3>${tr("Wettkampf und Rangliste", "Match and ranking")}</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center"><span class="inp" style="width:auto"><select id="cmp-stage" aria-label="Stage"></select></span>${kiBtn("cmp-go", tr("Stage starten", "Start stage"), 'class="btn primary"')}<b id="cmp-clock" style="font:600 24px var(--font-mono)"></b></div>
+    <div id="cmp-out" style="margin-top:8px"></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap;margin-top:6px">${kiBtn("cmp-share", tr("Rangliste teilen", "Share ranking"))}${kiBtn("cmp-clear", tr("Punkte löschen", "Clear scores"))}</div>
+    <p class="hint" id="cmp-msg">${tr("Stages kommen aus dem PRS-Stage-Planer (Extras), Schützen aus der Standliste. Punkte je Stage eintragen, die Rangliste sortiert sich selbst. Der Timer sagt die Restzeit an.", "Stages come from the PRS stage planner (Extras), shooters from the range list. Enter points per stage, the ranking sorts itself. The timer announces the time left.")}</p></div>`);
+  $("cmp-box").addEventListener("input", e => { const el = e.target; if (!el.dataset.cmp) return; e.stopPropagation(); const [n, i] = el.dataset.cmp.split("|"), C = compState(); (C.scores[n] = C.scores[n] || {})[i] = el.value === "" ? null : Math.round(kiNum(el.value) || 0); save(); });
+  $("cmp-box").addEventListener("change", e => { e.stopPropagation(); if (e.target.dataset.cmp) compRender(); if (e.target.id === "cmp-stage") { compState().cur = +e.target.value; save(); } });
+  $("cmp-go").addEventListener("click", () => {
+    if (cmp.timer) { clearInterval(cmp.timer); cmp.timer = 0; $("cmp-clock").textContent = ""; $("cmp-go").textContent = tr("Stage starten", "Start stage"); return; }
+    const st = (state.prs.length ? state.prs : [{ n: "Stage 1", s: 90 }])[compState().cur] || { s: 90 }, sec = st.s || 90;
+    cmp.until = Date.now() + sec * 1000 + 3000; cmp.said = {}; saySimple(tr(`${st.n || "Stage"}. ${sec} Sekunden. Bereit. Start!`, `${st.n || "Stage"}. ${sec} seconds. Ready. Go!`));
+    $("cmp-go").textContent = tr("Stopp", "Stop"); cmp.timer = setInterval(compTick, 250);
+  });
+  $("cmp-share").addEventListener("click", async () => {
+    const C = compState(), st = state.prs.length ? state.prs : [{ n: "Stage 1" }], names = compNames(), tot = n => st.reduce((a, _, i) => a + (+((C.scores[n] || {})[i]) || 0), 0);
+    const txt = `${tr("FLUGBAHN · Rangliste", "FLUGBAHN · Ranking")} ${new Date().toLocaleDateString(LOCALE)}\n\n` + names.slice().sort((a, b) => tot(b) - tot(a)).map((n, j) => `${j + 1}. ${n}: ${tot(n)} (${st.map((_, i) => (C.scores[n] || {})[i] ?? "–").join(" / ")})`).join("\n");
+    const m = await sessShare(txt); if (m) $("cmp-msg").textContent = m;
+  });
+  $("cmp-clear").addEventListener("click", () => { compState().scores = {}; save(); compRender(); });
+  setInterval(() => { if ($("cmp-box").offsetParent && !$("cmp-box").contains(document.activeElement)) compRender(); }, 2000);
+  compRender();
+}
+try { initWindBack(); initTraining(); initLoadCompare(); initCompetition(); } catch (e) { console.error("Stand-Werkzeuge", e); }
+
+/* ===================== Chronograph zum Selbstbauen: Messungen per Bluetooth in die Chronograph-Auswertung ===================== */
+const crd = { device: null, n: null };
+function crState(t) { const b = $("cr-btn"); if (!b) return; const on = !!(crd.device && crd.device.gatt.connected); b.textContent = on ? tr("Chronograph trennen", "Disconnect chronograph") : tr("Chronograph verbinden", "Connect chronograph"); if (t != null) $("cr-st").textContent = t; }
+function crLive(js) {
+  let d; try { d = JSON.parse(js); } catch (e) { return; }
+  if (d.err) { $("cr-st").textContent = tr(`Fehlmessung: ${d.err}`, `Bad reading: ${d.err}`); return; }
+  if (d.v != null && d.n != null && (crd.n == null || d.n > crd.n)) {
+    crd.n = d.n; const ta = $("ch-in"), unitFps = $("ch-unit") && $("ch-unit").value === "fps";
+    const val = unitFps ? d.v * 3.28084 : d.v;
+    ta.value = (ta.value.trim() ? ta.value.trim() + "\n" : "") + fmtIn(Math.round(val * 10) / 10);
+    ta.dispatchEvent(new Event("input", { bubbles: true }));
+    if ($("hit-sig") ? $("hit-sig").checked : true) beep();
+    sessEv("shot", tr("Chronograph", "Chronograph"), {});
+  } else if (d.n != null && crd.n == null) crd.n = d.n;
+  $("cr-st").textContent = `${d.v != null ? `<${nf(toU("v", d.v), 1)} ${uLab("v")}> ` : ""}${tr("Abstand", "Spacing")} ${d.ab || "?"} mm${d.bat != null ? ` · ${tr("Akku", "Battery")} ${d.bat} %` : ""}`.replace(/[<>]/g, "");
+}
+async function crConnect() {
+  if (crd.device && crd.device.gatt.connected) { crd.manual = true; crd.device.gatt.disconnect(); crState(tr("getrennt", "disconnected")); return; }
+  if (!navigator.bluetooth) { crState(tr("Bluetooth braucht Chrome oder Edge.", "Bluetooth needs Chrome or Edge.")); return; }
+  try {
+    const d = await navigator.bluetooth.requestDevice({ filters: [{ namePrefix: "Flugbahn C" }], optionalServices: [DEV.svc] });
+    crd.device = d; crd.n = null; crd.manual = false;
+    d.addEventListener("gattserverdisconnected", () => crState(tr("Verbindung getrennt.", "Connection lost.")));
+    const srv = await d.gatt.connect(), svc = await srv.getPrimaryService(DEV.svc), live = await svc.getCharacteristic(DEV.live);
+    crd.cfg = await svc.getCharacteristic(DEV.cfg).catch(() => null);
+    live.addEventListener("characteristicvaluechanged", e => crLive(new TextDecoder().decode(e.target.value)));
+    await live.startNotifications();
+    try { crLive(new TextDecoder().decode(await live.readValue())); } catch (e) {}
+    crState(tr("Verbunden. Jeder Schuss erscheint oben in der Liste.", "Connected. Each shot appears in the list above."));
+  } catch (er) { crState(er && er.name === "NotFoundError" ? null : tr("Verbindung nicht möglich: ", "Could not connect: ") + (er.message || er)); }
+}
+function initChronoDevice() {
+  const anchor = $("ch-msg"); if (!anchor) return;
+  anchor.insertAdjacentHTML("beforebegin", `<div class="devrow" style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;margin-top:6px"><button class="btn" type="button" id="cr-btn"></button><span class="hint" id="cr-st" style="margin:0">${tr("Eigener Chronograph (Flugbahn Chrono) per Bluetooth", "Own chronograph (Flugbahn Chrono) via Bluetooth")}</span></div>`);
+  $("cr-btn").addEventListener("click", crConnect); crState();
+}
+try { initChronoDevice(); } catch (e) { console.error("initChronoDevice", e); }
 
 /* ===================== Bedienung: Sprungmarken im Reiter Profil ===================== */
 function initProfilNav() {
