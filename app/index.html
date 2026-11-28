@@ -2257,7 +2257,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · dda8a0c1c6</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · dc6374546c</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button><button class="btn" type="button" id="news-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Neuigkeiten anzeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -7437,9 +7437,13 @@ function initWettkampfTimer() {
     let raw = ""; try { raw = await navigator.clipboard.readText(); } catch (e) {}
     if (!raw.includes(CODE)) raw = prompt(tr("Code aus der Nachricht hier einfügen:", "Paste the code from the message here:"), "") || "";
     ctImport(raw); });
-  function ctImport(raw) {
+  // Komprimierte Form für QR-Codes: „z“ + Base64(deflate-raw); normale Codes beginnen immer mit „W“ (Base64 von „[“)
+  const zPack = async txt => { const cs = new Blob([new TextEncoder().encode(txt)]).stream().pipeThrough(new CompressionStream("deflate-raw")); const u = new Uint8Array(await new Response(cs).arrayBuffer()); let b = ""; u.forEach(x => b += String.fromCharCode(x)); return "z" + btoa(b); };
+  const zUnpack = async b64 => { const bin = atob(b64), u = new Uint8Array(bin.length); for (let k = 0; k < bin.length; k++) u[k] = bin.charCodeAt(k); return await new Response(new Blob([u]).stream().pipeThrough(new DecompressionStream("deflate-raw"))).text(); };
+  async function ctImport(raw) {
     const i = raw.indexOf(CODE); if (i < 0) { $("ct-info").textContent = tr("Kein Timer-Code gefunden.", "No timer code found."); return; }
-    let L; try { L = JSON.parse(decodeURIComponent(escape(atob(raw.slice(i + CODE.length).trim().split(/\s/)[0])))); } catch (e) { $("ct-info").textContent = tr("Der Code ist beschädigt.", "The code is damaged."); return; }
+    const body = raw.slice(i + CODE.length).trim().split(/\s/)[0];
+    let L; try { L = JSON.parse(body[0] === "z" ? await zUnpack(body.slice(1)) : decodeURIComponent(escape(atob(body)))); } catch (e) { $("ct-info").textContent = tr("Der Code ist beschädigt.", "The code is damaged."); return; }
     const key = r => [r.d, r.name, r.stage, r.t].join("|"), have = new Set(ct.res.map(key)); let n = 0;
     (Array.isArray(L) ? L : []).forEach(a => { if (!Array.isArray(a) || typeof a[3] !== "number") return; const h = Array.isArray(a[7]) ? { A: a[7][0], C: a[7][1], D: a[7][2], M: a[7][3], NS: a[7][4], PE: a[7][5], pf: a[7][6] } : null;
       const r = { d: +a[0] || Date.now(), name: String(a[1] || "").slice(0, 60), stage: String(a[2] || "").slice(0, 60), t: a[3], n: +a[4] || 0, splits: [], pts: a[5] == null ? null : +a[5], hf: a[6] == null ? null : +a[6], hits: h };
@@ -7449,7 +7453,8 @@ function initWettkampfTimer() {
   const ctCode = () => CODE + btoa(unescape(encodeURIComponent(JSON.stringify(ct.res.map(r => [r.d, r.name, r.stage, r.t, r.n, r.pts, r.hf, r.hits ? [r.hits.A, r.hits.C, r.hits.D, r.hits.M, r.hits.NS, r.hits.PE, r.hits.pf] : 0])))));
   const qrClose = () => { $("ct-qrbox").hidden = true; const v = $("ct-vid"); if (v.srcObject) { v.srcObject.getTracks().forEach(t => t.stop()); v.srcObject = null; } v.hidden = true; cancelAnimationFrame(ct.scanRaf); };
   $("ct-qrx").addEventListener("click", qrClose);
-  $("ct-qr").addEventListener("click", () => { if (!ct.res.length) return; const code = ctCode();
+  $("ct-qr").addEventListener("click", async () => { if (!ct.res.length) return; let code = ctCode();
+    if ("CompressionStream" in window) try { code = CODE + await zPack(JSON.stringify(ct.res.map(r => [r.d, r.name, r.stage, r.t, r.n, r.pts, r.hf, r.hits ? [r.hits.A, r.hits.C, r.hits.D, r.hits.M, r.hits.NS, r.hits.PE, r.hits.pf] : 0]))); } catch (e) {}
     $("ct-qrt").textContent = ct.res.length === 1 ? tr("1 Lauf", "1 run") : tr(`${ct.res.length} Läufe`, `${ct.res.length} runs`); $("ct-vid").hidden = true;
     if (typeof qrcode !== "function") { $("ct-qrimg").innerHTML = ""; $("ct-qrh").textContent = tr("QR-Bibliothek nicht geladen. Bitte „Code senden“ nutzen.", "QR library not loaded. Please use “Send code”."); }
     else if (code.length > 2300) { $("ct-qrimg").innerHTML = ""; $("ct-qrh").textContent = tr("Zu viele Läufe für einen QR-Code. Bitte „Code senden“ nutzen oder ältere Läufe löschen.", "Too many runs for one QR code. Please use “Send code” or clear older runs."); }
