@@ -1,5 +1,5 @@
 /* Flugbahn Service Worker: legt alle App-Dateien beim Installieren ab und liefert sie offline aus. */
-const CACHE = "flugbahn-ed73ede09d";
+const CACHE = "flugbahn-23358ee4ea";
 const ASSETS = [
   "./",
   "index.html",
@@ -49,7 +49,29 @@ const ASSETS = [
   "data/voices/de-thorsten/laden20.m4a",
   "data/voices/de-thorsten/laden4.m4a",
   "data/voices/de-thorsten/laden5.m4a",
-  "data/voices/de-thorsten/stopp.m4a"
+  "data/voices/de-thorsten/stopp.m4a",
+  "data/voices/de-thorsten-energisch/achtung.m4a",
+  "data/voices/de-thorsten-energisch/bereit.m4a",
+  "data/voices/de-thorsten-energisch/ende.m4a",
+  "data/voices/de-thorsten-energisch/fertig.m4a",
+  "data/voices/de-thorsten-energisch/laden.m4a",
+  "data/voices/de-thorsten-energisch/laden10.m4a",
+  "data/voices/de-thorsten-energisch/laden15.m4a",
+  "data/voices/de-thorsten-energisch/laden20.m4a",
+  "data/voices/de-thorsten-energisch/laden4.m4a",
+  "data/voices/de-thorsten-energisch/laden5.m4a",
+  "data/voices/de-thorsten-energisch/stopp.m4a",
+  "data/voices/de-thorsten-freundlich/achtung.m4a",
+  "data/voices/de-thorsten-freundlich/bereit.m4a",
+  "data/voices/de-thorsten-freundlich/ende.m4a",
+  "data/voices/de-thorsten-freundlich/fertig.m4a",
+  "data/voices/de-thorsten-freundlich/laden.m4a",
+  "data/voices/de-thorsten-freundlich/laden10.m4a",
+  "data/voices/de-thorsten-freundlich/laden15.m4a",
+  "data/voices/de-thorsten-freundlich/laden20.m4a",
+  "data/voices/de-thorsten-freundlich/laden4.m4a",
+  "data/voices/de-thorsten-freundlich/laden5.m4a",
+  "data/voices/de-thorsten-freundlich/stopp.m4a"
 ];
 
 self.addEventListener("install", e => {

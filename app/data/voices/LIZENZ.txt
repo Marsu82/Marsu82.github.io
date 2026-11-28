@@ -5,6 +5,9 @@ Erzeugt mit Piper (https://github.com/rhasspy/piper, MIT-Lizenz) aus diesen Stim
 de-thorsten  Thorsten-Voice von Thorsten Müller, Datensatz CC0 1.0
              https://github.com/thorstenMueller/Thorsten-Voice
              Piper-Modell de_DE-thorsten-high (rhasspy/piper-voices)
+de-thorsten-energisch, de-thorsten-freundlich
+             Thorsten-Voice (emotional) von Thorsten Müller, Datensatz CC0 1.0
+             Piper-Modell de_DE-thorsten_emotional-medium (Sprechweisen „angry“ und „amused“)
 de-kerstin   Kerstin, Datensatz CC0 1.0 (OHF-Voice voice-datasets)
              https://github.com/OHF-Voice/voice-datasets
              Piper-Modell de_DE-kerstin-medium (rhasspy/piper-voices)
