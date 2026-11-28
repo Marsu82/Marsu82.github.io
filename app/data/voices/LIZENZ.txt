@@ -12,4 +12,17 @@ de-kerstin   Kerstin, Datensatz CC0 1.0 (OHF-Voice voice-datasets)
              https://github.com/OHF-Voice/voice-datasets
              Piper-Modell de_DE-kerstin-medium (rhasspy/piper-voices)
 
-Die Aufnahmen selbst stehen ebenfalls unter CC0 1.0.
+Die Aufnahmen aus CC0-Stimmen stehen ebenfalls unter CC0 1.0; für die M-AILABS-Stimmen gilt die unten stehende Lizenz.
+
+de-karlsson, de-ramona, de-eva
+             Stimmen aus dem M-AILABS Speech Dataset (Sprecher Karlsson, Ramona Deininger, Eva K.)
+             Piper-Modelle de_DE-karlsson-low, de_DE-ramona-low, de_DE-eva_k-x_low (rhasspy/piper-voices)
+             Lizenz des Datensatzes:
+
+Copyright (c) 2017-2019 by the original creators @ M-AILABS with the following license:
+Redistribution and use in any form, including any commercial use, with or without modification are permitted provided that the following conditions are met:
+
+1. Redistributions of source data must retain the above copyright notice, this list of conditions and the following disclaimer.
+2. Neither the name of the copyright holder nor the names of its contributors may be used to endorse or promote products derived from this downloaded data, source-code or binary-code without specific prior written permission.
+
+THIS DATA IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE and/or DATA, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
