@@ -111,6 +111,7 @@
     <li><b>Field mode:</b> large numbers and buttons, suitable for gloves and red light. <i>Read aloud</i> announces the solution.</li>
   </ul>
 
+  <p><b>Long range (1000–1300 m):</b> The quick distance buttons below the range can be edited with ✎, e.g. “1000 1100 1200 1300”. The <b>Error budget at range</b> tool (Extras → Measure &amp; true) shows how many centimetres ±5 m/s MV, ±3 % BC, ±10 m range, ±5 °C, ±10 hPa and ±1 m/s crosswind cost at the chosen distance, and whether the bullet is transonic there. Truing for long range: MV by chronograph or at 300–600 m, BC or “curve from hits” at the target distance, range by laser, station pressure at the range. For the wind radar at 1300 m three to four radio stations are enough; without entered positions the app spreads them evenly.</p>
   <h2 id="ziele">Targets</h2>
   <p>For gong courses and several high-seat distances. Each target gets elevation, windage and a hit probability. The probability takes into account target size, group size and uncertainty in wind, distance and V0. With <i>Target series</i> you create a whole series at once.</p>
 
@@ -152,7 +153,7 @@
   <ol>
     <li><b>Bluetooth (up to approx. 10–30 m):</b> Handheld, weather station, radio bridge and wireless sensor connect directly to the phone. In the app, tap “Connect device” (or “Connect sensor”), Android shows the Flugbahn devices found, pick one. Pairing in the Android settings is not needed. It requires Chrome or Edge; on the iPhone, the Bluefy browser.</li>
     <li><b>What is transmitted:</b> Each device sends its readings as a short line of text, the handheld every second, the wireless sensor every 5 s. Example: <kbd>{"t":14.2,"p":987.4,"h":61,"wa":3.1,"wd":90,"at":21.4,"bat":80}</kbd> = air 14.2 °C, pressure 987.4 hPa, humidity 61 %, wind 3.1 m/s from 3 o’clock, ammunition 21.4 °C, battery 80 %. You choose which values the app takes over with the ticks below the button. It recalculates at most every 2 s.</li>
-    <li><b>LoRa radio along the range (up to 1200 m):</b> Bluetooth does not reach that far. The stations along the range and the hit detectors at the target therefore send a small packet every 2 s on 868 MHz (licence-free in the EU) to the radio bridge at the shooter. The bridge collects up to 6 wind zones and 8 targets and passes everything to the phone in one message via Bluetooth. The app shows missing packets as packet loss.</li>
+    <li><b>LoRa radio along the range (up to 1300 m):</b> Bluetooth does not reach that far. The stations along the range and the hit detectors at the target therefore send a small packet every 2 s on 868 MHz (licence-free in the EU) to the radio bridge at the shooter. The bridge collects up to 6 wind zones and 8 targets and passes everything to the phone in one message via Bluetooth. The app shows missing packets as packet loss.</li>
     <li><b>Back to the device:</b> The app sends the firing solution (elevation, windage, clicks, direction of rotation) to the handheld. It then also appears on its display.</li>
     <li><b>Ammunition sensor:</b> plugged into the handheld by cable, the temperature then travels with its data. Or the <b>wireless sensor</b> with its own battery: <i>Shot → Corrections → “Connect sensor”</i>. It sends temperature and battery level every 5 s and goes to sleep after 10 minutes without a connection.</li>
   </ol>
