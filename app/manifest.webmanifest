@@ -76,6 +76,17 @@
   ],
   "shortcuts": [
     {
+      "name": "Wettkampf-Timer",
+      "short_name": "Timer",
+      "url": "./?go=timer",
+      "icons": [
+        {
+          "src": "icons/icon-192.png",
+          "sizes": "192x192"
+        }
+      ]
+    },
+    {
       "name": "Feldmodus",
       "short_name": "Feld",
       "url": "./#feld",
