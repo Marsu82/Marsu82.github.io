@@ -2260,7 +2260,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 0de4c6e489</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · c3a99fe944</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button><button class="btn" type="button" id="news-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Neuigkeiten anzeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -7144,6 +7144,10 @@ function recId(t) {
   const m = x.match(/^waffen mit (\d+) patronen laden$/); return m && [4, 5, 10, 15, 20].includes(+m[1]) ? "laden" + m[1] : null;
 }
 const REC_VOICES_EN = [["rec:en-joe", "Joe", "m"], ["rec:en-norman", "Norman", "m"], ["rec:en-cori", "Cori (UK)", "w"], ["rec:en-kristin", "Kristin", "w"]];
+// Gewählte Aufnahme vorab laden, damit sie offline auf dem Stand verfügbar ist (Service Worker legt sie im Stimmen-Cache ab)
+const REC_FILES = { de: ["fertig", "bereit", "achtung", "stopp", "ende", "laden", "laden4", "laden5", "laden10", "laden15", "laden20", "rest60", "rest30", "rest10", "z5", "z4", "z3", "z2", "z1", "stageende"], en: ["makeready", "areyouready", "standby", "stop", "unload", "rest60", "rest30", "rest10", "z5", "z4", "z3", "z2", "z1", "stageende"] };
+function recPrefetch() { try { if (!navigator.serviceWorker || !navigator.serviceWorker.controller) return; ["de", "en"].forEach(k => { const id = recVoice(k); if (id) REC_FILES[k].forEach(f => fetch(`data/voices/${id}/${f}.m4a`).catch(() => {})); }); } catch (e) {} }
+setTimeout(recPrefetch, 4000);
 function recVoice(lang) { const k = lang === "en" ? "en" : "de"; let v = ""; try { v = localStorage.getItem("flugbahn.voice_" + k) || ""; } catch (e) {} return v.startsWith("rec:") ? v.slice(4) : ""; }
 // Sprechen: Einträge sind Text oder { t, wait } (Pause nach dem Satz in ms); opt.lang erzwingt die Sprache (IPSC immer englisch)
 function stmSay(list, cb, opt) {
@@ -7395,7 +7399,7 @@ function initWettkampfTimer() {
     let w = ""; try { w = localStorage.getItem("flugbahn.voice_" + code) || ""; } catch (e) {} sel.value = (L.some(v => v.name === w) || RV.some(r => r[0] === w)) ? w : ""; };
   vfill(); if (window.speechSynthesis) window.speechSynthesis.onvoiceschanged = vfill;
   $("ct-cmd").addEventListener("change", vfill);
-  $("ct-voice").addEventListener("change", e => { try { const k = "flugbahn.voice_" + vlang(); if (e.target.value) localStorage.setItem(k, e.target.value); else localStorage.removeItem(k); } catch (er) {} });
+  $("ct-voice").addEventListener("change", e => { try { const k = "flugbahn.voice_" + vlang(); if (e.target.value) localStorage.setItem(k, e.target.value); else localStorage.removeItem(k); } catch (er) {} recPrefetch(); });
   $("ct-vol").addEventListener("change", () => setTimeout(() => stmBeep(), 50));
   $("ct-vtest").addEventListener("click", () => { const en = vlang() === "en"; stmSay([en ? "Make ready" : "Fertigmachen"], null, { lang: en ? "en" : "de" }); });
   $("ct-x").addEventListener("click", ctClose);
