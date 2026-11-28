@@ -2257,7 +2257,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 6c128d9d9b</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 8121724731</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button><button class="btn" type="button" id="news-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Neuigkeiten anzeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -7290,7 +7290,7 @@ function ctOpen() {
   ctLoad(); ct.open = true; $("ct").hidden = false; document.body.style.overflow = "hidden";
   ct.prevDrill = $("stm-drill").value; $("stm-drill").value = "frei";      // keine automatische Beendigung
   try { if ("wakeLock" in navigator) navigator.wakeLock.request("screen").then(l => { ct.lock = l; l.addEventListener("release", () => { if (ct.lock === l) ct.lock = null; }); }).catch(() => {}); } catch (e) {}
-  ctNames(); ctResRender(); ctRender();
+  ctNames(); ctStageList(); ctResRender(); ctRender();
 }
 // Bildschirmsperre kommt nach dem Wechsel in eine andere App (z. B. WhatsApp) zurück
 document.addEventListener("visibilitychange", () => { if (document.visibilityState === "visible" && ct.open && !ct.lock && "wakeLock" in navigator) navigator.wakeLock.request("screen").then(l => { ct.lock = l; l.addEventListener("release", () => { if (ct.lock === l) ct.lock = null; }); }).catch(() => {}); });
@@ -7300,6 +7300,11 @@ function ctClose() {
   clearTimeout(ct.wait); ct.wait = 0; ct.run = false; stm.armed = false; ct.open = false; $("ct").hidden = true; document.body.style.overflow = "";
   if (ct.prevDrill) $("stm-drill").value = ct.prevDrill;
   try { if (ct.lock) ct.lock.release(); } catch (e) {} ct.lock = null;
+}
+function ctStageList() {   // Vorschläge für das Stage-Feld: bisher benutzte Namen und Stages aus dem PRS-Planer
+  let dl = $("ct-stages"); if (!dl) { document.body.insertAdjacentHTML("beforeend", '<datalist id="ct-stages"></datalist>'); dl = $("ct-stages"); const inp = $("ct-stage"); if (inp) inp.setAttribute("list", "ct-stages"); }
+  const names = [...new Set([...(ct.res || []).map(r => r.stage), ...((state.prs || []).map(x => x.n))].filter(Boolean))].slice(-40);
+  dl.innerHTML = names.map(n => `<option value="${escH(n)}">`).join("");
 }
 function ctNames() { const sel = $("ct-name"), cur = sel.value; const names = (state.shooters || []).map(r => r.n).filter(Boolean); sel.innerHTML = `<option value="">${tr("– Schütze –", "– Shooter –")}</option>` + names.map(n => `<option>${escH(n)}</option>`).join("") + `<option value="__neu">${tr("Anderer Name …", "Other name …")}</option>`; if ([...sel.options].some(o => o.value === cur)) sel.value = cur; }
 // Wertung wie IPSC: je Stage bester Hit Factor = 100 %, Gesamt = Summe der Stage-Prozente (ohne HF: schnellste Zeit = 100 %)
@@ -7410,7 +7415,7 @@ function initWettkampfTimer() {
     const hits = Object.values(ct.cnt || {}).some(v => v > 0) ? { ...ct.cnt, pf: $("ct-pf").value } : null;
     ct.res.push({ d: Date.now(), name: $("ct-name").value || "", stage: $("ct-stage").value.trim(), t: Math.round(t * 100) / 100, n: sh.length, splits: sh.map(x => Math.round(x * 100) / 100), pts: pts >= 0 && $("ct-pts").value !== "" ? pts : null, hf: pts > 0 ? Math.round(pts / t * 10000) / 10000 : (pts === 0 && $("ct-pts").value !== "" ? 0 : null), hits });
     if (ct.cntReset) ct.cntReset();
-    ctSaveRes(); ctResRender(); stm.shots = []; $("ct-pts").value = "";
+    ctSaveRes(); ctResRender(); ctStageList(); stm.shots = []; $("ct-pts").value = "";
     // nächster Schütze aus der Liste (Reihenfolge der Standliste), danach wieder von vorn
     const sel = $("ct-name"), opts = [...sel.options].filter(o => o.value && o.value !== "__neu"), k = opts.findIndex(o => o.value === sel.value);
     ctRender();
