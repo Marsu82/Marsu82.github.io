@@ -1,5 +1,5 @@
 /* Flugbahn Service Worker: legt alle App-Dateien beim Installieren ab und liefert sie offline aus. */
-const CACHE = "flugbahn-d4216205b5";
+const CACHE = "flugbahn-12a2afa65b";
 const ASSETS = [
   "./",
   "index.html",
@@ -104,7 +104,27 @@ const ASSETS = [
   "data/voices/de-thorsten-freundlich/laden20.m4a",
   "data/voices/de-thorsten-freundlich/laden4.m4a",
   "data/voices/de-thorsten-freundlich/laden5.m4a",
-  "data/voices/de-thorsten-freundlich/stopp.m4a"
+  "data/voices/de-thorsten-freundlich/stopp.m4a",
+  "data/voices/en-cori/areyouready.m4a",
+  "data/voices/en-cori/makeready.m4a",
+  "data/voices/en-cori/standby.m4a",
+  "data/voices/en-cori/stop.m4a",
+  "data/voices/en-cori/unload.m4a",
+  "data/voices/en-joe/areyouready.m4a",
+  "data/voices/en-joe/makeready.m4a",
+  "data/voices/en-joe/standby.m4a",
+  "data/voices/en-joe/stop.m4a",
+  "data/voices/en-joe/unload.m4a",
+  "data/voices/en-kristin/areyouready.m4a",
+  "data/voices/en-kristin/makeready.m4a",
+  "data/voices/en-kristin/standby.m4a",
+  "data/voices/en-kristin/stop.m4a",
+  "data/voices/en-kristin/unload.m4a",
+  "data/voices/en-norman/areyouready.m4a",
+  "data/voices/en-norman/makeready.m4a",
+  "data/voices/en-norman/standby.m4a",
+  "data/voices/en-norman/stop.m4a",
+  "data/voices/en-norman/unload.m4a"
 ];
 
 self.addEventListener("install", e => {
