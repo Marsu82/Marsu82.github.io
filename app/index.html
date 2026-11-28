@@ -157,6 +157,7 @@ select option,select optgroup{background:var(--surface);color:var(--ink)}
 .ct-list li{display:grid;grid-template-columns:2.5em 1fr auto;gap:8px;padding:6px 4px;border-bottom:1px solid var(--line);font-family:var(--font-mono);font-size:18px}
 .ct-list li span{color:var(--muted)}.ct-list li small{color:var(--muted)}
 .ct-set,.ct-save{border-top:1px solid var(--line);padding-top:8px}
+.ct-more{margin-top:6px}.ct-more>summary{padding:8px 4px;font-size:14px}
 /* Extras: Leiste mit Suche und Gruppen, Werkzeuge klappbar */
 .panel.pane-tools{overflow:clip}
 .news-l{margin:4px 0 2px;padding-left:1.1em}.news-l li{margin:2px 0}
@@ -2236,7 +2237,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · e7e19c010b</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 3b15fb5248</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button><button class="btn" type="button" id="news-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Neuigkeiten anzeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -7306,7 +7307,8 @@ function initWettkampfTimer() {
         <div class="fields"><label class="field"><span class="lbl">${tr("Faktor", "Power factor")}</span><span class="inp"><select id="ct-pf"><option value="minor">Minor (A5 C3 D1)</option><option value="major">Major (A5 C4 D2)</option></select></span></label></div>
         <div class="ct-cnt">${[["A", "A"], ["C", "C"], ["D", "D"], ["M", "Miss"], ["NS", "No-Shoot"], ["PE", tr("Ver\u00adfahren", "Proce\u00addural")]].map(([k, l]) => `<div class="ct-c"><span>${l}</span><button type="button" data-cc="${k}" data-d="-1" aria-label="${l} −1">−</button><b id="ct-c-${k}">0</b><button type="button" data-cc="${k}" data-d="1" aria-label="${l} +1">+</button></div>`).join("")}</div>
         <p class="hint" id="ct-csum"></p></details>
-      <div class="ct-row"><button type="button" class="btn primary" id="ct-save">${tr("Lauf speichern", "Save run")}</button><button type="button" class="btn" id="ct-view">${tr("Rangliste", "Ranking")}</button><button type="button" class="btn" id="ct-share">${tr("Ergebnisse teilen", "Share results")}</button><button type="button" class="btn" id="ct-csv">CSV</button><button type="button" class="btn" id="ct-exp">${tr("Code senden", "Send code")}</button><button type="button" class="btn" id="ct-imp">${tr("Code einfügen", "Paste code")}</button><button type="button" class="btn" id="ct-clr">${tr("Liste löschen", "Clear list")}</button></div>
+      <div class="ct-row"><button type="button" class="btn primary" id="ct-save">${tr("Lauf speichern", "Save run")}</button><button type="button" class="btn" id="ct-view">${tr("Rangliste", "Ranking")}</button></div>
+      <details class="ct-more"><summary>${tr("Teilen und Austausch", "Share and exchange")}</summary><div class="ct-row" style="margin-top:6px"><button type="button" class="btn" id="ct-share">${tr("Ergebnisse teilen", "Share results")}</button><button type="button" class="btn" id="ct-csv">CSV</button><button type="button" class="btn" id="ct-exp">${tr("Code senden", "Send code")}</button><button type="button" class="btn" id="ct-imp">${tr("Code einfügen", "Paste code")}</button><button type="button" class="btn" id="ct-clr">${tr("Liste löschen", "Clear list")}</button></div></details>
       <div id="ct-res" class="twrap" style="max-height:none"></div></div>
   </div>`);
   ["ct-par", "ct-pts", "ct-stage", "ct-delay", "ct-cmd", "ct-echo", "ct-sens", "ct-name", "ct-mr", "ct-voice", "ct-vol", "ct-vib"].forEach(stopIn);
