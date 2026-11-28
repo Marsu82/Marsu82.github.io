@@ -1,5 +1,5 @@
 /* Flugbahn Service Worker: legt alle App-Dateien beim Installieren ab und liefert sie offline aus. */
-const CACHE = "flugbahn-953430d8e9";
+const CACHE = "flugbahn-ed73ede09d";
 const ASSETS = [
   "./",
   "index.html",
@@ -27,7 +27,29 @@ const ASSETS = [
   "data/ammo.json",
   "data/bullets.json",
   "data/reticles.json",
-  "data/targets.json"
+  "data/targets.json",
+  "data/voices/de-kerstin/achtung.m4a",
+  "data/voices/de-kerstin/bereit.m4a",
+  "data/voices/de-kerstin/ende.m4a",
+  "data/voices/de-kerstin/fertig.m4a",
+  "data/voices/de-kerstin/laden.m4a",
+  "data/voices/de-kerstin/laden10.m4a",
+  "data/voices/de-kerstin/laden15.m4a",
+  "data/voices/de-kerstin/laden20.m4a",
+  "data/voices/de-kerstin/laden4.m4a",
+  "data/voices/de-kerstin/laden5.m4a",
+  "data/voices/de-kerstin/stopp.m4a",
+  "data/voices/de-thorsten/achtung.m4a",
+  "data/voices/de-thorsten/bereit.m4a",
+  "data/voices/de-thorsten/ende.m4a",
+  "data/voices/de-thorsten/fertig.m4a",
+  "data/voices/de-thorsten/laden.m4a",
+  "data/voices/de-thorsten/laden10.m4a",
+  "data/voices/de-thorsten/laden15.m4a",
+  "data/voices/de-thorsten/laden20.m4a",
+  "data/voices/de-thorsten/laden4.m4a",
+  "data/voices/de-thorsten/laden5.m4a",
+  "data/voices/de-thorsten/stopp.m4a"
 ];
 
 self.addEventListener("install", e => {
