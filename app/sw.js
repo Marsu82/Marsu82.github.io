@@ -1,5 +1,5 @@
 /* Flugbahn Service Worker: legt alle App-Dateien beim Installieren ab und liefert sie offline aus. */
-const CACHE = "flugbahn-3b15fb5248";
+const CACHE = "flugbahn-0a00a24f3f";
 const ASSETS = [
   "./",
   "index.html",
