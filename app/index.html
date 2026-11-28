@@ -141,6 +141,7 @@ select option,select optgroup{background:var(--surface);color:var(--ink)}
 .ct-c button{min-height:44px;border:1px solid var(--line);background:var(--surface-2);color:var(--ink);font:700 22px var(--font-mono);border-radius:var(--r);cursor:pointer}
 
 .ct{position:fixed;inset:0;z-index:70;background:var(--bg);color:var(--ink);overflow-y:auto;padding:calc(10px + env(safe-area-inset-top,0px)) max(14px,env(safe-area-inset-right,0px)) 30px max(14px,env(safe-area-inset-left,0px));display:flex;flex-direction:column;gap:10px}
+.ct>*{flex-shrink:0}
 .ct-top{display:flex;justify-content:space-between;align-items:center;font-family:var(--font-display);letter-spacing:.08em;text-transform:uppercase}
 .ct-time{font-size:clamp(72px,26vw,190px);font-weight:600;line-height:1;text-align:center;font-variant-numeric:tabular-nums;margin-top:6px}
 .ct-info{text-align:center;font-size:17px}.ct-hf{text-align:center;font-size:20px;font-weight:700;min-height:1em}
@@ -2229,7 +2230,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 88df68b314</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · c56b364790</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button><button class="btn" type="button" id="news-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Neuigkeiten anzeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
