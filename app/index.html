@@ -2257,7 +2257,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · b3b209ae1d</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · dda8a0c1c6</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button><button class="btn" type="button" id="news-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Neuigkeiten anzeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -4933,7 +4933,7 @@ function showIntro() {
 function exportData() {
   // Zusatzdaten aus eigenen Speicherplätzen (Schusstimer-Verlauf und Bestzeiten, Packliste); KI-Schlüssel bewusst nicht
   const extra = {}; ["stm_hist", "stm_best", "pack", "ansitz", "ct_res", "ct_cfg", "dchips"].forEach(k => { try { const v = localStorage.getItem("flugbahn." + k); if (v) extra[k] = JSON.parse(v); } catch (e) {} });
-  ["voice_de", "voice_en"].forEach(k => { try { const v = localStorage.getItem("flugbahn." + k); if (v) extra[k] = v; } catch (e) {} });   // Stimmenwahl (Text)
+  ["voice_de", "voice_en", "units", "palette", "font", "big", "mode", "tgt", "stm_say", "lang"].forEach(k => { try { const v = localStorage.getItem("flugbahn." + k); if (v) extra[k] = v; } catch (e) {} });   // Stimme und Anzeige-Einstellungen (Text)
   return JSON.stringify({ app: "flugbahn", v: 1, exported: new Date().toISOString(), profiles: state.profiles, bullets: state.bullets, targets: state.shot.targets, log: state.log, hunt: state.hunt, shooters: state.shooters, extra }, null, 1);
 }
 function importData(txt) {
@@ -4966,7 +4966,7 @@ function importData(txt) {
     if (Array.isArray(d.extra.ct_res)) { const R = get("ct_res") || [], have = new Set(R.map(r => r.d + "|" + r.name)); const add = d.extra.ct_res.filter(r => r && typeof r.d === "number" && typeof r.t === "number" && !have.has(r.d + "|" + r.name)); put("ct_res", R.concat(add).sort((x, y) => x.d - y.d).slice(-200)); try { if (typeof ct === "object") ctLoad(); } catch (e) {} }
     if (d.extra.ct_cfg && typeof d.extra.ct_cfg === "object" && !get("ct_cfg")) put("ct_cfg", d.extra.ct_cfg);
     if (Array.isArray(d.extra.dchips) && !get("dchips")) put("dchips", d.extra.dchips.filter(x => typeof x === "number" && x > 0).slice(0, 12));
-    ["voice_de", "voice_en"].forEach(k => { const v = d.extra[k]; if (typeof v === "string" && v.length < 80) try { if (!localStorage.getItem("flugbahn." + k)) localStorage.setItem("flugbahn." + k, v); } catch (e) {} });
+    ["voice_de", "voice_en", "units", "palette", "font", "big", "mode", "tgt", "stm_say", "lang"].forEach(k => { const v = d.extra[k]; if (typeof v === "string" && v.length < 80) try { if (!localStorage.getItem("flugbahn." + k)) localStorage.setItem("flugbahn." + k, v); } catch (e) {} });
     if (typeof apRender === "function") apRender();
     if (typeof stmHistShow === "function") stmHistShow(); if (typeof packRender === "function") packRender();
   } catch (e) {}
