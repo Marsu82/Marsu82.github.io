@@ -2221,7 +2221,7 @@ function buildProfileForm() {
     <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:6px;align-items:center"><button class="btn" type="button" id="im-paste">Text importieren</button><span class="hint" id="ex-msg" style="margin:0"></span></div>
   </div></details>
   <details><summary>Über Flugbahn</summary><div class="dbody about">
-    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 321b5fcd55</span></p>
+    <p style="margin:0 0 8px"><b>Flugbahn</b> · Version <span class="mono">2026.11 · 92a4a8ac6e</span></p>
     <p class="sec-t" style="margin-top:12px">Kurzanleitung <button class="btn" type="button" id="intro-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Einführung zeigen</button><button class="btn" type="button" id="news-again" style="margin-left:6px;padding:2px 8px;font-size:12px">Neuigkeiten anzeigen</button></p>
     <ol>
       <li>Unter <b>Profil</b> Fabrikmunition oder Geschoss wählen, V0 eintragen, Zielfernrohr und Einschuss einstellen.</li>
@@ -7152,7 +7152,9 @@ function ctRender() {
 async function ctStart() {
   if (ct.busy) return;                                   // Ansage läuft noch
   if (ct.run || ct.wait) { clearTimeout(ct.wait); ct.wait = 0; ct.run = false; stm.armed = false; if (stm.shots.length) { const say = $("ct-cmd").value; if (say !== "off") stmSay([say === "en" ? "If you are finished, unload and show clear" : "Wenn fertig, entladen und vorzeigen"]); } ctRender(); return; }
-  if (!(await stmMic())) { $("ct-info").textContent = tr("Mikrofon nicht verfügbar. Bitte Zugriff erlauben.", "Microphone not available. Please allow access."); return; }
+  // Vor der ersten Mikrofon-Abfrage erklären, dass die Adresse der Webseite genannt wird
+  try { const pq = navigator.permissions && await navigator.permissions.query({ name: "microphone" }); if (pq && pq.state === "prompt") $("ct-info").textContent = tr(`Gleich fragt Android nach dem Mikrofon für „${location.host}“ – das ist Flugbahn. „Beim Besuch der Webseite erlauben“ wählen, dann kommt die Frage nicht wieder.`, `Android will now ask for microphone access for “${location.host}” – that is Flugbahn. Choose “Allow while visiting the site” so it won’t ask again.`); } catch (e) {}
+  if (!(await stmMic())) { $("ct-info").textContent = tr("Mikrofon nicht verfügbar. Bitte in den Einstellungen den Mikrofon-Zugriff für diese Seite erlauben.", "Microphone not available. Please allow microphone access for this site in the settings."); return; }
   stm.shots = []; stm.parT = 0; stm.ev = []; ctRender();
   const mode = $("ct-delay").value, d = mode === "0" ? 0.3 : mode === "fix" ? 3 : 1 + Math.random() * 3;   // IPSC: zufällig 1–4 s
   const go = () => { $("ct-time").textContent = "…"; ct.wait = setTimeout(() => {
